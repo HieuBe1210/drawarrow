@@ -1,0 +1,351 @@
+{
+  "name": "CircleBtnStyle3",
+  "bundle": "assets/AssetBundle/prefab_ui_home_08400a6084bf52cfa4cc481b35d24ee9.ab",
+  "nodes": [
+    {
+      "name": "CircleBtnStyle3",
+      "path": "/CircleBtnStyle3",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-4440f873f81feca85ec1d09981be8902:1088497416345708139",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BtnGroup",
+      "path": "/CircleBtnStyle3/BtnGroup",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        45.00000762939453,
+        44.999942779541016
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgExpand",
+      "path": "/CircleBtnStyle3/BtnGroup/BgExpand",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.3300001621246338,
+        1.3300001621246338,
+        1.3300001621246338
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:-8766168069059619270",
+          "color": [
+            0.9528301954269409,
+            0.8385636806488037,
+            0.7146226167678833,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Shadow",
+      "path": "/CircleBtnStyle3/BtnGroup/Shadow",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        152.0,
+        152.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:-2183725085156740941",
+          "color": [
+            1.0,
+            0.6236605048179626,
+            0.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/CircleBtnStyle3/BtnGroup/Bg",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:-8766168069059619270",
+          "color": [
+            0.9960784316062927,
+            0.9764705896377563,
+            0.929411768913269,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Icon",
+      "path": "/CircleBtnStyle3/BtnGroup/Icon",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        60.0,
+        60.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:-1213754348314787897",
+          "color": [
+            0.7764706015586853,
+            0.5372549295425415,
+            0.30588236451148987,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    }
+  ]
+}

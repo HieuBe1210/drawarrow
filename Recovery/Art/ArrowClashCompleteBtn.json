@@ -1,0 +1,222 @@
+{
+  "name": "ArrowClashCompleteBtn",
+  "bundle": "assets/AssetBundle/prefab_ui_common_884bd3fdc0e2f1ca14c93bd777d072de.ab",
+  "nodes": [
+    {
+      "name": "ArrowClashCompleteBtn",
+      "path": "/ArrowClashCompleteBtn",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -2.0,
+        60.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Continue",
+      "path": "/ArrowClashCompleteBtn/Continue",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9638775587081909,
+        0.9638775587081909,
+        0.9638775587081909
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        795.0,
+        160.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BtnGraphic",
+      "path": "/ArrowClashCompleteBtn/Continue/BtnGraphic",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        776.0,
+        176.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-81857eac4ff7a3bdb997ee5f892694fd:-4566396830566563007",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Text",
+      "path": "/ArrowClashCompleteBtn/Continue/BtnGraphic/Text",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        6.0
+      ],
+      "size": [
+        600.0,
+        140.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Continue",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-5194093001580589755",
+          "size": 70.0,
+          "color": [
+            0.9647058844566345,
+            0.9215686321258545,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Mikado-Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 70.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    }
+  ]
+}

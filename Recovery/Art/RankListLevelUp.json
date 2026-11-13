@@ -1,0 +1,681 @@
+{
+  "name": "RankListLevelUp",
+  "bundle": "assets/AssetBundle/prefab_ui_rank_5b0a073e06eeeafa1ddb0fe28d84c399.ab",
+  "nodes": [
+    {
+      "name": "RankListLevelUp",
+      "path": "/RankListLevelUp",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        900.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/RankListLevelUp/Bg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        960.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-ee3db16b9321e88841ba96ed05ab5049:-5474282340066420446",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Context",
+      "path": "/RankListLevelUp/Context",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        900.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "layoutGroup": {
+        "axis": 0,
+        "spacing": 50.0,
+        "alignment": 4,
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "controlWidth": true,
+        "controlHeight": false,
+        "expandWidth": false,
+        "expandHeight": false
+      },
+      "hideGraphic": false
+    },
+    {
+      "name": "Left",
+      "path": "/RankListLevelUp/Context/Left",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "ignoreLayout": false,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "Arrows1",
+      "path": "/RankListLevelUp/Context/Left/Arrows1",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -23.200000762939453,
+        -6.25
+      ],
+      "size": [
+        17.190000534057617,
+        27.25
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 1.0,
+              "rgba": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 1.0,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Arrows2",
+      "path": "/RankListLevelUp/Context/Left/Arrows2",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        26.100000381469727,
+        0.9399999976158142
+      ],
+      "size": [
+        32.099998474121094,
+        50.900001525878906
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 1.0,
+              "rgba": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 1.0,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RankingLevelUpText",
+      "path": "/RankListLevelUp/Context/RankingLevelUpText",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "晋级区",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 44.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 44.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Right",
+      "path": "/RankListLevelUp/Context/Right",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "ignoreLayout": false,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "Arrows1",
+      "path": "/RankListLevelUp/Context/Right/Arrows1",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -25.39996337890625,
+        1.190000057220459
+      ],
+      "size": [
+        32.06999969482422,
+        50.83000183105469
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 1.0,
+              "rgba": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 1.0,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Arrows2",
+      "path": "/RankListLevelUp/Context/Right/Arrows2",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        23.95599365234375,
+        -5.689000129699707
+      ],
+      "size": [
+        16.39299964904785,
+        25.988000869750977
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                1.0,
+                0.0,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 1.0,
+              "rgba": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 1.0,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    }
+  ]
+}

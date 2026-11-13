@@ -1,0 +1,1266 @@
+{
+  "name": "LinkDotsSuccessUI",
+  "bundle": "assets/AssetBundle/prefab_ui_linkdots_934ab79b1cc7bb722b0ccaf6afbf659b.ab",
+  "nodes": [
+    {
+      "name": "LinkDotsSuccessUI",
+      "path": "/LinkDotsSuccessUI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/LinkDotsSuccessUI/Bg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                0.9215686321258545,
+                0.6313725709915161,
+                0.3450980484485626,
+                1.0
+              ]
+            },
+            {
+              "time": 1.0,
+              "rgba": [
+                0.9686274528503418,
+                0.8941176533699036,
+                0.7686274647712708,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 1.0,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/LinkDotsSuccessUI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Top",
+      "path": "/LinkDotsSuccessUI/Content/Top",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        705.0
+      ],
+      "size": [
+        860.0,
+        284.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Title",
+      "path": "/LinkDotsSuccessUI/Content/Top/Title",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        29.0
+      ],
+      "size": [
+        860.0,
+        210.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Well Done!",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 116.0,
+          "color": [
+            0.9803921580314636,
+            0.9254902005195618,
+            0.8235294222831726,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 116.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Mid",
+      "path": "/LinkDotsSuccessUI/Content/Mid",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        81.0
+      ],
+      "size": [
+        840.0,
+        400.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_Ribbon_eff",
+      "path": "/LinkDotsSuccessUI/Content/Mid/ep_Ribbon_eff",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -120.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray",
+      "path": "/LinkDotsSuccessUI/Content/Mid/ep_Ribbon_eff/ray",
+      "parent": 6,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        210.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon",
+      "path": "/LinkDotsSuccessUI/Content/Mid/ep_Ribbon_eff/ribbon",
+      "parent": 6,
+      "active": true,
+      "rect": false,
+      "position": [
+        -601.9999389648438,
+        -473.9999694824219,
+        -30.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.7306910753250122,
+        0.11415877938270569,
+        -0.12889981269836426,
+        0.6606385111808777
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon_01",
+      "path": "/LinkDotsSuccessUI/Content/Mid/ep_Ribbon_eff/ribbon/ribbon_01",
+      "parent": 8,
+      "active": true,
+      "rect": false,
+      "position": [
+        1122.6416015625,
+        8.614498138427734,
+        359.35321044921875
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.011836884543299675,
+        -0.3137333393096924,
+        -0.029606226831674576,
+        0.9489756226539612
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon_loop",
+      "path": "/LinkDotsSuccessUI/Content/Mid/ep_Ribbon_eff/ribbon/ribbon_loop",
+      "parent": 8,
+      "active": true,
+      "rect": false,
+      "position": [
+        159.4888916015625,
+        -150.0191650390625,
+        1333.9647216796875
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.983818531036377,
+        0.010423487983644009,
+        0.17186836898326874,
+        -0.049534641206264496
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelImg",
+      "path": "/LinkDotsSuccessUI/Content/Mid/LevelImg",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        89.0
+      ],
+      "size": [
+        900.0,
+        900.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:-5498628952590744317",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bottom",
+      "path": "/LinkDotsSuccessUI/Content/Bottom",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -591.0
+      ],
+      "size": [
+        796.0,
+        174.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BottomNormalPart",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart",
+      "parent": 12,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Button",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button",
+      "parent": 13,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextBtnPar",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/NextBtnPar",
+      "parent": 14,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        4.76840000374068e-07,
+        98.0
+      ],
+      "size": [
+        852.0,
+        220.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Button",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/Button",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextBtn",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/Button/NextBtn",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        795.0,
+        160.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextBtnBg",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/Button/NextBtn/NextBtnBg",
+      "parent": 17,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        56.0,
+        66.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:-1414337660308946557",
+          "color": [
+            0.7490196228027344,
+            0.47058823704719543,
+            0.21176470816135406,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextText",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/Button/NextBtn/NextBtnBg/NextText",
+      "parent": 18,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        600.0,
+        140.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "下一关",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 70.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 70.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeBtnPar",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar",
+      "parent": 14,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.025002000853419304,
+        -100.0
+      ],
+      "size": [
+        852.0,
+        228.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Button",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/Button",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeBtn",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/Button/HomeBtn",
+      "parent": 21,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        795.0,
+        160.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeBtnBg",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/Button/HomeBtn/HomeBtnBg",
+      "parent": 22,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        56.0,
+        66.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:7434089439479341266",
+          "color": [
+            0.886274516582489,
+            0.7137255072593689,
+            0.529411792755127,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeText",
+      "path": "/LinkDotsSuccessUI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/Button/HomeBtn/HomeBtnBg/HomeText",
+      "parent": 23,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        600.0,
+        140.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "主页",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 70.0,
+          "color": [
+            0.9803921580314636,
+            0.9254902005195618,
+            0.8235294222831726,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 70.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/LinkDotsSuccessUI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

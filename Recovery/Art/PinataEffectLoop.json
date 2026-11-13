@@ -1,0 +1,366 @@
+{
+  "name": "PinataEffectLoop",
+  "bundle": "assets/AssetBundle/prefab_ui_pinata_51c1d18f64ae82ef863045350c8c11e5.ab",
+  "nodes": [
+    {
+      "name": "PinataEffectLoop",
+      "path": "/PinataEffectLoop",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        11202.25,
+        9805.8310546875
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect_Star__up",
+      "path": "/PinataEffectLoop/Effect_Star__up",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect_Shine_down",
+      "path": "/PinataEffectLoop/Effect_Shine_down",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray01",
+      "path": "/PinataEffectLoop/ray01",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -353.0,
+        526.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.0,
+        0.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray02",
+      "path": "/PinataEffectLoop/ray02",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -337.0,
+        526.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.0,
+        0.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray03",
+      "path": "/PinataEffectLoop/ray03",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        294.0,
+        526.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.0,
+        0.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray04",
+      "path": "/PinataEffectLoop/ray04",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        314.0,
+        526.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.0,
+        0.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Particle2_up",
+      "path": "/PinataEffectLoop/Particle2_up",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0003012418746948,
+        1.0003012418746948,
+        1.0003012418746948
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -128.99998474121094
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

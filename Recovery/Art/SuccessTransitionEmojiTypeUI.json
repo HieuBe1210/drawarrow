@@ -1,0 +1,2548 @@
+{
+  "name": "SuccessTransitionEmojiTypeUI",
+  "bundle": "assets/AssetBundle/prefab_ui_result_ea3a41e47fc60d45efd0dcd6d6bbd882.ab",
+  "nodes": [
+    {
+      "name": "SuccessTransitionEmojiTypeUI",
+      "path": "/SuccessTransitionEmojiTypeUI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/SuccessTransitionEmojiTypeUI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Mid",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        81.0
+      ],
+      "size": [
+        840.0,
+        400.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SuccessTransitionToast",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -80.99999237060547
+      ],
+      "size": [
+        796.0,
+        232.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Root",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        398.0,
+        0.0
+      ],
+      "size": [
+        796.0,
+        232.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        50.0,
+        0.0
+      ],
+      "size": [
+        722.0,
+        245.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/Effect",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/Effect/ribbon",
+      "parent": 6,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.7071068286895752,
+        0.0,
+        0.0,
+        0.7071068286895752
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        6.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg_Shade",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/Bg_Shade",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -2.625,
+        -17.479999542236328
+      ],
+      "size": [
+        727.2999877929688,
+        249.47000122070312
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:-6642004303585158297",
+          "color": [
+            0.12371635437011719,
+            0.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgTop",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/BgTop",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -0.5,
+        51.582000732421875
+      ],
+      "size": [
+        691.27001953125,
+        91.6449966430664
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:4250059902422680925",
+          "color": [
+            0.9450980424880981,
+            0.6117647290229797,
+            0.3137255012989044,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgBottom",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/BgBottom",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        -1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -0.5074999928474426,
+        -58.369998931884766
+      ],
+      "size": [
+        691.2899780273438,
+        128.25999450683594
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:4250059902422680925",
+          "color": [
+            1.0,
+            0.9411764740943909,
+            0.7960784435272217,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Title",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/Title",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        430.40325927734375,
+        -69.9000015258789
+      ],
+      "size": [
+        450.0,
+        58.08000183105469
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "One Go Vitory!",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2807980421386753974",
+          "size": 48.0,
+          "color": [
+            0.980377197265625,
+            0.92156982421875,
+            0.82745361328125,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_24pt_ExtraBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ContentText",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Bg/ContentText",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        435.3800048828125,
+        -178.0
+      ],
+      "size": [
+        506.239990234375,
+        111.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "<size=34>Only</size><color=#E8CEB6> </size></color><color=#E8CEB6><size=40><b>74.89%</b></size></color><color=#E8CEB6></size></color><size=34>of the players solved this puzzle!</size>",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 40.0,
+          "color": [
+            0.6196078658103943,
+            0.5686274766921997,
+            0.47843137383461,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 40.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Emoji",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        131.39999389648438,
+        -119.94999694824219
+      ],
+      "size": [
+        280.0,
+        232.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "OneHp",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp",
+      "parent": 13,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8799999952316284,
+        0.8799999952316284,
+        0.8799999952316284
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -3.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/Effect",
+      "parent": 14,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/Effect/ray",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/Effect/ray/star",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        169.0,
+        111.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_01",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/Effect/ray/star_01",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -209.0,
+        -17.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_02",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/Effect/ray/star_02",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -156.0,
+        141.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "All",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All",
+      "parent": 14,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -0.00800000037997961,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Head",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Head",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        296.0,
+        291.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-2444841825077785006",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Eyebrow_L",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Head/Eyebrow_L",
+      "parent": 21,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -63.79999923706055,
+        102.30000305175781
+      ],
+      "size": [
+        49.0,
+        21.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-6760906995157539840",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Eyebrow_R",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Head/Eyebrow_R",
+      "parent": 21,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        64.69999694824219,
+        101.19999694824219
+      ],
+      "size": [
+        37.0,
+        18.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-4427629164481266463",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Hand_L_Shadow",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Hand_L_Shadow",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -105.02804565429688,
+        -50.43883514404297
+      ],
+      "size": [
+        74.0,
+        114.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-7295138244271673772",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Hand_LPos",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Hand_LPos",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -129.0,
+        -59.599998474121094
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Hand_L",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Hand_LPos/Hand_L",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -1.2999999523162842,
+        -0.5888725519180298
+      ],
+      "size": [
+        94.0,
+        104.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-8606444780138467843",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Hand_R_Shadow",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Hand_R_Shadow",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        96.51303100585938,
+        -54.8658447265625
+      ],
+      "size": [
+        72.0,
+        115.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-5058352209322238418",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Hand_R_Pos",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Hand_R_Pos",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        126.0999984741211,
+        -58.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Hand_R",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Hand_R_Pos/Hand_R",
+      "parent": 28,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        1.2940000295639038,
+        -0.5720000267028809
+      ],
+      "size": [
+        92.0,
+        103.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-1258913190801182520",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "eye_L",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/eye_L",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -55.70000076293945,
+        44.20000076293945
+      ],
+      "size": [
+        67.0,
+        69.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:353369391003689257",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "eye_R",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/eye_R",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        64.0,
+        44.099998474121094
+      ],
+      "size": [
+        67.0,
+        69.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:3013905752527152588",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "eyeStar_L",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/eyeStar_L",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -54.0,
+        40.0
+      ],
+      "size": [
+        64.0,
+        83.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-2707800648117903834",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "eyeStar_R",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/eyeStar_R",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        62.900001525878906,
+        37.599998474121094
+      ],
+      "size": [
+        67.0,
+        87.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-785977829265468800",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Mouth",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneHp/All/Mouth",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        4.0,
+        -28.399999618530273
+      ],
+      "size": [
+        63.0,
+        101.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-bec5341f7e09dfa61a4cc6c78930e819:-7194589615605204570",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "FullHp",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp",
+      "parent": 13,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -3.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/Effect",
+      "parent": 35,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        50.0,
+        -291.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/Effect/ray",
+      "parent": 36,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -50.0,
+        260.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/Effect/ray/star",
+      "parent": 37,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        168.0,
+        131.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_01",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/Effect/ray/star_01",
+      "parent": 37,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -175.0,
+        98.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_02",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/Effect/ray/star_02",
+      "parent": 37,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -113.0,
+        175.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "caidai_L",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/Effect/ray/caidai_L",
+      "parent": 37,
+      "active": true,
+      "rect": false,
+      "position": [
+        -199.0,
+        119.0,
+        38.88917541503906
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.45539143681526184,
+        -0.19404001533985138,
+        0.17522750794887543,
+        0.8510361313819885
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SpineFinishCelebrate",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/FullHp/SpineFinishCelebrate",
+      "parent": 35,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        319.53009033203125,
+        284.1092529296875
+      ],
+      "pivot": [
+        0.5099936723709106,
+        0.5092393159866333
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "OneLife",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife",
+      "parent": 13,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8999999761581421,
+        0.8999999761581421,
+        0.8999999761581421
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -3.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife/Effect",
+      "parent": 43,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        50.0,
+        -291.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife/Effect/ray",
+      "parent": 44,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -50.0,
+        260.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife/Effect/ray/star",
+      "parent": 45,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        155.0,
+        156.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_01",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife/Effect/ray/star_01",
+      "parent": 45,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -182.0,
+        21.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_02",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife/Effect/ray/star_02",
+      "parent": 45,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -113.0,
+        175.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SpineFirstClearing",
+      "path": "/SuccessTransitionEmojiTypeUI/Content/Mid/SuccessTransitionToast/Root/Emoji/OneLife/SpineFirstClearing",
+      "parent": 43,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        319.53009033203125,
+        284.1092529296875
+      ],
+      "pivot": [
+        0.5099936723709106,
+        0.5092393159866333
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/SuccessTransitionEmojiTypeUI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

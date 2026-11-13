@@ -1,0 +1,1348 @@
+{
+  "name": "DailyChallengeTrophyGainStyle3UI",
+  "bundle": "assets/AssetBundle/prefab_ui_dailychallenge_6b86cdd23a80e440e07e0e4b252c1f2b.ab",
+  "nodes": [
+    {
+      "name": "DailyChallengeTrophyGainStyle3UI",
+      "path": "/DailyChallengeTrophyGainStyle3UI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Bg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        },
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.10000762951094835,
+              "rgba": [
+                0.8941176533699036,
+                0.5686274766921997,
+                0.2862745225429535,
+                1.0
+              ]
+            },
+            {
+              "time": 0.5000076295109483,
+              "rgba": [
+                0.9372549057006836,
+                0.7647058963775635,
+                0.5882353186607361,
+                1.0
+              ]
+            },
+            {
+              "time": 0.9499961852445258,
+              "rgba": [
+                0.9843137264251709,
+                0.95686274766922,
+                0.886274516582489,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.10000762951094835,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.5000076295109483,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.9499961852445258,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Bg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.10000762951094835,
+              "rgba": [
+                0.8941176533699036,
+                0.5686274766921997,
+                0.2862745225429535,
+                1.0
+              ]
+            },
+            {
+              "time": 0.5000076295109483,
+              "rgba": [
+                0.9372549057006836,
+                0.7647058963775635,
+                0.5882353186607361,
+                1.0
+              ]
+            },
+            {
+              "time": 0.9499961852445258,
+              "rgba": [
+                0.9843137264251709,
+                0.95686274766922,
+                0.886274516582489,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.10000762951094835,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.5000076295109483,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.9499961852445258,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Top",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Top",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Middle",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        -400.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Title",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Title",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9989578723907471,
+        0.9989578723907471,
+        0.9989578723907471
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        668.302734375
+      ],
+      "size": [
+        1000.0,
+        219.99996948242188
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "   恭喜！",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 86.0,
+          "color": [
+            1.0,
+            0.8941176533699036,
+            0.7843137383460999,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 86.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect_lizi_1",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -10.0,
+        178.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1/ray",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -10.0,
+        -30.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_1",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1/lizi_1",
+      "parent": 7,
+      "active": true,
+      "rect": false,
+      "position": [
+        -1.0,
+        -24.0,
+        0.0
+      ],
+      "scale": [
+        288.1843566894531,
+        288.1843566894531,
+        288.1843566894531
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "block",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1/block",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        288.18438720703125,
+        288.18438720703125,
+        288.18438720703125
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -26.936599731445312,
+        10.293914794921875
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ray_1",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1/ray_1",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        288.18438720703125,
+        288.18438720703125,
+        288.18438720703125
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -1.0,
+        -24.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1/glow",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        288.18438720703125,
+        288.18438720703125,
+        288.18438720703125
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -1.0,
+        -24.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_2",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_1/lizi_2",
+      "parent": 7,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        288.18438720703125,
+        288.18438720703125,
+        288.18438720703125
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        7.645533561706543,
+        30.466827392578125
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Trophy",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Trophy",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.5,
+        1.5,
+        1.5
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        162.0
+      ],
+      "size": [
+        538.0,
+        756.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-2787a0b35c52f09ed938fde4fcb6e41d:-7644947338186158407",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Date",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Date",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9989577531814575,
+        0.9989577531814575,
+        0.9989577531814575
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -323.1628112792969
+      ],
+      "size": [
+        791.0,
+        200.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Sep,1,2026",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 44.0,
+          "color": [
+            0.6627451181411743,
+            0.5254902243614197,
+            0.4431372582912445,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 44.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Effect_lizi_idle",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_idle",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        49.9478874206543,
+        49.9478874206543
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_idle/glow",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -49.9478874206543,
+        146.7469024658203
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "iceFlash _1",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_idle/iceFlash _1",
+      "parent": 16,
+      "active": true,
+      "rect": false,
+      "position": [
+        -57.0,
+        116.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ice_sub",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/Effect_lizi_idle/iceFlash _1/ice_sub",
+      "parent": 18,
+      "active": true,
+      "rect": false,
+      "position": [
+        63.0,
+        42.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ClaimP",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/ClaimP",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9989578723907471,
+        0.9989578723907471,
+        0.9989578723907471
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -593.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Claim",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/ClaimP/Claim",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        727.0,
+        136.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ClaimImg",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/ClaimP/Claim/ClaimImg",
+      "parent": 21,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -82.0
+      ],
+      "size": [
+        900.0,
+        148.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:3676875267771069029",
+          "color": [
+            0.8627451062202454,
+            0.47058823704719543,
+            0.18431372940540314,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Shadow",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/ClaimP/Claim/ClaimImg/Shadow",
+      "parent": 22,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -6.0
+      ],
+      "size": [
+        950.0,
+        200.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:8306678183118324244",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Text",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Content/Middle/ClaimP/Claim/ClaimImg/Text",
+      "parent": 22,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        600.0,
+        140.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "领取",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2807980421386753974",
+          "size": 58.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_24pt_ExtraBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 58.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/DailyChallengeTrophyGainStyle3UI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

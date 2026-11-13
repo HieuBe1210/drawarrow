@@ -1,0 +1,222 @@
+{
+  "name": "ToastUI",
+  "bundle": "assets/AssetBundle/prefab_ui_common_884bd3fdc0e2f1ca14c93bd777d072de.ab",
+  "nodes": [
+    {
+      "name": "ToastUI",
+      "path": "/ToastUI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SubmitSuccessItem",
+      "path": "/ToastUI/SubmitSuccessItem",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        34.0
+      ],
+      "size": [
+        1080.0,
+        283.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BG",
+      "path": "/ToastUI/SubmitSuccessItem/BG",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        1.52587890625e-05,
+        0.0
+      ],
+      "size": [
+        803.7999877929688,
+        216.39999389648438
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:7871678752158531224",
+          "color": [
+            0.08235294371843338,
+            0.2705882489681244,
+            0.5490196347236633,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "SubmitSuccessText",
+      "path": "/ToastUI/SubmitSuccessItem/BG/SubmitSuccessText",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        -42.00000762939453,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Complete Level 20 to unlock\nDaily Challenge\n",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 50.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 28.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    }
+  ]
+}

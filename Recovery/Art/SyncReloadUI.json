@@ -1,0 +1,1668 @@
+{
+  "name": "SyncReloadUI",
+  "bundle": "assets/AssetBundle/prefab_ui_sync_8c03a48d87257f08b8e5f6ebc84845d2.ab",
+  "nodes": [
+    {
+      "name": "SyncReloadUI",
+      "path": "/SyncReloadUI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BG",
+      "path": "/SyncReloadUI/BG",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "",
+          "color": [
+            0.9607843160629272,
+            0.9686274528503418,
+            0.9843137264251709,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/SyncReloadUI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_Icon_Arrows",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.25,
+        1.25,
+        1.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        442.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BJ",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/BJ",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.4723910093307495,
+        1.4723910093307495,
+        1.4723910093307495
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -3.799999952316284,
+        -2.799999952316284
+      ],
+      "size": [
+        192.0,
+        192.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-7763891152906697810",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ArrowRed",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowRed",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "RedLine_01",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowRed/RedLine_01",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.7071068286895752,
+        0.7071068286895752
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        45.5,
+        -98.69999694824219
+      ],
+      "size": [
+        68.80000305175781,
+        814.9000244140625
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:1720762520888251106",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RedLine_02",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowRed/RedLine_02",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -148.9600067138672,
+        -106.81999969482422
+      ],
+      "size": [
+        68.80000305175781,
+        441.6000061035156
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:1720762520888251106",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RedLine_03",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowRed/RedLine_03",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.7071068286895752,
+        0.7071068286895752
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -157.22999572753906,
+        -5.570000171661377
+      ],
+      "size": [
+        68.80000305175781,
+        250.1999969482422
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:1720762520888251106",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RedLine_04",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowRed/RedLine_04",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -102.12000274658203,
+        -13.920000076293945
+      ],
+      "size": [
+        68.80000305175781,
+        218.89999389648438
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:1720762520888251106",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RedArrow",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowRed/RedArrow",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -102.12000274658203,
+        36.20000076293945
+      ],
+      "size": [
+        37.0,
+        34.0
+      ],
+      "pivot": [
+        0.5,
+        0.30000001192092896
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-9004391582150603195",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Arrowblue",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/Arrowblue",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "blueLine_01",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/Arrowblue/blueLine_01",
+      "parent": 11,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.7071068286895752,
+        0.7071068286895752
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -109.30000305175781,
+        -51.79999923706055
+      ],
+      "size": [
+        68.80000305175781,
+        439.5
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-3127386434202669259",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "blueLine_02",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/Arrowblue/blueLine_02",
+      "parent": 11,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -8.580001831054688,
+        -59.68000030517578
+      ],
+      "size": [
+        68.80000305175781,
+        572.7000122070312
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-3127386434202669259",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlueArrow",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/Arrowblue/BlueArrow",
+      "parent": 11,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -8.580001831054688,
+        83.0999984741211
+      ],
+      "size": [
+        37.0,
+        34.0
+      ],
+      "pivot": [
+        0.5,
+        0.30000001192092896
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-6571134004482767888",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ArrowBlack_01",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_01",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlackLine_01",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_01/BlackLine_01",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -1.0,
+        0.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -148.89999389648438,
+        33.70000076293945
+      ],
+      "size": [
+        68.80000305175781,
+        248.5
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:3230992414659480408",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlackLine_02",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_01/BlackLine_02",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.7071068286895752,
+        0.7071068286895752
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -157.0299835205078,
+        88.67000579833984
+      ],
+      "size": [
+        68.80000305175781,
+        440.20001220703125
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:3230992414659480408",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlackLine_03",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_01/BlackLine_03",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -55.049983978271484,
+        96.71996307373047
+      ],
+      "size": [
+        68.80000305175781,
+        406.5
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:3230992414659480408",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlackArrow_01",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_01/BlackArrow_01",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        -55.04998016357422,
+        0.8300036787986755
+      ],
+      "size": [
+        37.0,
+        34.0
+      ],
+      "pivot": [
+        0.5,
+        0.30000001192092896
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-1363489280501132471",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ArrowBlack_02",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_02",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlackLine_04",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_02/BlackLine_04",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.24999994039535522,
+        0.24999994039535522,
+        0.25
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        38.5,
+        96.19999694824219
+      ],
+      "size": [
+        68.80000305175781,
+        572.7000122070312
+      ],
+      "pivot": [
+        0.5,
+        0.9950000047683716
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:3230992414659480408",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlackArrow_02",
+      "path": "/SyncReloadUI/Content/ep_Icon_Arrows/ArrowBlack_02/BlackArrow_02",
+      "parent": 20,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        38.5,
+        -46.099998474121094
+      ],
+      "size": [
+        37.0,
+        34.0
+      ],
+      "pivot": [
+        0.5,
+        0.30000001192092896
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-96af2f3fb9f80352328a73736dedd911:-1363489280501132471",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LoadingSlogan",
+      "path": "/SyncReloadUI/Content/LoadingSlogan",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        84.36000061035156
+      ],
+      "size": [
+        800.0,
+        305.92999267578125
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Syncing...Please wait while we save your progress",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 56.0,
+          "color": [
+            0.47843137383461,
+            0.501960813999176,
+            0.545098066329956,
+            1.0
+          ],
+          "alignment": 1,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 56.0,
+          "verticalAlignment": 1024
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LoadingLogoText",
+      "path": "/SyncReloadUI/Content/LoadingLogoText",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        126.75,
+        -183.1999969482422
+      ],
+      "size": [
+        546.5,
+        111.30000305175781
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "— Amaze GO!",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 56.0,
+          "color": [
+            0.47843137383461,
+            0.501960813999176,
+            0.545098066329956,
+            1.0
+          ],
+          "alignment": 4,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 56.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ProgressLoading",
+      "path": "/SyncReloadUI/Content/ProgressLoading",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -863.780029296875
+      ],
+      "size": [
+        836.0,
+        24.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Background",
+      "path": "/SyncReloadUI/Content/ProgressLoading/Background",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-7f524ce51ec96c5d5799d25ac6aab96a:-3242716797445431987",
+          "color": [
+            0.9098039865493774,
+            0.8549020290374756,
+            0.7686275243759155,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Fill Area",
+      "path": "/SyncReloadUI/Content/ProgressLoading/Fill Area",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Fill",
+      "path": "/SyncReloadUI/Content/ProgressLoading/Fill Area/Fill",
+      "parent": 27,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-7f524ce51ec96c5d5799d25ac6aab96a:-3242716797445431987",
+          "color": [
+            0.7529412508010864,
+            0.4745098352432251,
+            0.22352942824363708,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/SyncReloadUI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

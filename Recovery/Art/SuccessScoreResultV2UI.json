@@ -1,0 +1,7067 @@
+{
+  "name": "SuccessScoreResultV2UI",
+  "bundle": "assets/AssetBundle/prefab_ui_result_ea3a41e47fc60d45efd0dcd6d6bbd882.ab",
+  "nodes": [
+    {
+      "name": "SuccessScoreResultV2UI",
+      "path": "/SuccessScoreResultV2UI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/SuccessScoreResultV2UI/Bg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                0.9019607901573181,
+                0.49803921580314636,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 0.4,
+              "rgba": [
+                1.0,
+                0.615686297416687,
+                0.0,
+                1.0
+              ]
+            },
+            {
+              "time": 0.6500038147554742,
+              "rgba": [
+                0.9647058844566345,
+                0.929411768913269,
+                0.8823529481887817,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.4,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.6500038147554742,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Mask",
+      "path": "/SuccessScoreResultV2UI/Bg/Mask",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        -40.0,
+        40.0
+      ],
+      "size": [
+        80.0,
+        -1242.0
+      ],
+      "pivot": [
+        0.0,
+        1.0
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5870132478806407809",
+          "color": [
+            1.0,
+            0.8901960849761963,
+            0.6000000238418579,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": false,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/SuccessScoreResultV2UI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Top",
+      "path": "/SuccessScoreResultV2UI/Content/Top",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -142.0
+      ],
+      "size": [
+        0.0,
+        284.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Title",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Title",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        1.0
+      ],
+      "anchorMax": [
+        0.5,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -389.0
+      ],
+      "size": [
+        559.0,
+        155.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Flawless!",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 128.0,
+          "color": [
+            1.0,
+            0.9490196108818054,
+            0.8509804010391235,
+            1.0
+          ],
+          "alignment": 32,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 60.0,
+          "maxSize": 128.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "ignoreLayout": true,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "TitleWingLeft",
+      "path": "/SuccessScoreResultV2UI/Content/Top/TitleWingLeft",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -375.0,
+        -246.99998474121094
+      ],
+      "size": [
+        65.0,
+        114.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-8865106775335521254",
+          "color": [
+            1.0,
+            0.8470588326454163,
+            0.5137255191802979,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TitleWingRight",
+      "path": "/SuccessScoreResultV2UI/Content/Top/TitleWingRight",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        375.0,
+        -246.99998474121094
+      ],
+      "size": [
+        65.0,
+        114.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-8865106775335521254",
+          "color": [
+            1.0,
+            0.8470588326454163,
+            0.5137255191802979,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "SkeletonGraphic",
+      "path": "/SuccessScoreResultV2UI/Content/Top/SkeletonGraphic",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -1100.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.4999995529651642
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star",
+      "parent": 4,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.0
+      ],
+      "anchorMax": [
+        0.5,
+        0.0
+      ],
+      "anchored": [
+        2.0,
+        -340.60009765625
+      ],
+      "size": [
+        962.0,
+        162.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star01Shadow",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Star01Shadow",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -243.0,
+        371.5
+      ],
+      "size": [
+        140.0,
+        149.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5678608526189053202",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star02Shadow",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Star02Shadow",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        402.0
+      ],
+      "size": [
+        180.0,
+        179.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:8149881644892702658",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star03Shadow",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Star03Shadow",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        238.0,
+        372.0
+      ],
+      "size": [
+        140.0,
+        149.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:5245495157365635443",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Stardi01",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Stardi01",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.13052615523338318,
+        0.9914448857307434
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -238.0,
+        389.29998779296875
+      ],
+      "size": [
+        176.0,
+        176.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-3543094557858997009",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Stardi02",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Stardi02",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        417.0
+      ],
+      "size": [
+        180.0,
+        186.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-3543094557858997009",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Stardi03",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Stardi03",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.8500000238418579,
+        0.8500000238418579,
+        0.8500000238418579
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        -0.13052624464035034,
+        0.9914448857307434
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        234.1999969482422,
+        391.8999938964844
+      ],
+      "size": [
+        176.0,
+        176.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-3543094557858997009",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_StarFlash2",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -242.0,
+        378.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "V2B_Left",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Left",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        5.0,
+        4.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_L",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Left/lizi_L",
+      "parent": 17,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "StarOutline_L",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Left/StarOutline_L",
+      "parent": 17,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "line_L",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Left/line_L",
+      "parent": 17,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Glow_L",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Left/Glow_L",
+      "parent": 17,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "V2B_Middle",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Middle",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        245.1999969482422,
+        33.599998474121094
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_M",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Middle/lizi_M",
+      "parent": 22,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "StarOutline_M",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Middle/StarOutline_M",
+      "parent": 22,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "line_M",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Middle/line_M",
+      "parent": 22,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Glow_M",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2B_Middle/Glow_M",
+      "parent": 22,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "V2b_Right",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2b_Right",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        479.0,
+        11.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_R",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2b_Right/lizi_R",
+      "parent": 27,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "StarOutline_R",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2b_Right/StarOutline_R",
+      "parent": 27,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "line_R",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2b_Right/line_R",
+      "parent": 27,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Glow_R",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash2/V2b_Right/Glow_R",
+      "parent": 27,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star01",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Star01",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.600000023841858,
+        1.600000023841858,
+        1.600000023841858
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.5,
+        0.8660253882408142
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -211.0,
+        298.0
+      ],
+      "size": [
+        176.0,
+        176.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-6831386355963940423",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star02",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Star02",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.899999976158142,
+        1.899999976158142,
+        1.899999976158142
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.5,
+        0.8660253882408142
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        312.0
+      ],
+      "size": [
+        180.0,
+        186.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-6831386355963940423",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star03",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Star03",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.600000023841858,
+        1.600000023841858,
+        1.600000023841858
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.5,
+        0.8660253882408142
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        145.0,
+        291.0
+      ],
+      "size": [
+        176.0,
+        176.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-6831386355963940423",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_StarFlash3",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash3",
+      "parent": 9,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -242.0,
+        378.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Left",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash3/Left",
+      "parent": 35,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.027000000700354576,
+        0.03099999949336052,
+        0.0
+      ],
+      "scale": [
+        0.30000001192092896,
+        0.30000001192092896,
+        0.30000001192092896
+      ],
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        -0.0,
+        0.7071068286895752
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Middle",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash3/Middle",
+      "parent": 35,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.8309999704360962,
+        0.11900000274181366,
+        0.0
+      ],
+      "scale": [
+        0.30000001192092896,
+        0.30000001192092896,
+        0.30000001192092896
+      ],
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        -0.0,
+        0.7071068286895752
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Right",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_StarFlash3/Right",
+      "parent": 35,
+      "active": true,
+      "rect": false,
+      "position": [
+        1.659999966621399,
+        0.03099999949336052,
+        0.0
+      ],
+      "scale": [
+        0.30000001192092896,
+        0.30000001192092896,
+        0.30000001192092896
+      ],
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        -0.0,
+        0.7071068286895752
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_Ribbon_eff",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_Ribbon_eff",
+      "parent": 9,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -6.103515625e-05
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon_purple",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/ep_Ribbon_eff/ribbon_purple",
+      "parent": 39,
+      "active": true,
+      "rect": false,
+      "position": [
+        -6.0,
+        -420.0,
+        -13.0
+      ],
+      "scale": [
+        1.0010429620742798,
+        1.001043438911438,
+        1.0010440349578857
+      ],
+      "rotation": [
+        -0.7084927558898926,
+        0.009158283472061157,
+        0.002318941056728363,
+        0.7056549191474915
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Spine_nomal",
+      "path": "/SuccessScoreResultV2UI/Content/Top/Star/Spine_nomal",
+      "parent": 9,
+      "active": false,
+      "rect": false,
+      "position": [
+        -2.0,
+        -209.39990234375,
+        -300.0
+      ],
+      "scale": [
+        83.0,
+        83.0,
+        83.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Mid",
+      "path": "/SuccessScoreResultV2UI/Content/Mid",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        81.0
+      ],
+      "size": [
+        840.0,
+        400.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ScoreSettlementPart",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart",
+      "parent": 42,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        60.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Root",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root",
+      "parent": 43,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgRoot",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot",
+      "parent": 44,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "DlgBg",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg",
+      "parent": 45,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        66.25003051757812
+      ],
+      "size": [
+        872.0,
+        821.699951171875
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:-2671290920693862770",
+          "color": [
+            0.9686274528503418,
+            0.929411768913269,
+            0.8705882430076599,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": false,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ContentBg1",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1",
+      "parent": 46,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.0
+      ],
+      "anchorMax": [
+        0.5,
+        0.0
+      ],
+      "anchored": [
+        2.0,
+        147.0
+      ],
+      "size": [
+        960.0,
+        232.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:1754508068039187583",
+          "color": [
+            1.0,
+            0.9725490212440491,
+            0.9333333373069763,
+            0.800000011920929
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "layoutGroup": {
+        "axis": 0,
+        "spacing": 0.0,
+        "alignment": 4,
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "controlWidth": false,
+        "controlHeight": false,
+        "expandWidth": true,
+        "expandHeight": true
+      },
+      "hideGraphic": false
+    },
+    {
+      "name": "TimeResultContentItemV2",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2",
+      "parent": 47,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "TimeKey",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeKey",
+      "parent": 48,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -152.1999969482422,
+        -46.20000076293945
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Time",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 42.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            0.6000000238418579
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 42.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TimeValue",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeValue",
+      "parent": 48,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -152.0,
+        19.79999542236328
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "45:32",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 48.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TimeValueAndIcon",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeValueAndIcon",
+      "parent": 48,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        20.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconA",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeValueAndIcon/IconA",
+      "parent": 51,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        54.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5420822856800371491",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconS",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeValueAndIcon/IconS",
+      "parent": 51,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        54.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:2228501243133455668",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconUp",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeValueAndIcon/IconUp",
+      "parent": 51,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        36.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:4791897222620310860",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TimeValue1",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TimeResultContentItemV2/TimeValueAndIcon/TimeValue1",
+      "parent": 51,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -152.0,
+        19.79999542236328
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "45:32",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 48.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ScoreResultContentItemV2",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2",
+      "parent": 47,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ScoreKey",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreKey",
+      "parent": 56,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -164.0,
+        -46.20000076293945
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Score",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 42.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            0.6000000238418579
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 42.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ScoreValue",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreValue",
+      "parent": 56,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -163.79998779296875,
+        19.79999542236328
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "1580",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 48.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ScoreValueAndIcon",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreValueAndIcon",
+      "parent": 56,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        20.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconA",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreValueAndIcon/IconA",
+      "parent": 59,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        54.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5420822856800371491",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconS",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreValueAndIcon/IconS",
+      "parent": 59,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        54.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:2228501243133455668",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconUp",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreValueAndIcon/IconUp",
+      "parent": 59,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        36.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:4791897222620310860",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ScoreValue1",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/ScoreResultContentItemV2/ScoreValueAndIcon/ScoreValue1",
+      "parent": 59,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -152.0,
+        19.79999542236328
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "45:32",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 48.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TodayResultContentItemV2",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2",
+      "parent": 47,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "TodayKey",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2/TodayKey",
+      "parent": 64,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -167.0,
+        -45.0
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Today's Levels",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 42.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            0.6000000238418579
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 42.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TodayValue",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2/TodayValue",
+      "parent": 64,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -163.79998779296875,
+        19.79999542236328
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "32",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 48.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TodayValueAndIcon",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2/TodayValueAndIcon",
+      "parent": 64,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        20.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconA",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2/TodayValueAndIcon/IconA",
+      "parent": 67,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        54.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5420822856800371491",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconS",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2/TodayValueAndIcon/IconS",
+      "parent": 67,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -94.0,
+        19.0
+      ],
+      "size": [
+        54.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:2228501243133455668",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TodayValue1",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/TodayResultContentItemV2/TodayValueAndIcon/TodayValue1",
+      "parent": 67,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0010433197021484,
+        1.0010433197021484,
+        1.0010433197021484
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -152.0,
+        19.79999542236328
+      ],
+      "size": [
+        324.0,
+        64.69999694824219
+      ],
+      "pivot": [
+        0.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "45:32",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 48.0,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "SeparatorLine1",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/SeparatorLine1",
+      "parent": 47,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -150.79998779296875,
+        -10.699996948242188
+      ],
+      "size": [
+        6.0,
+        103.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5916247169087577773",
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            0.20000000298023224
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "ignoreLayout": true,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "SeparatorLine2",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/ContentBg1/SeparatorLine2",
+      "parent": 47,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        149.0,
+        -10.699996948242188
+      ],
+      "size": [
+        6.0,
+        103.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-cd2cbb2194529473e8ea485599eb6397:-5916247169087577773",
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            0.20000000298023224
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "ignoreLayout": true,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "Title2",
+      "path": "/SuccessScoreResultV2UI/Content/Mid/ScoreSettlementPart/Root/BgRoot/DlgBg/Title2",
+      "parent": 46,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        1.0
+      ],
+      "anchorMax": [
+        0.5,
+        1.0
+      ],
+      "anchored": [
+        1.0,
+        -897.0
+      ],
+      "size": [
+        820.0,
+        120.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Hints well used - a clever solver!\na clever solver!",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 49.54999923706055,
+          "color": [
+            0.7568627595901489,
+            0.5686274766921997,
+            0.3019607961177826,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "ignoreLayout": true,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "Bottom",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -660.0
+      ],
+      "size": [
+        796.0,
+        174.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "GoalMapItemV2",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2",
+      "parent": 74,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        301.0
+      ],
+      "size": [
+        -260.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Bg",
+      "parent": 75,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        740.0,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:-8526476829210859639",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "GoalMapLevelItemEffect_Loop",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/GoalMapLevelItemEffect_Loop",
+      "parent": 75,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -339.9999694824219,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle_Loop",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/GoalMapLevelItemEffect_Loop/circle_Loop",
+      "parent": 77,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Container",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container",
+      "parent": 75,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        900.0,
+        160.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Level0",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level0",
+      "parent": 79,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -340.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg_current",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level0/LevelIconBg_current",
+      "parent": 80,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        150.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level0/LevelIconBg",
+      "parent": 80,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        130.0,
+        130.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelSpecial",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level0/LevelSpecial",
+      "parent": 80,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        104.0,
+        104.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:7770930399039938361",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level0/LevelText",
+      "parent": 80,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "34",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Level1",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level1",
+      "parent": 79,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -340.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg_current",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level1/LevelIconBg_current",
+      "parent": 85,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        150.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level1/LevelIconBg",
+      "parent": 85,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        130.0,
+        130.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelSpecial",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level1/LevelSpecial",
+      "parent": 85,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        104.0,
+        104.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:7770930399039938361",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level1/LevelText",
+      "parent": 85,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        110.0,
+        110.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "34",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 60.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 60.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Level2",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level2",
+      "parent": 79,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -156.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg_current",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level2/LevelIconBg_current",
+      "parent": 90,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        150.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level2/LevelIconBg",
+      "parent": 90,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelSpecial",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level2/LevelSpecial",
+      "parent": 90,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        84.0,
+        84.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:7770930399039938361",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level2/LevelText",
+      "parent": 90,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "34",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Level3",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level3",
+      "parent": 79,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        14.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg_current",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level3/LevelIconBg_current",
+      "parent": 95,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        150.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level3/LevelIconBg",
+      "parent": 95,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelSpecial",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level3/LevelSpecial",
+      "parent": 95,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        84.0,
+        84.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:7770930399039938361",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level3/LevelText",
+      "parent": 95,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "34",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Level4",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level4",
+      "parent": 79,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        184.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg_current",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level4/LevelIconBg_current",
+      "parent": 100,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        150.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level4/LevelIconBg",
+      "parent": 100,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelSpecial",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level4/LevelSpecial",
+      "parent": 100,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        84.0,
+        84.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:7770930399039938361",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level4/LevelText",
+      "parent": 100,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "34",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Level5",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level5",
+      "parent": 79,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        354.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg_current",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level5/LevelIconBg_current",
+      "parent": 105,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        150.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.9215686321258545,
+            0.8470588326454163,
+            0.7333333492279053,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelIconBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level5/LevelIconBg",
+      "parent": 105,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:5251804449446596589",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelSpecial",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level5/LevelSpecial",
+      "parent": 105,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        84.0,
+        84.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:7770930399039938361",
+          "color": [
+            0.8117647171020508,
+            0.529411792755127,
+            0.27843138575553894,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "LevelText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/Level5/LevelText",
+      "parent": 105,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        90.0,
+        90.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "34",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "GoalMapLevelItemEffect",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/GoalMapLevelItemEffect",
+      "parent": 79,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -340.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/GoalMapItemV2/Container/GoalMapLevelItemEffect/circle",
+      "parent": 110,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BottomNormalPart",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart",
+      "parent": 74,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -25.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Button",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button",
+      "parent": 112,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextBtnPar",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar",
+      "parent": 113,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.949999988079071,
+        0.949999988079071,
+        0.949999988079071
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        104.0
+      ],
+      "size": [
+        960.0,
+        170.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ButtonV2",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2",
+      "parent": 114,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextBtn",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn",
+      "parent": 115,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -19.0
+      ],
+      "size": [
+        960.0,
+        170.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextBtnBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn/NextBtnBg",
+      "parent": 116,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        38.0,
+        38.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:980897325973442458",
+          "color": [
+            0.9058823585510254,
+            0.5529412031173706,
+            0.054901961237192154,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "NextText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn/NextBtnBg/NextText",
+      "parent": 117,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        600.0,
+        97.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "下一关",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 66.94999694824219,
+          "color": [
+            1.0,
+            0.9803921580314636,
+            0.9450980424880981,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 80.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "WinStreakBtnV2",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn/WinStreakBtnV2",
+      "parent": 116,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        1.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        -128.0,
+        1.0
+      ],
+      "size": [
+        350.0,
+        85.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "WinStreakBtnBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn/WinStreakBtnV2/WinStreakBtnBg",
+      "parent": 119,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        350.0,
+        85.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:-8588171476431413708",
+          "color": [
+            0.8784313797950745,
+            0.4000000059604645,
+            0.0117647061124444,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Icon",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn/WinStreakBtnV2/WinStreakBtnBg/Icon",
+      "parent": 120,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -102.0,
+        0.0
+      ],
+      "size": [
+        64.5,
+        54.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:8262455260683488410",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "WinstreakText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/NextBtnPar/ButtonV2/NextBtn/WinStreakBtnV2/WinStreakBtnBg/WinstreakText",
+      "parent": 120,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        43.0,
+        0.0
+      ],
+      "size": [
+        200.0,
+        60.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "x99 Wins",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 45.5,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 1,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeBtnPar",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar",
+      "parent": 113,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.949999988079071,
+        0.949999988079071,
+        0.949999988079071
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -121.0
+      ],
+      "size": [
+        960.0,
+        170.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ResultHomeTextBtnV2",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/ResultHomeTextBtnV2",
+      "parent": 123,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        9.0
+      ],
+      "size": [
+        230.0,
+        115.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeV2Text",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/ResultHomeTextBtnV2/HomeV2Text",
+      "parent": 124,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        600.0,
+        140.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Home",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 80.0,
+          "color": [
+            0.9058823585510254,
+            0.5529412031173706,
+            0.054901961237192154,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": false,
+          "minSize": 18.0,
+          "maxSize": 70.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ResultHomeBtnV2",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/ResultHomeBtnV2",
+      "parent": 123,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeBtn",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/ResultHomeBtnV2/HomeBtn",
+      "parent": 126,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        960.0,
+        170.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeBtnBg",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/ResultHomeBtnV2/HomeBtn/HomeBtnBg",
+      "parent": 127,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        38.0,
+        38.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-8666fc0a5cfde183c259a60832f310a1:-713161365152185366",
+          "color": [
+            0.9058823585510254,
+            0.5529412031173706,
+            0.054901961237192154,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "HomeText",
+      "path": "/SuccessScoreResultV2UI/Content/Bottom/BottomNormalPart/Button/HomeBtnPar/ResultHomeBtnV2/HomeBtn/HomeBtnBg/HomeText",
+      "parent": 128,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        222.0,
+        97.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "主页",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 66.94999694824219,
+          "color": [
+            0.9058823585510254,
+            0.5529412031173706,
+            0.054901961237192154,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 80.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "DanmakuAnchor",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        1.0
+      ],
+      "anchorMax": [
+        0.5,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -371.1500244140625
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "ignoreLayout": true,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "DanmakuPosition",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor/DanmakuPosition",
+      "parent": 130,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        27.149932861328125
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LayoutScoreSingleWithSub",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor/DanmakuPosition/LayoutScoreSingleWithSub",
+      "parent": 131,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        145.0
+      ],
+      "size": [
+        400.0,
+        105.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LayoutScoreSingleNoSub",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor/DanmakuPosition/LayoutScoreSingleNoSub",
+      "parent": 131,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        187.10000610351562
+      ],
+      "size": [
+        400.0,
+        105.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LayoutScoreMulti2",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor/DanmakuPosition/LayoutScoreMulti2",
+      "parent": 131,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        114.30000305175781
+      ],
+      "size": [
+        400.0,
+        105.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LayoutScoreMulti3",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor/DanmakuPosition/LayoutScoreMulti3",
+      "parent": 131,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        82.0
+      ],
+      "size": [
+        400.0,
+        105.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LayoutScoreMulti4",
+      "path": "/SuccessScoreResultV2UI/Content/DanmakuAnchor/DanmakuPosition/LayoutScoreMulti4",
+      "parent": 131,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        125.30000305175781
+      ],
+      "size": [
+        400.0,
+        105.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/SuccessScoreResultV2UI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

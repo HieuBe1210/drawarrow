@@ -1,0 +1,1169 @@
+{
+  "name": "HomeDCCard",
+  "bundle": "assets/AssetBundle/prefab_ui_home_08400a6084bf52cfa4cc481b35d24ee9.ab",
+  "nodes": [
+    {
+      "name": "HomeDCCard",
+      "path": "/HomeDCCard",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        492.0,
+        640.0
+      ],
+      "pivot": [
+        0.5,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Root",
+      "path": "/HomeDCCard/Root",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "CardBg",
+      "path": "/HomeDCCard/Root/CardBg",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -4.139984130859375
+      ],
+      "size": [
+        492.0,
+        640.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-59f5ad00453181290707b49a332afe0e:3321116912147053638",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "CardBg_lock",
+      "path": "/HomeDCCard/Root/CardBg_lock",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -4.139984130859375
+      ],
+      "size": [
+        492.0,
+        640.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-2c0688ddb0539e95a39e1248581d11b9:3980200541256790194",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "CardBg_unlock",
+      "path": "/HomeDCCard/Root/CardBg_unlock",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -4.139984130859375
+      ],
+      "size": [
+        492.0,
+        640.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-2c0688ddb0539e95a39e1248581d11b9:3161371373007796749",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "TitleNode",
+      "path": "/HomeDCCard/Root/TitleNode",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        59.5,
+        -43.44000244140625
+      ],
+      "size": [
+        375.0,
+        85.70001220703125
+      ],
+      "pivot": [
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Title",
+      "path": "/HomeDCCard/Root/TitleNode/Title",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        195.0,
+        -32.0
+      ],
+      "size": [
+        375.0,
+        85.70001220703125
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Daily Challenge",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 46.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 1,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 30.0,
+          "maxSize": 46.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "SubheadTitle",
+      "path": "/HomeDCCard/Root/TitleNode/SubheadTitle",
+      "parent": 5,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        195.0,
+        -102.0
+      ],
+      "size": [
+        375.0,
+        70.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Jan 26",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 57.849998474121094,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 1,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 30.0,
+          "maxSize": 60.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "ignoreLayout": false,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "Icon",
+      "path": "/HomeDCCard/Root/Icon",
+      "parent": 1,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5699999928474426,
+        0.5699999928474426,
+        0.5699999928474426
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        0.0
+      ],
+      "anchored": [
+        23.998046875,
+        118.6898193359375
+      ],
+      "size": [
+        653.72998046875,
+        653.719970703125
+      ],
+      "pivot": [
+        1.0,
+        0.0
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-a0038e9884b574e1f2d25a9b6af4a313:-7130273520480421770",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.5176470875740051
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "IconOff",
+      "path": "/HomeDCCard/Root/IconOff",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.5699999928474426,
+        0.5699999928474426,
+        0.5699999928474426
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        0.0
+      ],
+      "anchored": [
+        23.998046875,
+        118.6898193359375
+      ],
+      "size": [
+        653.72998046875,
+        653.719970703125
+      ],
+      "pivot": [
+        1.0,
+        0.0
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-a0038e9884b574e1f2d25a9b6af4a313:-7130273520480421770",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.5176470875740051
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BottomBtn",
+      "path": "/HomeDCCard/Root/BottomBtn",
+      "parent": 1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.0
+      ],
+      "anchorMax": [
+        0.5,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        99.5
+      ],
+      "size": [
+        434.8399963378906,
+        165.42999267578125
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-59f5ad00453181290707b49a332afe0e:-3810065065753057619",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BtnText",
+      "path": "/HomeDCCard/Root/BottomBtn/BtnText",
+      "parent": 10,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        4.104888916015625
+      ],
+      "size": [
+        -92.0,
+        -64.210205078125
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Completed",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 48.0,
+          "color": [
+            0.11764709651470184,
+            0.29803919792175293,
+            0.6666666865348816,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 20.0,
+          "maxSize": 48.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_lizi_eff",
+      "path": "/HomeDCCard/Root/ep_lizi_eff",
+      "parent": 1,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi",
+      "path": "/HomeDCCard/Root/ep_lizi_eff/lizi",
+      "parent": 12,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        96.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_01",
+      "path": "/HomeDCCard/Root/ep_lizi_eff/lizi/lizi_01",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        2.0,
+        -89.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "arrow",
+      "path": "/HomeDCCard/Root/arrow",
+      "parent": 1,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.0
+      ],
+      "anchorMax": [
+        0.5,
+        0.0
+      ],
+      "anchored": [
+        -13.600000381469727,
+        11.29998779296875
+      ],
+      "size": [
+        61.0,
+        29.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:2433162601391093055",
+          "color": [
+            0.08235294371843338,
+            0.2705882489681244,
+            0.5490196347236633,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Toast",
+      "path": "/HomeDCCard/Root/arrow/Toast",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -239.0,
+        112.69999694824219
+      ],
+      "size": [
+        802.030029296875,
+        196.38999938964844
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:7871678752158531224",
+          "color": [
+            0.08235294371843338,
+            0.2705882489681244,
+            0.5490196347236633,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Tips",
+      "path": "/HomeDCCard/Root/arrow/Toast/Tips",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        -40.0,
+        -10.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "第20关解锁每日挑战",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "arrow_numbers",
+      "path": "/HomeDCCard/Root/arrow_numbers",
+      "parent": 1,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.0
+      ],
+      "anchorMax": [
+        0.5,
+        0.0
+      ],
+      "anchored": [
+        -13.600000381469727,
+        16.79998779296875
+      ],
+      "size": [
+        61.0,
+        29.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:2433162601391093055",
+          "color": [
+            0.08235294371843338,
+            0.2705882489681244,
+            0.5490196347236633,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Toast",
+      "path": "/HomeDCCard/Root/arrow_numbers/Toast",
+      "parent": 18,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -239.0,
+        107.0
+      ],
+      "size": [
+        802.030029296875,
+        196.38999938964844
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:7871678752158531224",
+          "color": [
+            0.08235294371843338,
+            0.2705882489681244,
+            0.5490196347236633,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Tips",
+      "path": "/HomeDCCard/Root/arrow_numbers/Toast/Tips",
+      "parent": 19,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        -52.0,
+        -58.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "test",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-1483266535653712061",
+          "size": 50.0,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_SemiBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    }
+  ]
+}

@@ -1,0 +1,2638 @@
+{
+  "name": "FailResultStyle3UI",
+  "bundle": "assets/AssetBundle/prefab_ui_result_ea3a41e47fc60d45efd0dcd6d6bbd882.ab",
+  "nodes": [
+    {
+      "name": "FailResultStyle3UI",
+      "path": "/FailResultStyle3UI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "CloseBg",
+      "path": "/FailResultStyle3UI/CloseBg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.75
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/FailResultStyle3UI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        1080.0,
+        2100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Dialog_mid",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0009608268737793,
+        1.0009608268737793,
+        1.0009608268737793
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        1.0
+      ],
+      "anchorMax": [
+        0.5,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -967.0
+      ],
+      "size": [
+        888.8499755859375,
+        988.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bg",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "gradient",
+          "enabled": true,
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "direction": 3,
+          "gradientKeys": [
+            {
+              "time": 0.0,
+              "rgba": [
+                0.9647058844566345,
+                0.843137264251709,
+                0.7215686440467834,
+                1.0
+              ]
+            },
+            {
+              "time": 0.6599984740978103,
+              "rgba": [
+                0.9882352948188782,
+                0.9647058844566345,
+                0.9058823585510254,
+                1.0
+              ]
+            }
+          ],
+          "alphaKeys": [
+            {
+              "time": 0.0,
+              "alpha": 1.0
+            },
+            {
+              "time": 0.6599984740978103,
+              "alpha": 1.0
+            }
+          ]
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Title",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Title",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0009608268737793,
+        1.0009608268737793,
+        1.0009608268737793
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        1.0
+      ],
+      "anchorMax": [
+        0.5,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -141.0
+      ],
+      "size": [
+        710.0,
+        135.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Out of Lives!",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2807980421386753974",
+          "size": 78.0,
+          "color": [
+            0.7843137383460999,
+            0.4588235318660736,
+            0.16862745583057404,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_24pt_ExtraBold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 50.0,
+          "maxSize": 78.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "AreaBg",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/AreaBg",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        59.0
+      ],
+      "size": [
+        740.0,
+        210.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:-9206161678126648601",
+          "color": [
+            0.9647058844566345,
+            0.843137264251709,
+            0.7215686440467834,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": false,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "AreaText",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/AreaBg/AreaText",
+      "parent": 6,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9990401864051819,
+        0.9990401864051819,
+        0.9990401864051819
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        1.0
+      ],
+      "anchorMax": [
+        0.5,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -159.89999389648438
+      ],
+      "size": [
+        579.0,
+        169.10000610351562
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Watch an ad to continue the challenge.",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 44.0,
+          "color": [
+            0.6627451181411743,
+            0.5254902243614197,
+            0.4431372582912445,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 44.0,
+          "verticalAlignment": 256
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Heart",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Heart",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9990401864051819,
+        0.9990401864051819,
+        0.9990401864051819
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.1951904296875,
+        185.20001220703125
+      ],
+      "size": [
+        746.0,
+        147.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Heart1",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Heart/Heart1",
+      "parent": 8,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        227.99996948242188,
+        -73.49998474121094
+      ],
+      "size": [
+        87.0,
+        111.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:6957068427989942010",
+          "color": [
+            0.30588236451148987,
+            0.6666666865348816,
+            0.9411764740943909,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Heart2",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Heart/Heart2",
+      "parent": 8,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        372.99993896484375,
+        -73.49998474121094
+      ],
+      "size": [
+        87.0,
+        111.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:6957068427989942010",
+          "color": [
+            0.30588236451148987,
+            0.6666666865348816,
+            0.9411764740943909,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Heart3",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Heart/Heart3",
+      "parent": 8,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        518.0,
+        -73.49998474121094
+      ],
+      "size": [
+        87.0,
+        111.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:6957068427989942010",
+          "color": [
+            0.30588236451148987,
+            0.6666666865348816,
+            0.9411764740943909,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Heart4",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Heart/Heart4",
+      "parent": 8,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        227.99996948242188,
+        -73.49998474121094
+      ],
+      "size": [
+        87.0,
+        111.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:6957068427989942010",
+          "color": [
+            0.30588236451148987,
+            0.6666666865348816,
+            0.9411764740943909,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Heart5",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Heart/Heart5",
+      "parent": 8,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        518.0,
+        -73.49998474121094
+      ],
+      "size": [
+        87.0,
+        111.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:6957068427989942010",
+          "color": [
+            0.30588236451148987,
+            0.6666666865348816,
+            0.9411764740943909,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "FailProgressPartStyle3",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -85.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Progress",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress",
+      "parent": 14,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Slider",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/Slider",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        245.0
+      ],
+      "size": [
+        746.0,
+        28.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "bg",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/Slider/bg",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:7207162926913631217",
+          "color": [
+            0.9411764740943909,
+            0.8470588326454163,
+            0.7372549176216125,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "fill",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/Slider/fill",
+      "parent": 16,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:7207162926913631217",
+          "color": [
+            0.35686275362968445,
+            0.6901960968971252,
+            0.1921568661928177,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 0.6370000243186951
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "EndPoint",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/EndPoint",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        1.0,
+        0.5
+      ],
+      "anchorMax": [
+        1.0,
+        0.5
+      ],
+      "anchored": [
+        322.9999694824219,
+        244.99998474121094
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "StartPoint",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/StartPoint",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.5
+      ],
+      "anchorMax": [
+        0.0,
+        0.5
+      ],
+      "anchored": [
+        -322.9999694824219,
+        244.99998474121094
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Tip",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/Tip",
+      "parent": 15,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        101.99999237060547,
+        292.9999694824219
+      ],
+      "size": [
+        58.0,
+        70.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:-3368470753229761715",
+          "color": [
+            0.8627451062202454,
+            0.47058823704719543,
+            0.18431372940540314,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Image",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/Progress/Tip/Image",
+      "parent": 21,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        6.5277862548828125
+      ],
+      "size": [
+        -37.25,
+        -50.416664123535156
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:2447278912628293818",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ProgressText",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/FailProgressPartStyle3/ProgressText",
+      "parent": 14,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        50.000030517578125,
+        59.50999450683594
+      ],
+      "size": [
+        746.0,
+        200.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "65% complete.Watch an ad tocontinue.",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 44.0,
+          "color": [
+            0.6627451181411743,
+            0.5254902243614197,
+            0.4431372582912445,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 44.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bottom",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -248.20001220703125
+      ],
+      "size": [
+        726.0,
+        328.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "layoutGroup": {
+        "axis": 1,
+        "spacing": 40.0,
+        "alignment": 1,
+        "padding": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "controlWidth": false,
+        "controlHeight": false,
+        "expandWidth": true,
+        "expandHeight": true
+      },
+      "hideGraphic": false
+    },
+    {
+      "name": "ReviveBtn",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn",
+      "parent": 24,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        746.0,
+        148.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgShadow",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/BgShadow",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -6.0
+      ],
+      "size": [
+        52.0,
+        52.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:8306678183118324244",
+          "color": [
+            0.8627451062202454,
+            0.47058823704719543,
+            0.18431372940540314,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgWithoutShadow",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/BgWithoutShadow",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:3676875267771069029",
+          "color": [
+            0.8627451062202454,
+            0.47058823704719543,
+            0.18431372940540314,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BtnContext",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/BtnContext",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        -140.0,
+        2.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "layoutGroup": {
+        "axis": 0,
+        "spacing": 23.0,
+        "alignment": 4,
+        "padding": [
+          -5,
+          0,
+          0,
+          0
+        ],
+        "controlWidth": true,
+        "controlHeight": false,
+        "expandWidth": false,
+        "expandHeight": false
+      },
+      "hideGraphic": false
+    },
+    {
+      "name": "Icon",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/BtnContext/Icon",
+      "parent": 28,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        70.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:6284241943763790464",
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "ignoreLayout": false,
+      "preferredWidth": -1.0,
+      "preferredHeight": -1.0,
+      "hideGraphic": false
+    },
+    {
+      "name": "Text",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/BtnContext/Text",
+      "parent": 28,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Continue",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 60.0,
+          "color": [
+            0.9686274528503418,
+            0.9490196108818054,
+            0.9019607901573181,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 60.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "FreeBadge",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/FreeBadge",
+      "parent": 25,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.7300000190734863,
+        0.7300000190734863,
+        0.7300000190734863
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        385.6000061035156,
+        73.19999694824219
+      ],
+      "size": [
+        195.07000732421875,
+        84.0
+      ],
+      "pivot": [
+        1.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-9b828fca25561ea38a9bd981a8b257c0:-8588171476431413708",
+          "color": [
+            0.35686275362968445,
+            0.6901960968971252,
+            0.1921568661928177,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "fitWidth": 2,
+      "fitHeight": 0,
+      "layoutGroup": {
+        "axis": 0,
+        "spacing": 0.0,
+        "alignment": 5,
+        "padding": [
+          45,
+          45,
+          0,
+          0
+        ],
+        "controlWidth": true,
+        "controlHeight": false,
+        "expandWidth": false,
+        "expandHeight": false
+      },
+      "hideGraphic": false
+    },
+    {
+      "name": "FreeBadgeText",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/FreeBadge/FreeBadgeText",
+      "parent": 31,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        1.0
+      ],
+      "anchorMax": [
+        0.0,
+        1.0
+      ],
+      "anchored": [
+        150.07000732421875,
+        -42.0
+      ],
+      "size": [
+        105.06999969482422,
+        60.0
+      ],
+      "pivot": [
+        1.0,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Free",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 50.0,
+          "color": [
+            0.9882352948188782,
+            0.9254902005195618,
+            0.8352941274642944,
+            1.0
+          ],
+          "alignment": 4,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": false,
+          "minSize": 18.0,
+          "maxSize": 50.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "fitWidth": 2,
+      "fitHeight": 0,
+      "hideGraphic": false
+    },
+    {
+      "name": "ToastNodeBg",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/ToastNodeBg",
+      "parent": 25,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        75.0
+      ],
+      "size": [
+        99.90402221679688,
+        99.90402221679688
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ToastNode",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/ToastNodeBg/ToastNode",
+      "parent": 33,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        0.9990403056144714,
+        0.9990403056144714,
+        0.9990403056144714
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ToastImage",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/ToastNodeBg/ToastNode/ToastImage",
+      "parent": 34,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        15.0
+      ],
+      "size": [
+        73.0,
+        33.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-0392c78a2e58c088c9346fad19e271f7:-308343257674605112",
+          "color": [
+            0.615686297416687,
+            0.30588236451148987,
+            0.12156862765550613,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ToastBG",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/ToastNodeBg/ToastNode/ToastImage/ToastBG",
+      "parent": 35,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        126.0
+      ],
+      "size": [
+        800.0,
+        221.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-052c95e360b904b053cf9b7db85042a1:-9206161678126648601",
+          "color": [
+            0.615686297416687,
+            0.30588236451148987,
+            0.12156862765550613,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ToastText",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/ReviveBtn/ToastNodeBg/ToastNode/ToastImage/ToastBG/ToastText",
+      "parent": 36,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        -80.0,
+        -40.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "The request failed. Please try again later.",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:7104364025122243990",
+          "size": 44.0,
+          "color": [
+            0.9725490212440491,
+            0.8745098114013672,
+            0.7450980544090271,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Medium",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 44.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RestartBtn",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/RestartBtn",
+      "parent": 24,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        746.0,
+        148.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "RestartBgShadow",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/RestartBtn/RestartBgShadow",
+      "parent": 38,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        -6.0
+      ],
+      "size": [
+        52.0,
+        52.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:8306678183118324244",
+          "color": [
+            0.8627451062202454,
+            0.47058823704719543,
+            0.18431372940540314,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RestartBgWithoutShadow",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/RestartBtn/RestartBgWithoutShadow",
+      "parent": 38,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-72bdede6ec17802f0bd8e06938518bcc:3676875267771069029",
+          "color": [
+            0.9803921580314636,
+            0.8470588326454163,
+            0.7215686440467834,
+            1.0
+          ],
+          "imageType": 1,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "RestartBtnContext",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/RestartBtn/RestartBtnContext",
+      "parent": 38,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        -140.0,
+        2.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "layoutGroup": {
+        "axis": 0,
+        "spacing": 23.0,
+        "alignment": 4,
+        "padding": [
+          -5,
+          0,
+          0,
+          0
+        ],
+        "controlWidth": true,
+        "controlHeight": false,
+        "expandWidth": false,
+        "expandHeight": false
+      },
+      "hideGraphic": false
+    },
+    {
+      "name": "RestartText",
+      "path": "/FailResultStyle3UI/Content/Dialog_mid/Bottom/RestartBtn/RestartBtnContext/RestartText",
+      "parent": 41,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        0.0,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Continue",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 60.0,
+          "color": [
+            0.8627451062202454,
+            0.47058823704719543,
+            0.18431372940540314,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 60.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/FailResultStyle3UI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SkipBtn",
+      "path": "/FailResultStyle3UI/SkipBtn",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0009608268737793,
+        1.0009608268737793,
+        1.0009608268737793
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.0
+      ],
+      "anchorMax": [
+        0.5,
+        0.0
+      ],
+      "anchored": [
+        0.0,
+        565.0
+      ],
+      "size": [
+        150.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SkipText",
+      "path": "/FailResultStyle3UI/SkipBtn/SkipText",
+      "parent": 44,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        1.0,
+        11.0
+      ],
+      "size": [
+        610.0,
+        150.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "Skip",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-549969679373706052",
+          "size": 46.0,
+          "color": [
+            0.9725490212440491,
+            0.8745098114013672,
+            0.7450980544090271,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Regular",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 46.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    }
+  ]
+}

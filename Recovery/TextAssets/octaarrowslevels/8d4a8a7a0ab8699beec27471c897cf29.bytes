@@ -1,0 +1,406 @@
+{
+  "gridType": "octagon",
+  "cols": 5,
+  "rows": 7,
+  "moveLimit": 33,
+  "arrows": [
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 0
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 5
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 0
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 1
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 5
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 6
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 0
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 5
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 6
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 3,
+          "row": 0
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 3,
+          "row": 1
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 3,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 3,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 3,
+          "row": 5
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 3,
+          "row": 6
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 4,
+          "row": 0
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 4,
+          "row": 1
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 4,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 4,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 4,
+          "row": 5
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 4,
+          "row": 6
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    }
+  ],
+  "emptyCells": [
+    {
+      "col": 4,
+      "row": 3
+    },
+    {
+      "col": 0,
+      "row": 3
+    },
+    {
+      "col": 2,
+      "row": 3
+    },
+    {
+      "col": 3,
+      "row": 3
+    },
+    {
+      "col": 1,
+      "row": 3
+    }
+  ],
+  "portals": [
+    [
+      {
+        "col": 2,
+        "row": 1
+      },
+      {
+        "col": 0,
+        "row": 6
+      }
+    ]
+  ]
+}

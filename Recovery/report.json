@@ -1,0 +1,47 @@
+{
+  "sourceApk": "amaze-go-1-37-1.apk",
+  "groups": [
+    {
+      "name": "classic",
+      "count": 22543,
+      "packSize": 128
+    },
+    {
+      "name": "clash",
+      "count": 2500,
+      "packSize": 128
+    },
+    {
+      "name": "cube",
+      "count": 2619,
+      "packSize": 128
+    },
+    {
+      "name": "octa",
+      "count": 200,
+      "packSize": 128
+    },
+    {
+      "name": "links",
+      "count": 20,
+      "packSize": 128
+    },
+    {
+      "name": "line",
+      "count": 20,
+      "packSize": 128
+    }
+  ],
+  "headFirstSolveSampleOf100": {
+    "True": 100,
+    "False": 13
+  },
+  "originalGuideIds": 40,
+  "tutorialIdsRecovered": 40,
+  "rawTextAssetCount": 28900,
+  "limitations": [
+    "Original C# was compiled with IL2CPP; runtime code is a reconstruction.",
+    "Catalog ordering after recovered tutorials is by complexity, not the remote production sequence.",
+    "Special arrow and 3D mechanisms require runtime comparison; raw fields are retained in Recovery."
+  ]
+}

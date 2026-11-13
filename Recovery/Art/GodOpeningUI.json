@@ -1,0 +1,2912 @@
+{
+  "name": "GodOpeningUI",
+  "bundle": "assets/AssetBundle/prefab_ui_god_c8a8498e119f93be7b0b19b0c545d236.ab",
+  "nodes": [
+    {
+      "name": "GodOpeningUI",
+      "path": "/GodOpeningUI",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "CloseBg",
+      "path": "/GodOpeningUI/CloseBg",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "",
+          "color": [
+            0.0,
+            0.0,
+            0.0,
+            0.9098039269447327
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Content",
+      "path": "/GodOpeningUI/Content",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BG",
+      "path": "/GodOpeningUI/Content/BG",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        234.0
+      ],
+      "size": [
+        1070.0,
+        1070.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "GodEffect_back_3",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3",
+      "parent": 3,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        1000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -9.999999046325684,
+        -158.24588012695312
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Light",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/Light",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        29.9998779296875,
+        -147.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/circle",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        22.0,
+        31.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle_1",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/circle_1",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        5.0,
+        40.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle_2",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/circle_2",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        22.0001220703125,
+        27.999996185302734,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle_3",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/circle_3",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        38.9998779296875,
+        30.999996185302734,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "circle_4",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/circle_4",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        43.9998779296875,
+        -164.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "kuai",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/kuai",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        4.9998779296875,
+        -512.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.37929466366767883,
+        0.9252759218215942
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "kuai_2",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_3/kuai_2",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        4.9998779296875,
+        -519.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.37929466366767883,
+        0.9252759218215942
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "GodEffect_back_2",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2",
+      "parent": 3,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        1000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -1144.0,
+        -173.8445587158203
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "traillizi",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/traillizi",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        1113.0,
+        -666.0,
+        -999.8897705078125
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/traillizi/lizi",
+      "parent": 14,
+      "active": true,
+      "rect": false,
+      "position": [
+        353.0,
+        11.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Star",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/Star",
+      "parent": 13,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        1156.0,
+        72.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Starkuai",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/Starkuai",
+      "parent": 13,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        1156.0,
+        403.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_1",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/glow_1",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        1189.0,
+        -38.0,
+        -0.12847900390625
+      ],
+      "scale": [
+        1.0010000467300415,
+        1.0010000467300415,
+        1.000999927520752
+      ],
+      "rotation": [
+        -0.0,
+        1.862645149230957e-08,
+        0.6981654167175293,
+        0.7159366011619568
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_2",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/glow_2",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        987.0,
+        -26.0,
+        -0.12847900390625
+      ],
+      "scale": [
+        1.0010000467300415,
+        1.0010000467300415,
+        1.000999927520752
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.7906895875930786,
+        0.6122173070907593
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_3",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/glow_3",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        1335.0,
+        -56.0,
+        -0.12847900390625
+      ],
+      "scale": [
+        1.0010000467300415,
+        1.0010000467300415,
+        1.000999927520752
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.5955240726470947,
+        0.8033374547958374
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_4",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/glow_4",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        819.0,
+        -59.0,
+        0.4912109375
+      ],
+      "scale": [
+        1.0010000467300415,
+        1.000999927520752,
+        1.0010000467300415
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.8146218657493591,
+        0.579992413520813
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_5",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_2/glow_5",
+      "parent": 13,
+      "active": true,
+      "rect": false,
+      "position": [
+        1515.0,
+        -50.0,
+        0.37774658203125
+      ],
+      "scale": [
+        1.0009998083114624,
+        1.0009998083114624,
+        1.000999927520752
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.49621647596359253,
+        0.8681988716125488
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Light",
+      "path": "/GodOpeningUI/Content/BG/Light",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        11.220000267028809,
+        11.220000267028809,
+        11.220000267028809
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -193.0
+      ],
+      "size": [
+        128.0,
+        128.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-991e45a444e223a145ae7fbca0ce2b1e:4667210081521768566",
+          "color": [
+            0.801886796951294,
+            0.7014555931091309,
+            0.1323869526386261,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "Pyramid",
+      "path": "/GodOpeningUI/Content/BG/Pyramid",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.2000000476837158,
+        1.2000000476837158,
+        1.2000000476837158
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -141.0
+      ],
+      "size": [
+        996.0,
+        1249.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-0cb362d2de9e750199566e9bfdde82f7:-5284270627998944795",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "shan",
+      "path": "/GodOpeningUI/Content/BG/shan",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        202.0,
+        -180.0
+      ],
+      "size": [
+        487.0,
+        335.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:272145108658193204",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "shan_1",
+      "path": "/GodOpeningUI/Content/BG/shan_1",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -132.0,
+        -154.0
+      ],
+      "size": [
+        465.0,
+        379.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:-3744727166981851828",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "shan_2",
+      "path": "/GodOpeningUI/Content/BG/shan_2",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -287.0,
+        -224.0
+      ],
+      "size": [
+        330.0,
+        247.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:4962706961151305626",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            0.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "GodEffect_back_1",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1",
+      "parent": 3,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        1000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -150.0,
+        -560.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon",
+      "parent": 28,
+      "active": true,
+      "rect": false,
+      "position": [
+        -731.0,
+        -449.0,
+        -20.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.7306910753250122,
+        0.11415877938270569,
+        -0.12889981269836426,
+        0.6606385111808777
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "point",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/point",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        596.0,
+        -35.0,
+        960.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_1",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_1",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        398.3999938964844,
+        -128.8000030517578,
+        1218.0999755859375
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_2",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_2",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        372.0,
+        -122.0,
+        1132.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_3",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_3",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        415.6000061035156,
+        -139.1999969482422,
+        1335.4000244140625
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_4",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_4",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        527.0,
+        -146.0,
+        1446.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_5",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_5",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        655.0,
+        -130.0,
+        1319.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_6",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_6",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        382.0,
+        -154.0,
+        1490.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_12",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_12",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        407.0,
+        -158.0,
+        1524.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_7",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_7",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        360.0,
+        -148.0,
+        1394.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_8",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_8",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        213.0,
+        -150.0,
+        1379.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_10",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_10",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        286.0,
+        -126.0,
+        1150.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_12",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_12",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        483.0,
+        -101.0,
+        959.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_13",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_13",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        675.0,
+        -102.0,
+        1047.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_9",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_9",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        340.0,
+        -118.0,
+        1087.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_11",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/lizi_11",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        618.0,
+        -87.0,
+        863.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "traillizi",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/traillizi",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        599.0,
+        911.0,
+        1023.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.7306910753250122,
+        -0.11415877938270569,
+        0.12889981269836426,
+        0.6606385111808777
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/traillizi/lizi",
+      "parent": 45,
+      "active": true,
+      "rect": false,
+      "position": [
+        353.0,
+        11.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "traillizi_2",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/traillizi_2",
+      "parent": 29,
+      "active": true,
+      "rect": false,
+      "position": [
+        231.0,
+        874.0,
+        1269.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.7306910753250122,
+        -0.11415877938270569,
+        0.12889981269836426,
+        0.6606385111808777
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi",
+      "path": "/GodOpeningUI/Content/BG/GodEffect_back_1/ribbon/traillizi_2/lizi",
+      "parent": 47,
+      "active": true,
+      "rect": false,
+      "position": [
+        353.0,
+        11.0,
+        -0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "MaskArea",
+      "path": "/GodOpeningUI/Content/BG/MaskArea",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -4.0,
+        -66.0
+      ],
+      "size": [
+        596.2999877929688,
+        657.1300048828125
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "god",
+      "path": "/GodOpeningUI/Content/BG/MaskArea/god",
+      "parent": 49,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -23.119997024536133,
+        38.23998260498047
+      ],
+      "size": [
+        491.0,
+        828.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:-9142810799454734745",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "god (1)",
+      "path": "/GodOpeningUI/Content/BG/MaskArea/god (1)",
+      "parent": 49,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -14.0,
+        38.23998260498047
+      ],
+      "size": [
+        512.0,
+        850.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:-5826460813341418102",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "god (2)",
+      "path": "/GodOpeningUI/Content/BG/MaskArea/god (2)",
+      "parent": 49,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -22.899999618530273,
+        38.23998260498047
+      ],
+      "size": [
+        512.0,
+        850.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:3930959161658576299",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "godeye",
+      "path": "/GodOpeningUI/Content/BG/MaskArea/godeye",
+      "parent": 49,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -10.399999618530273,
+        272.3999938964844
+      ],
+      "size": [
+        78.0,
+        49.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:8643562573332353683",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "SpineGod",
+      "path": "/GodOpeningUI/Content/SpineGod",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        1000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        757.0,
+        831.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SpineZodiacShape",
+      "path": "/GodOpeningUI/Content/SpineGod/SpineZodiacShape",
+      "parent": 54,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -3.0,
+        -6.0
+      ],
+      "size": [
+        797.5904541015625,
+        821.6107177734375
+      ],
+      "pivot": [
+        0.5017141103744507,
+        0.4434845745563507
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Renderer0",
+      "path": "/GodOpeningUI/Content/SpineGod/SpineZodiacShape/Renderer0",
+      "parent": 55,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5017141103744507,
+        0.4434845745563507
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SkeletonGraphic (God)",
+      "path": "/GodOpeningUI/Content/SpineGod/SkeletonGraphic (God)",
+      "parent": 54,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        -1000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        2.0,
+        1.0
+      ],
+      "size": [
+        615.9677734375,
+        929.890625
+      ],
+      "pivot": [
+        0.49854037165641785,
+        0.3266071379184723
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Renderer0",
+      "path": "/GodOpeningUI/Content/SpineGod/SkeletonGraphic (God)/Renderer0",
+      "parent": 57,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.49854037165641785,
+        0.3266071379184723
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Banner",
+      "path": "/GodOpeningUI/Content/Banner",
+      "parent": 2,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -8.0
+      ],
+      "size": [
+        974.7000122070312,
+        174.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "image",
+          "sprite": "cab-327d1c4cc0af63dcbcc8c4aaf0d82c3a:-706320576349105686",
+          "color": [
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ],
+          "imageType": 0,
+          "preserveAspect": false,
+          "enabled": true,
+          "fill": 1.0
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BgStarEffect_1",
+      "path": "/GodOpeningUI/Content/Banner/BgStarEffect_1",
+      "parent": 59,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Block",
+      "path": "/GodOpeningUI/Content/Banner/BgStarEffect_1/Block",
+      "parent": 60,
+      "active": true,
+      "rect": false,
+      "position": [
+        -6.0,
+        -4.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlockSmallR",
+      "path": "/GodOpeningUI/Content/Banner/BgStarEffect_1/BlockSmallR",
+      "parent": 60,
+      "active": true,
+      "rect": false,
+      "position": [
+        411.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BlockSmallL",
+      "path": "/GodOpeningUI/Content/Banner/BgStarEffect_1/BlockSmallL",
+      "parent": 60,
+      "active": true,
+      "rect": false,
+      "position": [
+        -411.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "BannerText",
+      "path": "/GodOpeningUI/Content/Banner/BannerText",
+      "parent": 59,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        826.510009765625,
+        87.73999786376953
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "神话主题开启",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 60.54999923706055,
+          "color": [
+            0.9921569228172302,
+            0.960784375667572,
+            0.988235354423523,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 18.0,
+          "maxSize": 70.0,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "BannerEffect_2",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2",
+      "parent": 59,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Particle",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/Particle",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        2.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LightL",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/LightL",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        -418.0,
+        -0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LightUp",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/LightUp",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        4.0,
+        83.30000305175781,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LightDown",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/LightDown",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        4.0,
+        -87.19999694824219,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LightR",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/LightR",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        413.5,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HighLineR",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/HighLineR",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "HighLineL",
+      "path": "/GodOpeningUI/Content/Banner/BannerEffect_2/HighLineL",
+      "parent": 65,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        -1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "GodEffect_back",
+      "path": "/GodOpeningUI/Content/GodEffect_back",
+      "parent": 2,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        1000.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        -146.406982421875,
+        -312.6212158203125
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "effect",
+      "path": "/GodOpeningUI/Content/GodEffect_back/effect",
+      "parent": 73,
+      "active": true,
+      "rect": false,
+      "position": [
+        -731.0,
+        -449.0,
+        -20.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.7306910753250122,
+        0.11415877938270569,
+        -0.12889981269836426,
+        0.6606385111808777
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi_11",
+      "path": "/GodOpeningUI/Content/GodEffect_back/effect/lizi_11",
+      "parent": 74,
+      "active": true,
+      "rect": false,
+      "position": [
+        580.0,
+        -98.0,
+        958.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0003016844857484102,
+        -0.17199747264385223,
+        -0.0017278633313253522,
+        0.9850957989692688
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_1",
+      "path": "/GodOpeningUI/Content/GodEffect_back/effect/glow_1",
+      "parent": 74,
+      "active": true,
+      "rect": false,
+      "position": [
+        624.0,
+        -74.0,
+        822.0
+      ],
+      "scale": [
+        1.0010000467300415,
+        1.0010000467300415,
+        1.0009998083114624
+      ],
+      "rotation": [
+        0.4434267282485962,
+        -0.5918736457824707,
+        0.5535190105438232,
+        0.3829818665981293
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_2",
+      "path": "/GodOpeningUI/Content/GodEffect_back/effect/glow_2",
+      "parent": 74,
+      "active": true,
+      "rect": false,
+      "position": [
+        599.0,
+        -75.0,
+        816.0
+      ],
+      "scale": [
+        1.0009996891021729,
+        1.0009996891021729,
+        1.0009998083114624
+      ],
+      "rotation": [
+        0.19701850414276123,
+        -0.7128291726112366,
+        0.6550712585449219,
+        0.15472561120986938
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow_3",
+      "path": "/GodOpeningUI/Content/GodEffect_back/effect/glow_3",
+      "parent": 74,
+      "active": true,
+      "rect": false,
+      "position": [
+        651.0,
+        -75.0,
+        838.0
+      ],
+      "scale": [
+        1.0009996891021729,
+        1.0009996891021729,
+        1.0009996891021729
+      ],
+      "rotation": [
+        0.6226588487625122,
+        -0.39904600381851196,
+        0.3842945992946625,
+        0.5526083707809448
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "EffectAppear",
+      "path": "/GodOpeningUI/Content/EffectAppear",
+      "parent": 2,
+      "active": false,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        -48.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Light_1",
+      "path": "/GodOpeningUI/Content/EffectAppear/Light_1",
+      "parent": 79,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "trail",
+      "path": "/GodOpeningUI/Content/EffectAppear/trail",
+      "parent": 79,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "SubEmitter0",
+      "path": "/GodOpeningUI/Content/EffectAppear/trail/SubEmitter0",
+      "parent": 81,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Raycast",
+      "path": "/GodOpeningUI/Raycast",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.0,
+        0.0
+      ],
+      "anchorMax": [
+        1.0,
+        1.0
+      ],
+      "anchored": [
+        1417.0,
+        191.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

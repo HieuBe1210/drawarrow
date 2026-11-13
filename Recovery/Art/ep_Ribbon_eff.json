@@ -1,0 +1,101 @@
+{
+  "name": "ep_Ribbon_eff",
+  "bundle": "assets/AssetBundle/prefab_gameplay_effect_23f65ed4ba20adba373f028df92a8f63.ab",
+  "nodes": [
+    {
+      "name": "ep_Ribbon_eff",
+      "path": "/ep_Ribbon_eff",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        0.0,
+        0.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon",
+      "path": "/ep_Ribbon_eff/ribbon",
+      "parent": 0,
+      "active": true,
+      "rect": false,
+      "position": [
+        -6.96999979019165,
+        -5.130000114440918,
+        -0.29999998211860657
+      ],
+      "scale": [
+        0.009999999776482582,
+        0.009999997913837433,
+        0.009999997913837433
+      ],
+      "rotation": [
+        -0.7306910753250122,
+        0.11415877938270569,
+        -0.12889981269836426,
+        0.6606385111808777
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ribbon_01",
+      "path": "/ep_Ribbon_eff/ribbon/ribbon_01",
+      "parent": 1,
+      "active": true,
+      "rect": false,
+      "position": [
+        1236.0,
+        8.0,
+        416.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.011836884543299675,
+        -0.3137333393096924,
+        -0.029606226831674576,
+        0.9489756226539612
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

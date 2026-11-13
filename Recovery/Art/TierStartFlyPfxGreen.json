@@ -1,0 +1,176 @@
+{
+  "name": "TierStartFlyPfxGreen",
+  "bundle": "assets/AssetBundle/prefab_ui_pfx_a1ecbf14498ce3b26c6debf7b98d5d3d.ab",
+  "nodes": [
+    {
+      "name": "TierStartFlyPfxGreen",
+      "path": "/TierStartFlyPfxGreen",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LeaderboardArrowFlyTrail",
+      "path": "/TierStartFlyPfxGreen/LeaderboardArrowFlyTrail",
+      "parent": 0,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow",
+      "path": "/TierStartFlyPfxGreen/LeaderboardArrowFlyTrail/glow",
+      "parent": 1,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_01",
+      "path": "/TierStartFlyPfxGreen/LeaderboardArrowFlyTrail/glow/star_01",
+      "parent": 2,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "point",
+      "path": "/TierStartFlyPfxGreen/LeaderboardArrowFlyTrail/glow/point",
+      "parent": 2,
+      "active": false,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_trail",
+      "path": "/TierStartFlyPfxGreen/LeaderboardArrowFlyTrail/star_trail",
+      "parent": 1,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

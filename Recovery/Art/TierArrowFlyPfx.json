@@ -1,0 +1,326 @@
+{
+  "name": "TierArrowFlyPfx",
+  "bundle": "assets/AssetBundle/prefab_ui_pfx_a1ecbf14498ce3b26c6debf7b98d5d3d.ab",
+  "nodes": [
+    {
+      "name": "TierArrowFlyPfx",
+      "path": "/TierArrowFlyPfx",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "LeaderboardArrowFlyTrail_01",
+      "path": "/TierArrowFlyPfx/LeaderboardArrowFlyTrail_01",
+      "parent": 0,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow",
+      "path": "/TierArrowFlyPfx/LeaderboardArrowFlyTrail_01/glow",
+      "parent": 1,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_01",
+      "path": "/TierArrowFlyPfx/LeaderboardArrowFlyTrail_01/glow/star_01",
+      "parent": 2,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_02",
+      "path": "/TierArrowFlyPfx/LeaderboardArrowFlyTrail_01/glow/star_02",
+      "parent": 2,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "point",
+      "path": "/TierArrowFlyPfx/LeaderboardArrowFlyTrail_01/glow/point",
+      "parent": 2,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_trail",
+      "path": "/TierArrowFlyPfx/LeaderboardArrowFlyTrail_01/glow/star_trail",
+      "parent": 2,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_RankArrow_eff",
+      "path": "/TierArrowFlyPfx/ep_RankArrow_eff",
+      "parent": 0,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Glow",
+      "path": "/TierArrowFlyPfx/ep_RankArrow_eff/Glow",
+      "parent": 7,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "glow",
+      "path": "/TierArrowFlyPfx/ep_RankArrow_eff/Glow/glow",
+      "parent": 8,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.006741556338965893,
+        -0.01871674321591854,
+        -0.002020598156377673
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.049534641206264496,
+        0.010423487983644009,
+        0.17186836898326874,
+        0.983818531036377
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "star_01",
+      "path": "/TierArrowFlyPfx/ep_RankArrow_eff/Glow/star_01",
+      "parent": 8,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.006741556338965893,
+        -0.01871674321591854,
+        -0.002020598156377673
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.049534641206264496,
+        0.010423487983644009,
+        0.17186836898326874,
+        0.983818531036377
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "lizi",
+      "path": "/TierArrowFlyPfx/ep_RankArrow_eff/Glow/lizi",
+      "parent": 8,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}

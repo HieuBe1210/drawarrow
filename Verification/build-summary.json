@@ -1,0 +1,32 @@
+{
+  "version": "1.1.0",
+  "unityVersion": "6000.3.10f1",
+  "windowsBuild": "Builds/Windows/AmazeGo.exe",
+  "androidBuild": "Builds/Android/AmazeGo-Rebuilt.apk",
+  "androidBytes": 124525853,
+  "androidSha256": "bd021c9f47dc35662f9c07d4fdb63acca357d2582bac2cc53f92364d59708c2a",
+  "androidPackage": "com.drawarrow.amazerebuilt",
+  "androidArchitecture": "ARM64",
+  "androidMinSdk": 26,
+  "androidTargetSdk": 36,
+  "apkSignatureVerified": true,
+  "validationChecksPassed": 3455,
+  "runtimeModesInitialized": 20,
+  "runtimeArtThemes": 3,
+  "runtimeExceptionsObserved": 0,
+  "visualScreensCaptured": 38,
+  "androidDeviceTested": false,
+  "originalApkRuntimeCompared": false,
+  "recoveredArt": {
+    "sourceSprites": 2176,
+    "derivedArrowRotations": 8,
+    "sourceAtlases": 107,
+    "fontFiles": 23,
+    "prefabLayouts": 520,
+    "layoutGroups": 322,
+    "gradientGraphics": 171,
+    "animationRecords": 743,
+    "uniqueAnimationNames": 740
+  },
+  "limitations": "Source sprites/fonts and prefab metadata restored; 3D meshes/shaders are reconstructed. Not all particles, Spine, nested clipping or animation bindings restored. Advanced mechanics and live services remain limited; see README.md."
+}

@@ -1,0 +1,10 @@
+{
+  "apk": "C:\\Users\\tinht\\Downloads\\amaze-go-1-37-1.apk",
+  "bytes": 283528115,
+  "sha256": "26078fead1b2d6c8198c1441ae7f797ef29e6519d21a1d62bd5cf74e25c33026",
+  "engineObserved": "6000.3.16f1",
+  "buildEngine": "6000.3.10f1",
+  "analysis": "Offline ZIP and UnityPy bundle extraction. REA Android inspection unavailable because JADX MCP JAR was not configured.",
+  "textures": 185,
+  "audio": 386
+}

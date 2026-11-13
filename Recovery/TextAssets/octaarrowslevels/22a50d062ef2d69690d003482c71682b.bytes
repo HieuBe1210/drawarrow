@@ -1,0 +1,184 @@
+{
+  "gridType": "octagon",
+  "cols": 3,
+  "rows": 5,
+  "moveLimit": 15,
+  "arrows": [
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 1
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 3
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 0,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": 1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 0
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 3
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 1,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": 0,
+        "drow": 1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 1
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 2
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 3
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": 0
+      }
+    },
+    {
+      "type": "normal",
+      "points": [
+        {
+          "col": 2,
+          "row": 4
+        }
+      ],
+      "direction": {
+        "dcol": -1,
+        "drow": -1
+      }
+    }
+  ],
+  "emptyCells": [
+    {
+      "col": 0,
+      "row": 0
+    },
+    {
+      "col": 2,
+      "row": 0
+    }
+  ],
+  "turnTiles": [
+    {
+      "col": 1,
+      "row": 1,
+      "direction": {
+        "dcol": 0,
+        "drow": 1
+      }
+    }
+  ]
+}

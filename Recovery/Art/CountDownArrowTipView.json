@@ -1,0 +1,312 @@
+{
+  "name": "CountDownArrowTipView",
+  "bundle": "assets/AssetBundle/prefab_gameplay_countdownarrow_d52b38cabe165599a08a30587045d609.ab",
+  "nodes": [
+    {
+      "name": "CountDownArrowTipView",
+      "path": "/CountDownArrowTipView",
+      "parent": -1,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        8.479999542236328
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Root",
+      "path": "/CountDownArrowTipView/Root",
+      "parent": 0,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.0,
+        0.0
+      ],
+      "size": [
+        100.0,
+        100.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg_Shade",
+      "path": "/CountDownArrowTipView/Root/Bg_Shade",
+      "parent": 1,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.008700000122189522,
+        -0.6460000276565552,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Bg",
+      "path": "/CountDownArrowTipView/Root/Bg",
+      "parent": 1,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.0,
+        -0.5788000226020813,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "icon",
+      "path": "/CountDownArrowTipView/Root/Bg/icon",
+      "parent": 3,
+      "active": true,
+      "rect": false,
+      "position": [
+        -3.181999921798706,
+        0.01899999938905239,
+        0.0
+      ],
+      "scale": [
+        0.800000011920929,
+        0.800000011920929,
+        0.800000011920929
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "1",
+      "path": "/CountDownArrowTipView/Root/Bg/icon/1",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        0.003000000026077032,
+        0.006000000052154064,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "2",
+      "path": "/CountDownArrowTipView/Root/Bg/icon/2",
+      "parent": 4,
+      "active": true,
+      "rect": false,
+      "position": [
+        -0.003000000026077032,
+        0.0010000000474974513,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    },
+    {
+      "name": "Tittle",
+      "path": "/CountDownArrowTipView/Root/Bg/Tittle",
+      "parent": 3,
+      "active": true,
+      "rect": true,
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        -0.0,
+        -0.0,
+        -0.0,
+        1.0
+      ],
+      "anchorMin": [
+        0.5,
+        0.5
+      ],
+      "anchorMax": [
+        0.5,
+        0.5
+      ],
+      "anchored": [
+        0.4194999933242798,
+        0.0020000000949949026
+      ],
+      "size": [
+        6.224699974060059,
+        1.0
+      ],
+      "pivot": [
+        0.5,
+        0.5
+      ],
+      "visuals": [
+        {
+          "type": "text",
+          "text": "50%",
+          "font": "cab-59dffe9b6f897d17817750c876eaef72:-2635464640357737112",
+          "size": 4.599999904632568,
+          "color": [
+            0.6235294342041016,
+            0.572549045085907,
+            0.48627451062202454,
+            1.0
+          ],
+          "alignment": 2,
+          "enabled": true,
+          "fontName": "Inter_28pt_Bold",
+          "weight": 400,
+          "autoSize": true,
+          "minSize": 2.0,
+          "maxSize": 4.599999904632568,
+          "verticalAlignment": 512
+        }
+      ],
+      "hideGraphic": false
+    },
+    {
+      "name": "ep_CountDownArrowTip_Trail_Appear",
+      "path": "/CountDownArrowTipView/ep_CountDownArrowTip_Trail_Appear",
+      "parent": 0,
+      "active": true,
+      "rect": false,
+      "position": [
+        -3.190000057220459,
+        -0.5720000267028809,
+        0.0
+      ],
+      "scale": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "rotation": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "visuals": [],
+      "hideGraphic": false
+    }
+  ]
+}
