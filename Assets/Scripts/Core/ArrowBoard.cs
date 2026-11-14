@@ -13,10 +13,14 @@ namespace DrawArrow
         public int Remaining { get; private set; }
         public int TargetCount {get;private set;}
         public readonly bool Cube;
+        public readonly Rect ContentBounds;
         public ArrowBoard(LevelData level, bool cube = false)
         {
             Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];
             for(int i=0;i<Active.Length;i++) { Active[i]=true; Paths[i]=Expand(level.arrows[i].points);if(!IsMechanism(i))TargetCount++; }
+            var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);
+            foreach(var path in Paths)foreach(var p in path){min=Vector2.Min(min,new Vector2(p.x,p.y));max=Vector2.Max(max,new Vector2(p.x,p.y));}
+            ContentBounds=float.IsInfinity(min.x)?new Rect(0,0,Mathf.Max(0,level.width-1),Mathf.Max(0,level.height-1)):Rect.MinMaxRect(min.x,min.y,max.x,max.y);
             Remaining=TargetCount;
             Rebuild();
         }

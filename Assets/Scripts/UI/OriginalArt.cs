@@ -190,12 +190,12 @@ namespace DrawArrow
             var iconRect=new Rect(r.x+r.width*.18f,r.y+r.height*.17f,r.width*.64f,r.height*.64f);
             if(icon=="restart")Ink.TextAt(iconRect,"↻",Mathf.RoundToInt(r.width*.53f),small||Theme==2?Foreground:Color.white,TextAnchor.MiddleCenter,true);else Draw(icon,iconRect,small||Theme==2?Foreground:Color.white,true);
             if(!string.IsNullOrEmpty(label))Ink.TextAt(new Rect(r.x-20,r.yMax+8,r.width+40,45),label,25,Foreground,TextAnchor.MiddleCenter,true);
-            return GUI.Button(r,GUIContent.none,GUIStyle.none);
+            return Ink.HitButton(r,GUIContent.none,GUIStyle.none);
         }
         public static bool Button(Rect r,string text,Color? color=null,int fontSize=42)
         {
             Draw(Theme==2?"Style3BtnCommon":Theme==1?"CommonBtnV2":"CommonBtnBig",r,color??Accent,false,true);
-            Ink.TextAt(r,text,fontSize,Color.white,TextAnchor.MiddleCenter,true);return GUI.Button(r,GUIContent.none,GUIStyle.none);
+            Ink.TextAt(r,text,fontSize,Color.white,TextAnchor.MiddleCenter,true);return Ink.HitButton(r,GUIContent.none,GUIStyle.none);
         }
     }
 }

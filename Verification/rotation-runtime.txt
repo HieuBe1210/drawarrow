@@ -1,0 +1,1 @@
+PASS: level 5 rotated picking, legal move and Undo; UI remains upright

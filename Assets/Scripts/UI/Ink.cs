@@ -5,6 +5,13 @@ namespace DrawArrow
 {
     public static class Ink
     {
+        public static System.Action Clicked;
+        public static bool HitButton(Rect r,GUIContent content,GUIStyle style)
+        {
+            bool pressed=GUI.Button(r,content,style);
+            if(pressed)Clicked?.Invoke();
+            return pressed;
+        }
         public static readonly Color Paper = Hex("F5ECDB"), Text = Hex("302F2D"), Muted = Hex("969184"), Teal = Hex("BF7737"), Gold = Hex("FFCE42"), Red = Hex("DA5245");
         public static readonly Color[] Palette = { Hex("DB473D"),Hex("4D7CE3"),Hex("63A94D"),Hex("DEB942"),Hex("9867C8"),Hex("D77BA3"),Hex("5AADD0") };
         static Texture2D circle, round, white; static Font font,boldFont;static GUIStyle label;
@@ -66,7 +73,7 @@ namespace DrawArrow
         public static bool Button(Rect r,string text,Color fill,Color fg,int size=28)
         {
             bool hover=r.Contains(Event.current.mousePosition);Card(r,hover?Color.Lerp(fill,Color.white,.08f):fill);
-            TextAt(r,text,size,fg,TextAnchor.MiddleCenter,true);return GUI.Button(r,GUIContent.none,GUIStyle.none);
+            TextAt(r,text,size,fg,TextAnchor.MiddleCenter,true);return Ink.HitButton(r,GUIContent.none,GUIStyle.none);
         }
         public static void Curve(Vector2 a,Vector2 c,Vector2 b,float width,Color color)
         {

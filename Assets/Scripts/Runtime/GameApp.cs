@@ -18,7 +18,7 @@ namespace DrawArrow
         float yaw=-35,pitch=22,roll,zoom=1;Vector2 pan,scroll,lastPointer;bool draggingBoard;string toast="";float toastUntil;int urgentIndex=-1,countdownDeadline;
         AudioSource audioSource;readonly Dictionary<string,AudioClip> sounds=new Dictionary<string,AudioClip>();
         readonly List<FlyingArrow> flying=new List<FlyingArrow>();
-        sealed class FlyingArrow{public int id;public float started;}
+        sealed class FlyingArrow{public int id;public float elapsed;}
         int screenshotFrames;string capturePath;bool captureStarted;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -26,8 +26,9 @@ namespace DrawArrow
         void Awake()
         {
             Application.targetFrameRate=60;Screen.sleepTimeout=SleepTimeout.NeverSleep;Progress=SaveStore.Load();Repository=new LevelRepository();
-            audioSource=gameObject.AddComponent<AudioSource>();audioSource.playOnAwake=false;
-            var camera = Camera.main;if(!camera){camera=new GameObject("Main Camera").AddComponent<Camera>();camera.tag="MainCamera";}camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Ink.Paper;
+            audioSource=gameObject.AddComponent<AudioSource>();audioSource.playOnAwake=false;audioSource.spatialBlend=0;
+            Ink.Clicked=PlayUiClick;
+            var camera = Camera.main;if(!camera){camera=new GameObject("Main Camera").AddComponent<Camera>();camera.tag="MainCamera";}if(FindFirstObjectByType<AudioListener>()==null)camera.gameObject.AddComponent<AudioListener>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Ink.Paper;
             var args=Environment.GetCommandLineArgs();for(int i=0;i<args.Length;i++)
             {
                 if(args[i]=="--mode"&&i+1<args.Length&&Enum.TryParse(args[i+1],out GameMode m))StartGame(m);
@@ -38,7 +39,10 @@ namespace DrawArrow
         }
         void Update()
         {
-            flying.RemoveAll(a=>Time.unscaledTime-a.started>1.1f);
+            if(page==Page.Game&&!paused&&!modalHelp)
+                foreach(var arrow in flying)arrow.elapsed+=Time.unscaledDeltaTime;
+            flying.RemoveAll(a=>a.elapsed>=FlightDuration(a.id));
+            if(!Progress.sound&&audioSource.isPlaying)audioSource.Stop();
             if(page==Page.Game&&!paused&&!won&&!failed)
             {
                 elapsed+=Time.unscaledDeltaTime;
@@ -83,7 +87,7 @@ namespace DrawArrow
         {
             Mode=mode;LevelIndex=index<0?Progress.levels[(int)mode]:index;
             if(mode==GameMode.Daily){int.TryParse(DateTime.Now.ToString("yyyyMMdd"),out int day);LevelIndex=day%Repository.Count(mode);}
-            Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();tray.Colors.Clear();
+            Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();motionPaths.Clear();tray.Colors.Clear();
             won=failed=paused=false;hearts=mode==GameMode.OneLife?1:3;moves=0;elapsed=0;timeLeft=mode==GameMode.SharkRush?22:mode==GameMode.Battle?150:90;botProgress=0;hint=-1;zoom=1;pan=Vector2.zero;
             if(mode==GameMode.Schulte){Schulte=new SchulteBoard(3+Mathf.Min(LevelIndex/3,3),137+LevelIndex);Level=null;}
             else
@@ -100,10 +104,12 @@ namespace DrawArrow
         void TapArrow(int i)
         {
             if(paused||won||failed)return;
+            if(i<0||i>=Arrows.Active.Length||!Arrows.Active[i])return;
+            Play("arrow_click",.48f);
             if(Arrows.CanExit(i))
             {
                 history.Push(new UndoState{arrow=i,colors=new List<int>(tray.Colors),hearts=hearts,moves=moves,urgent=urgentIndex,deadline=countdownDeadline});
-                Arrows.Remove(i);moves++;hint=-1;flying.Add(new FlyingArrow{id=i,started=Time.unscaledTime});Play("arrow_out");
+                Arrows.Remove(i);moves++;hint=-1;flying.Add(new FlyingArrow{id=i,elapsed=0});Play("arrow_out_soft",.55f);
                 if(Mode==GameMode.ArrowClash){if(tray.Add(Level.arrows[i].color))Play("arrow_collect");if(tray.Full){Lose("The seven slots are full. Match three of a color.");return;}}
                 if(Mode==GameMode.SharkRush)timeLeft=Mathf.Min(35,timeLeft+2.5f);
                 if(Mode==GameMode.Countdown&&i==urgentIndex){urgentIndex=Arrows.Hint();countdownDeadline=moves+8;}
@@ -131,9 +137,9 @@ namespace DrawArrow
                 string today=DateTime.Now.ToString("yyyy-MM-dd");if(!Progress.dailyWins.Contains(today))Progress.dailyWins.Add(today);Progress.lastDaily=today;
             }
             else Progress.levels[(int)Mode]=Mathf.Max(Progress.levels[(int)Mode],LevelIndex+1);
-            SaveStore.Save(Progress);Play("success");
+            SaveStore.Save(Progress);Play("result_pass",.65f);
         }
-        void Lose(string reason){if(failed||won)return;failed=true;toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("fail");}
+        void Lose(string reason){if(failed||won)return;failed=true;toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
         void Notify(string text){toast=text;toastUntil=Time.unscaledTime+3;}
         void Undo()
         {
@@ -150,9 +156,11 @@ namespace DrawArrow
             if(Progress.coins<15){Notify("A hint costs 15 coins. Complete levels to earn more.");return;}
             Progress.coins-=15;Progress.hintsUsed++;SaveStore.Save(Progress);hint=found;hintUntil=Time.unscaledTime+4;Play("arrow_tap");
         }
-        void Play(string name)
+        void PlayUiClick()=>Play("common_click_soft",.42f);
+        void OnDestroy(){if(Ink.Clicked==PlayUiClick)Ink.Clicked=null;}
+        void Play(string name,float volume=.55f)
         {
-            if(!Progress.sound)return;if(!sounds.TryGetValue(name,out var clip)){clip=Resources.Load<AudioClip>("Recovered/Audio/"+name);sounds[name]=clip;}if(clip)audioSource.PlayOneShot(clip,.65f);
+            if(!Progress.sound)return;if(!sounds.TryGetValue(name,out var clip)){clip=Resources.Load<AudioClip>("Recovered/Audio/"+name);sounds[name]=clip;}if(clip)audioSource.PlayOneShot(clip,volume);
         }
         void Vibrate()
         {

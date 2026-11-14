@@ -14,7 +14,15 @@ namespace DrawArrow
             if(board!=source)Build(source);destination=rect;
             var rotation=Quaternion.Euler(-pitch,yaw,roll);float diagonal=Mathf.Sqrt(source.Level.width*source.Level.width+source.Level.height*source.Level.height+source.Level.depth*source.Level.depth);
             view.transform.position=root.transform.position+Quaternion.Inverse(rotation)*new Vector3(0,0,-diagonal*2.3f);view.transform.LookAt(root.transform.position,Quaternion.Inverse(rotation)*Vector3.up);
-            view.orthographicSize=diagonal*.54f/zoom;view.aspect=rect.width/rect.height;view.backgroundColor=OriginalArt.Background;
+            view.aspect=rect.width/rect.height;
+            var half=center+Vector3.one*.025f;float extentX=0,extentY=0;
+            for(int corner=0;corner<8;corner++)
+            {
+                var local=new Vector3((corner&1)==0?-half.x:half.x,(corner&2)==0?-half.y:half.y,(corner&4)==0?-half.z:half.z);
+                var cameraPoint=view.transform.InverseTransformPoint(root.transform.position+local);
+                extentX=Mathf.Max(extentX,Mathf.Abs(cameraPoint.x));extentY=Mathf.Max(extentY,Mathf.Abs(cameraPoint.y));
+            }
+            view.orthographicSize=Mathf.Max(.1f,Mathf.Max(extentY,extentX/view.aspect))*1.05f/zoom;view.backgroundColor=OriginalArt.Background;
             for(int i=0;i<lines.Count;i++)
             {
                 bool active=source.Active[i]&&!source.IsMechanism(i);lines[i].enabled=active;heads[i].enabled=active;
@@ -40,12 +48,12 @@ namespace DrawArrow
             var shell=new GameObject("Beveled shell");shell.layer=Layer;shell.transform.SetParent(root.transform,false);shell.AddComponent<MeshFilter>().sharedMesh=RoundedBox(center+Vector3.one*.025f,.15f);shell.AddComponent<MeshRenderer>().sharedMaterial=surface;
             for(int i=0;i<source.Paths.Length;i++)
             {
-                var line=CreateLine("Arrow "+i,.075f);var points=source.Paths[i];line.positionCount=points.Count;for(int k=0;k<points.Count;k++)line.SetPosition(k,points[k]-center);lines.Add(line);
-                var head=CreateLine("Head "+i,.082f);head.positionCount=3;
+                var line=CreateLine("Arrow "+i,.115f);var points=source.Paths[i];line.positionCount=points.Count;for(int k=0;k<points.Count;k++)line.SetPosition(k,points[k]-center);lines.Add(line);
+                var head=CreateLine("Head "+i,.125f);head.positionCount=3;
                 if(points.Count>=2)
                 {
                     var h=points[points.Count-1];var dir=source.Direction(i);var f=source.Level.arrows[i].points[0]%6;var side=Vector3.Cross(ArrowBoard.FaceNormal(f),dir).normalized;
-                    head.SetPosition(0,h-dir*.38f+side*.23f-center);head.SetPosition(1,h-center);head.SetPosition(2,h-dir*.38f-side*.23f-center);
+                    head.SetPosition(0,h-dir*.44f+side*.27f-center);head.SetPosition(1,h-center);head.SetPosition(2,h-dir*.44f-side*.27f-center);
                 }
                 heads.Add(head);
                 if(source.IsMechanism(i)&&points.Count>0)
