@@ -10,5 +10,7 @@
   },
   "sourceHeadFirst": true,
   "order": "ResourceManager levels/level_1 through levels/level_1574",
-  "applied": true
+  "applied": true,
+  "mainLevelCount": 22543,
+  "preservedOldLevelsFrom": 1575
 }

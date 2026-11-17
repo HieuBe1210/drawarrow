@@ -38,7 +38,7 @@ Art nằm ở `Assets/Resources/OriginalArt`. Dữ liệu đối chiếu ở `Re
 
 | Chế độ | Cách chơi / dữ liệu |
 | --- | --- |
-| Arrow Out | Chạm mũi tên có đường thoát; dùng 1.574 màn từ Arrow Escape Puzzle Master 1.0.7 theo thứ tự gốc |
+| Arrow Out | 22.543 màn: màn 1–1.574 từ Arrow Escape Puzzle Master 1.0.7, màn 1.575–22.543 giữ nguyên bộ cũ |
 | Arrow Clash | Mũi tên thoát vào khay 7 ô; ghép 3 màu |
 | Arrows 3D | Đường mũi tên trên bề mặt khối, xoay bằng kéo hoặc nút Rotate; dữ liệu gốc |
 | Octa Arrows | 8 hướng, cổng dịch chuyển, ô đổi hướng, mũi tên xoay và công tắc |
@@ -60,9 +60,19 @@ Giao diện có chọn chế độ, Journey, Collection, Settings, thắng/thua,
 
 ## Dữ liệu đã khôi phục
 
-Level chính ở nút **Play** dùng toàn bộ **1.574 màn** từ `arrow-escape-puzzle-master-1-0-7.xapk`. Thứ tự lấy từ bảng ResourceManager `levels/level_1` đến `levels/level_1574`, không dựa vào tên nội bộ của TextAsset vì một vài tên bị trùng. Dữ liệu được chuyển sang group `escape107`, đóng trong 13 pack gzip; đầu mũi tên là phần tử đầu của `Indices`. Cả 1.574 màn đã qua kiểm tra giải được khi trích xuất. Bộ 22.543 màn cũ vẫn nằm trong group `classic` để giữ nguyên dữ liệu cho các chế độ phụ. Tiến trình người chơi không bị xóa.
+Level chính ở nút **Play** có **22.543 màn**. Trước khi tạo biến thể bên trong, vị trí **1–1.574** lấy từ `arrow-escape-puzzle-master-1-0-7.xapk`; vị trí **1.575–22.543** lấy màn tương ứng của bộ cũ. Thứ tự 1.574 màn mới lấy từ bảng ResourceManager `levels/level_1` đến `levels/level_1574`, không dựa vào tên nội bộ của TextAsset vì một vài tên bị trùng. Dữ liệu mới nằm trong group `escape107`, đóng trong 13 pack gzip; đầu mũi tên là phần tử đầu của `Indices`. Catalog hiện thêm các `overrides` cho biến thể bên trong mô tả dưới đây. Các chế độ phụ và tiến trình người chơi được giữ nguyên.
 
 51 màn trích từ `com.arrpuzlucta.apgame_1.0.6.xapk` được lưu ngoài Resources tại `Recovery/Original106`, gồm pack không hoạt động trong `InactivePacks`. Chúng không được tải hoặc đóng gói vào game. Dữ liệu gốc và bảng ánh xạ của bộ mới nằm ở `Recovery/Escape107`; catalog trước khi thay được giữ tại `Recovery/Escape107/catalog-before.json`. Script nhập lại: `Tools/import_escape107.py <xapk> --apply` (cần UnityPy). Báo cáo nhập: `Verification/escape107-import.json`. Menu **Draw Arrow → Validate main level catalog** hoặc **Validate Escape 1.0.7 levels** kiểm tra bộ chính đang dùng.
+
+Trước khi tạo biến thể, kiểm tra Unity đã đối chiếu dữ liệu 20.969 màn cũ từ 1.575 đến 22.543. Trong các màn lấy mẫu tại ranh giới, màn cũ 22.543 chưa được solver giải hết theo luật hiện tại. Báo cáo lần đối chiếu này: `Verification/escape107-unity.json`.
+
+### Biến thể mũi tên bên trong
+
+Bộ chính hiện dùng biến thể ở **19.889 màn**, đổi hướng **564.047 mũi tên bên trong**. Mũi tên đường bao được xác định bằng ô ngoài cùng trái/phải trên mỗi hàng và trên/dưới trên mỗi cột; toàn bộ dữ liệu của các mũi tên này được giữ nguyên. Biến thể đảo thứ tự điểm của mũi tên bên trong, giữ đường nét, kích thước lưới và số lượng mũi tên. Mỗi biến thể được áp dụng đã được `ArrowBoard.Solve()` giải hết trong Unity.
+
+Các pack `maininteriors` chứa 22.543 vị trí tương ứng; catalog chỉ thay các vị trí có biến thể đã giải được. Có 12 màn không có mũi tên bên trong và 3 màn chưa có biến thể đổi hướng phù hợp nên giữ nguyên. 2.639 biến thể không đạt kiểm tra lời giải cũng không được áp dụng. Trong số đó, solver hiện tại chưa giải hết 1.745 màn ngay cả khi chỉ giữ các mũi tên đường bao; chưa thể bảo đảm lời giải cho các màn đó chỉ bằng đổi hướng bên trong. Các chế độ phụ tiếp tục dùng dữ liệu nguồn.
+
+Menu **Draw Arrow → Generate main interior variants** tạo ứng viên bên ngoài Resources. **Apply solved main interior variants** chỉ áp dụng ứng viên đã đạt và lưu catalog trước khi thay tại `Recovery/MainInteriors/catalog-before.json`; cần phục hồi catalog này trước khi tạo lại hoặc nhập lại nguồn bằng `Tools/import_escape107.py`. Menu **Validate main interior variants** đối chiếu dữ liệu viền với bản trước khi thay. Báo cáo tóm tắt: `Verification/main-interior-applied.json`; kết quả kiểm tra viền: `Verification/main-interior-validation.json`; chi tiết ứng viên và giới hạn: `Verification/main-interior-variants.json`, `Verification/main-interior-diagnostics.json`. Bảng dưới thống kê dữ liệu nguồn; các pack biến thể là dữ liệu bổ sung.
 
 | Nhóm | Số màn |
 | --- | ---: |

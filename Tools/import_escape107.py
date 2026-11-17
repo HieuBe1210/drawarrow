@@ -117,8 +117,13 @@ def main():
         catalog['groups'] = [g for g in catalog['groups'] if g['name'] != GROUP]
         catalog['groups'].append({'name': GROUP, 'count': len(rows), 'packSize': 128})
         catalog['sequences'] = [s for s in catalog.get('sequences', []) if s['mode'] != 'Classic']
-        catalog['sequences'].append({'mode': 'Classic', 'group': GROUP, 'indices': list(range(len(rows)))})
         catalog['overrides'] = [v for v in catalog.get('overrides', []) if v['mode'] != 'Classic']
+        main_count = next(g['count'] for g in catalog['groups'] if g['name'] == 'classic')
+        assert main_count >= len(rows)
+        catalog['overrides'].extend({'mode': 'Classic', 'index': i, 'group': GROUP, 'levelIndex': i}
+                                    for i in range(len(rows)))
+        report['mainLevelCount'] = main_count
+        report['preservedOldLevelsFrom'] = len(rows) + 1
         catalog_path.write_text(json.dumps(catalog, separators=(',', ':')), encoding='utf8')
         baseline = json.loads(backup.read_bytes())
         assert [s for s in baseline.get('sequences', []) if s['mode'] != 'Classic'] == [
