@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "source": "C:\\Users\\tinht\\Downloads\\Telegram Desktop\\arrow-escape-puzzle-master-1-0-7.xapk",
+  "sha256": "367b99c7729a8357b3fb3d12f30bdace6247bf4ad0db36ae19fa92a9a369881b",
+  "levelCount": 1574,
+  "arrowCount": 105109,
+  "orientationSolveCounts": {
+    "True": 1574,
+    "False": 35
+  },
+  "sourceHeadFirst": true,
+  "order": "ResourceManager levels/level_1 through levels/level_1574",
+  "applied": true
+}

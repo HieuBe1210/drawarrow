@@ -29,10 +29,12 @@ namespace DrawArrow
         static readonly Dictionary<string,Font> fonts=new Dictionary<string,Font>();
         static readonly Dictionary<ArtVisual,Texture2D> gradients=new Dictionary<ArtVisual,Texture2D>();
         static bool loaded;public static int SpriteCount=>keys.Count;
-        public static int Theme {get=>PlayerPrefs.GetInt("drawarrow.artTheme",0);set{PlayerPrefs.SetInt("drawarrow.artTheme",value);PlayerPrefs.Save();}}
-        public static Color Background=>Theme==1?Ink.Hex("0F2330"):Theme==2?Ink.Hex("FCECD5"):Ink.Hex("F5ECDB");
-        public static Color Foreground=>Theme==1?Ink.Hex("F3EFE3"):Theme==2?Ink.Hex("55513F"):Ink.Hex("555B63");
-        public static Color Accent=>Theme==1?Ink.Hex("3DADDC"):Theme==2?Ink.Hex("699245"):Ink.Hex("BF7737");
+        public static int Theme {get=>Mathf.Clamp(PlayerPrefs.GetInt("drawarrow.artTheme",0),0,2);set{PlayerPrefs.SetInt("drawarrow.artTheme",Mathf.Clamp(value,0,2));PlayerPrefs.Save();}}
+        public static Color ThemeBackground(int theme)=>theme==1?Ink.Hex("DDEFFB"):theme==2?Ink.Hex("17476B"):Ink.Hex("F5ECDB");
+        public static Color Background=>ThemeBackground(Theme);
+        public static Color Foreground=>Theme==2?Ink.Hex("F3F7FA"):Ink.Hex("555B63");
+        public static Color Accent=>Ink.Hex("BF7737");
+        public static Color ArrowInk=>Theme==2?Ink.Hex("F5FAFF"):Ink.Hex("0C1736");
         public static void Load()
         {
             if(loaded)return;loaded=true;var asset=Resources.Load<TextAsset>("OriginalArt/catalog");if(!asset)throw new InvalidOperationException("Original APK artwork catalog is missing.");
@@ -48,9 +50,17 @@ namespace DrawArrow
             }
             return texture;
         }
+        public static bool IsLifeIcon(string name)=>!string.IsNullOrEmpty(name)&&(name.StartsWith("CommonIconHeart",StringComparison.Ordinal)||name=="IconLifeV2"||name=="Style3HeartWater");
         public static bool Draw(string name,Rect rect,Color? tint=null,bool fit=false,bool slice=false)
         {
-            var s=Find(name);if(s==null)return false;var texture=Atlas(s.atlas);Color old=GUI.color;GUI.color=tint??Color.white;
+            var s=Find(name);if(s==null)return false;
+            if(IsLifeIcon(s.name))
+            {
+                var color=Ink.Hex("E83B4D");color.a=(tint??Color.white).a;
+                float side=Mathf.Min(rect.width,rect.height);
+                Ink.Heart(new Rect(rect.center.x-side*.5f,rect.center.y-side*.5f,side,side),color);return true;
+            }
+            var texture=Atlas(s.atlas);Color old=GUI.color;GUI.color=tint??Color.white;
             if(fit){float k=Mathf.Min(rect.width/s.w,rect.height/s.h);rect=new Rect(rect.center.x-s.w*k*.5f,rect.center.y-s.h*k*.5f,s.w*k,s.h*k);}
             if(slice&&s.border!=null&&s.border.Length==4&&s.border[0]+s.border[1]+s.border[2]+s.border[3]>0)
             {
@@ -186,15 +196,15 @@ namespace DrawArrow
         }
         public static bool IconButton(Rect r,string icon,string label=null)
         {
-            bool small=r.width<=100;if(!small)Draw(Theme==2?"Style3CircleBtn":Theme==1?"CommonCircleBtnV2":"propbtnbg",r,Theme==2?Color.white:Accent,false,true);
+            bool small=r.width<=100;if(!small)Draw("propbtnbg",r,Accent,false,true);
             var iconRect=new Rect(r.x+r.width*.18f,r.y+r.height*.17f,r.width*.64f,r.height*.64f);
-            if(icon=="restart")Ink.TextAt(iconRect,"↻",Mathf.RoundToInt(r.width*.53f),small||Theme==2?Foreground:Color.white,TextAnchor.MiddleCenter,true);else Draw(icon,iconRect,small||Theme==2?Foreground:Color.white,true);
+            if(icon=="restart")Ink.TextAt(iconRect,"↻",Mathf.RoundToInt(r.width*.53f),small?Foreground:Color.white,TextAnchor.MiddleCenter,true);else Draw(icon,iconRect,small?Foreground:Color.white,true);
             if(!string.IsNullOrEmpty(label))Ink.TextAt(new Rect(r.x-20,r.yMax+8,r.width+40,45),label,25,Foreground,TextAnchor.MiddleCenter,true);
             return Ink.HitButton(r,GUIContent.none,GUIStyle.none);
         }
         public static bool Button(Rect r,string text,Color? color=null,int fontSize=42)
         {
-            Draw(Theme==2?"Style3BtnCommon":Theme==1?"CommonBtnV2":"CommonBtnBig",r,color??Accent,false,true);
+            Draw("CommonBtnBig",r,color??Accent,false,true);
             Ink.TextAt(r,text,fontSize,Color.white,TextAnchor.MiddleCenter,true);return Ink.HitButton(r,GUIContent.none,GUIStyle.none);
         }
     }

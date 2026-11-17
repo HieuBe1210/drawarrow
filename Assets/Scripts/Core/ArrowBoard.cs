@@ -8,6 +8,8 @@ namespace DrawArrow
     {
         public readonly LevelData Level; public readonly bool[] Active; public readonly List<Vector3>[] Paths;
         public readonly Dictionary<Vector3Int,int> Occupancy = new Dictionary<Vector3Int,int>();
+        public readonly HashSet<Vector3> ClearedCells = new HashSet<Vector3>();
+        public readonly List<Vector3>[] DotPositions;
         readonly Dictionary<long,int> surfaceOccupancy=new Dictionary<long,int>();
         readonly Dictionary<int,int> parkedAt=new Dictionary<int,int>();
         public int Remaining { get; private set; }
@@ -16,8 +18,19 @@ namespace DrawArrow
         public readonly Rect ContentBounds;
         public ArrowBoard(LevelData level, bool cube = false)
         {
-            Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];
-            for(int i=0;i<Active.Length;i++) { Active[i]=true; Paths[i]=Expand(level.arrows[i].points);if(!IsMechanism(i))TargetCount++; }
+            Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];DotPositions=new List<Vector3>[Active.Length];
+            for(int i=0;i<Active.Length;i++)
+            {
+                Active[i]=true;Paths[i]=Expand(level.arrows[i].points);
+                if(!Cube&&Paths[i].Count==1)
+                {
+                    // A one-cell source arrow still needs one visible segment.
+                    // Both ends stay inside its original occupancy cell.
+                    var center=Paths[i][0];var direction=Direction(i);
+                    Paths[i][0]=center-direction*.3f;Paths[i].Add(center+direction*.3f);
+                }
+                DotPositions[i]=StraightSegmentVertices(Paths[i]);if(!IsMechanism(i))TargetCount++;
+            }
             var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);
             foreach(var path in Paths)foreach(var p in path){min=Vector2.Min(min,new Vector2(p.x,p.y));max=Vector2.Max(max,new Vector2(p.x,p.y));}
             ContentBounds=float.IsInfinity(min.x)?new Rect(0,0,Mathf.Max(0,level.width-1),Mathf.Max(0,level.height-1)):Rect.MinMaxRect(min.x,min.y,max.x,max.y);
@@ -53,15 +66,36 @@ namespace DrawArrow
         public Vector3 Head(int i) => Paths[i][Paths[i].Count-1];
         public Vector3 Direction(int i)
         {
+            var data=Level.arrows[i];
+            if(!Cube&&(data.dx!=0||data.dy!=0))return new Vector3(data.dx,data.dy,0);
             var p=Paths[i]; if(p.Count<2)return Vector3.right;
             var d=p[p.Count-1]-p[p.Count-2];
             int axis=Mathf.Abs(d.x)>=Mathf.Abs(d.y)&&Mathf.Abs(d.x)>=Mathf.Abs(d.z)?0:Mathf.Abs(d.y)>=Mathf.Abs(d.z)?1:2;
             var v=Vector3.zero;v[axis]=Mathf.Sign(d[axis]);return v;
         }
         public static Vector3Int Key(Vector3 p) => new Vector3Int(Mathf.RoundToInt(p.x),Mathf.RoundToInt(p.y),Mathf.RoundToInt(p.z));
+        static List<Vector3> StraightSegmentVertices(List<Vector3> path)
+        {
+            var vertices=new List<Vector3>();
+            foreach(var point in path)
+            {
+                var cell=point;int count=vertices.Count;
+                if(count>0&&vertices[count-1]==cell)continue;
+                if(count>1)
+                {
+                    var before=(Vector3)(vertices[count-1]-vertices[count-2]);
+                    var after=(Vector3)(cell-vertices[count-1]);
+                    if(Vector3.Dot(before.normalized,after.normalized)>.999f)vertices.RemoveAt(count-1);
+                }
+                vertices.Add(cell);
+            }
+            return vertices;
+        }
         void Rebuild()
         {
             Occupancy.Clear();surfaceOccupancy.Clear();for(int i=0;i<Active.Length;i++)if(Active[i])foreach(var p in Paths[i]){Occupancy[Key(p)]=i;if(Cube)surfaceOccupancy[SurfaceKey(p,Face(p))]=i;}
+            ClearedCells.Clear();
+            if(!Cube)for(int i=0;i<Active.Length;i++)if(!Active[i])foreach(var cell in DotPositions[i])ClearedCells.Add(cell);
         }
         int Face(Vector3 p){var delta=p-(Vector3)Key(p);if(Mathf.Abs(delta.x)>=Mathf.Abs(delta.y)&&Mathf.Abs(delta.x)>=Mathf.Abs(delta.z))return delta.x>=0?0:1;if(Mathf.Abs(delta.y)>=Mathf.Abs(delta.z))return delta.y>=0?2:3;return delta.z>=0?4:5;}
         long SurfaceKey(Vector3 p,int face){var v=Key(p);return ((long)v.z*Level.height*Level.width+v.y*Level.width+v.x)*6+face;}

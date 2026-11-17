@@ -10,6 +10,11 @@ namespace DrawArrow
         CubeArtRenderer cubeArtwork;
         readonly Dictionary<int,ArrowMotionPath> motionPaths=new Dictionary<int,ArrowMotionPath>();
         readonly List<Vector3> motionPoints=new List<Vector3>();
+        readonly ArrowPressGesture arrowPress=new ArrowPressGesture();
+        int PreviewArrow=>arrowPress.Held?arrowPress.Arrow:-1;
+        Color HeldArrowColor=>OriginalArt.Theme==2?Ink.Hex("58E6FF"):Ink.Hex("00728F");
+        void CancelArrowPress(){arrowPress.Cancel();draggingBoard=false;pointerMoved=false;}
+        void OnApplicationFocus(bool focused){if(!focused)CancelArrowPress();}
         ArrowMotionPath MotionPath(int i)
         {
             if(!motionPaths.TryGetValue(i,out var path)){path=new ArrowMotionPath(Arrows.Paths[i],Arrows.Direction(i));motionPaths[i]=path;}
@@ -25,7 +30,7 @@ namespace DrawArrow
             else if(Links!=null)DrawLinks(r);
             else if(Schulte!=null)DrawSchulte(r);
         }
-        bool CanInteract=>!won&&!failed&&!paused&&!modalHelp;
+        bool CanInteract=>!won&&!failed&&!paused&&!modalHelp&&!LevelToolsOpen;
         Vector3 RotatePoint(Vector3 p)
         {
             var center=new Vector3((Level.width-1)*.5f,(Level.height-1)*.5f,(Level.depth-1)*.5f);
@@ -39,31 +44,39 @@ namespace DrawArrow
         void DrawArrows(Rect r)
         {
             boardCell=BoardLayout.FitScale(r,BoardLayout.OrientedBounds(Arrows.ContentBounds))*zoom;projectedCenter=r.center+pan;
+            if(!CanInteract||Input.touchCount>1||(Input.touchCount==1&&Input.GetTouch(0).phase==TouchPhase.Canceled))CancelArrowPress();
+            arrowPress.Tick(Time.unscaledTime);
             if(Arrows.Cube){if(!cubeArtwork)cubeArtwork=gameObject.AddComponent<CubeArtRenderer>();cubeArtwork.Draw(r,Arrows,yaw,pitch,roll,zoom,hint,hintUntil);}
-            else if(boardCell>18)
-            {
-                for(int y=Mathf.CeilToInt(Arrows.ContentBounds.yMin);y<=Arrows.ContentBounds.yMax;y++)for(int x=Mathf.CeilToInt(Arrows.ContentBounds.xMin);x<=Arrows.ContentBounds.xMax;x++) {var p=Project(new Vector3(x,y,0));if(r.Contains(p))Ink.Circle(p,1.6f,Ink.Hex("E8EDE4"));}
-            }
+            else DrawClearedArrowDots(r);
             var order=new List<int>();for(int i=0;i<Arrows.Active.Length;i++)if(Arrows.Active[i])order.Add(i);
             if(Arrows.Cube)order.Sort((a,b)=>RotatePoint(Arrows.Head(a)).z.CompareTo(RotatePoint(Arrows.Head(b)).z));
-            if(!Arrows.Cube){foreach(int i in order)DrawArrowPath(i);foreach(var f in flying)DrawArrowPath(f.id,f.elapsed);}
+            if(!Arrows.Cube)
+            {
+                foreach(int i in order)if(i!=PreviewArrow)DrawArrowPath(i);
+                foreach(var f in flying)DrawArrowPath(f.id,f.elapsed);
+                if(PreviewArrow>=0&&Arrows.Active[PreviewArrow])DrawArrowPath(PreviewArrow);
+            }
             var e=Event.current;
             if(!CanInteract)return;
             if(e.type==EventType.ScrollWheel&&r.Contains(e.mousePosition)){zoom=Mathf.Clamp(zoom-e.delta.y*.08f,.6f,4);e.Use();}
-            if(e.type==EventType.MouseDown&&r.Contains(e.mousePosition)){lastPointer=pointerStart=e.mousePosition;draggingBoard=true;pointerMoved=false;e.Use();}
+            if(e.type==EventType.MouseDown&&e.button==0&&Input.touchCount<2&&r.Contains(e.mousePosition))
+            {lastPointer=pointerStart=e.mousePosition;draggingBoard=true;pointerMoved=false;arrowPress.Begin(Arrows.Cube?-1:PickArrow(e.mousePosition),e.mousePosition,Time.unscaledTime,18/scale);e.Use();}
             if(e.type==EventType.MouseDrag&&draggingBoard)
             {
-                if(Vector2.Distance(pointerStart,e.mousePosition)>14)pointerMoved=true;
-                if(pointerMoved){var delta=e.mousePosition-lastPointer;if(Arrows.Cube){yaw+=delta.x*.4f;pitch=Mathf.Clamp(pitch+delta.y*.3f,-80,80);}else if(zoom>1)pan+=delta;}
+                if(Vector2.Distance(pointerStart,e.mousePosition)>18/scale)pointerMoved=true;
+                bool onPressedArrow=!Arrows.Cube&&arrowPress.Arrow>=0&&ArrowHitDistance(arrowPress.Arrow,e.mousePosition)<14/scale;
+                arrowPress.Move(e.mousePosition,onPressedArrow);
+                if(pointerMoved&&!onPressedArrow){var delta=e.mousePosition-lastPointer;if(Arrows.Cube){yaw+=delta.x*.4f;pitch=Mathf.Clamp(pitch+delta.y*.3f,-80,80);}else if(zoom>1)pan+=delta;}
                 lastPointer=e.mousePosition;e.Use();
             }
-            if(e.type==EventType.MouseUp&&draggingBoard)
+            if(e.type==EventType.MouseUp&&e.button==0&&draggingBoard)
             {
                 draggingBoard=false;
+                int pressed=arrowPress.Release(Time.unscaledTime);
                 if(!pointerMoved)
                 {
                     int hit=PickArrow(e.mousePosition);
-                    if(hit>=0)
+                    if(hit>=0&&(Arrows.Cube||hit==pressed))
                     {
                         if(Mode==GameMode.Reasoning&&elapsed>3&&hit!=revealArrow){Play("arrow_click",.48f);revealArrow=hit;revealUntil=Time.unscaledTime+2;Notify("Arrow revealed. Tap again to move it.");}
                         else TapArrow(hit);
@@ -76,6 +89,41 @@ namespace DrawArrow
                 var a=Input.GetTouch(0);var b=Input.GetTouch(1);if(a.phase==TouchPhase.Moved||b.phase==TouchPhase.Moved){float now=(a.position-b.position).magnitude;float before=(a.position-a.deltaPosition-b.position+b.deltaPosition).magnitude;zoom=Mathf.Clamp(zoom+(now-before)/800,.6f,4);}
             }
         }
+        void DrawClearedArrowDots(Rect viewport)
+        {
+            float radius=Mathf.Clamp(boardCell*.13f,3.5f/scale,5f/scale);
+            var color=Ink.Hex("E58A24");
+            foreach(var cell in Arrows.ClearedCells)
+            {var point=Project(cell);if(viewport.Contains(point))Ink.Circle(point,radius,color);}
+        }
+        void DrawHeldArrowRoute(Vector2 boardOrigin)
+        {
+            int index=PreviewArrow;if(index<0||!Arrows.Active[index])return;
+            // Draw after all board/UI groups in physical screen coordinates.
+            // Derive direction directly: subtracting two projected positions can
+            // leave tiny off-axis components and prematurely truncate the ray.
+            var head=screenOffset+(Project(Arrows.Head(index))+boardOrigin)*scale;
+            var worldDirection=Arrows.Direction(index);
+            var direction=BoardLayout.ScreenDirection(new Vector2(worldDirection.x,worldDirection.y),BoardLayout.ShouldRotate(Arrows.ContentBounds)).normalized;
+            var viewport=new Rect(0,0,Screen.width,Screen.height);
+            // Keep the guide legible at native phone resolutions and where a
+            // blocked arrow's ray crosses another arrow (or its own bends).
+            float pixelScale=Mathf.Max(.5f,scale);
+            float dash=24*pixelScale,gap=14*pixelScale,width=6*pixelScale;
+            float distance=BoardLayout.RayDistanceToEdge(head,direction,viewport)+dash+gap;
+            var matrix=GUI.matrix;
+            try
+            {
+                GUI.matrix=Matrix4x4.identity;
+                for(float offset=2*pixelScale;offset<distance;offset+=dash+gap)
+                {
+                    var start=head+direction*offset;var end=head+direction*Mathf.Min(distance,offset+dash);
+                    Ink.Line(start,end,width+4*pixelScale,OriginalArt.Background);
+                    Ink.Line(start,end,width,HeldArrowColor);
+                }
+            }
+            finally{GUI.matrix=matrix;}
+        }
         void DrawCube()
         {
             var corners=new Vector3[8];for(int i=0;i<8;i++)corners[i]=new Vector3((i&1)==0?-.4f:Level.width-.6f,(i&2)==0?-.4f:Level.height-.6f,(i&4)==0?-.4f:Level.depth-.6f);
@@ -83,21 +131,23 @@ namespace DrawArrow
         }
         Color ArrowColor(int i)
         {
+            if(i==PreviewArrow)return HeldArrowColor;
             if(i==hint&&Time.unscaledTime<hintUntil)return Ink.Gold;
             if(Mode==GameMode.ArrowClash)return Color.Lerp(Ink.Palette[Mathf.Abs(Level.arrows[i].color)%7],Ink.Hex("101D35"),.12f);
             if(Mode==GameMode.CatEscape||Mode==GameMode.Zoo)return Color.Lerp(Ink.Palette[i%7],Ink.Hex("101D35"),.12f);
             if(Mode==GameMode.Countdown&&i==UrgentArrow())return Ink.Red;
             if(Arrows.Cube)return Ink.Palette[Mathf.Abs(Level.arrows[i].points[0]%6)%7];
-            return OriginalArt.Theme==1?Ink.Hex("FFF3D8"):Ink.Hex("0C1736");
+            return OriginalArt.ArrowInk;
         }
         void DrawArrowPath(int i,float flight=-1)
         {
             // Keep a readable stroke in screen pixels even on dense boards and
             // downscaled tablet/phone canvases; grow proportionally when zooming.
             var path=Arrows.Paths[i];var color=ArrowColor(i);float width=Mathf.Clamp(boardCell*.20f,1.8f/scale,12f/scale);
+            if(i==PreviewArrow)width*=1.25f;
             if(Arrows.IsMechanism(i)&&path.Count>0){var at=Project(path[0]);Ink.Card(new Rect(at.x-boardCell*.23f,at.y-boardCell*.23f,boardCell*.46f,boardCell*.46f),Ink.Hex("C5CFC1"),6);Ink.TextAt(new Rect(at.x-20,at.y-20,40,40),Level.arrows[i].special==3004?"↻":"×",20,Ink.Text,TextAnchor.MiddleCenter,true);return;}
             if(path.Count<2)return;
-            bool hidden=Mode==GameMode.Reasoning&&elapsed>3&&!(i==revealArrow&&Time.unscaledTime<revealUntil)&&!(i==hint&&Time.unscaledTime<hintUntil);
+            bool hidden=Mode==GameMode.Reasoning&&elapsed>3&&i!=PreviewArrow&&!(i==revealArrow&&Time.unscaledTime<revealUntil)&&!(i==hint&&Time.unscaledTime<hintUntil);
             if(hidden)color=Ink.WithAlpha(color,.13f);
             var route=MotionPath(i);float distance=0;
             if(flight>=0)
@@ -111,6 +161,7 @@ namespace DrawArrow
             route.Slice(distance,motionPoints);var points=motionPoints;
             for(int k=1;k<points.Count;k++)Ink.Line(Project(points[k-1]),Project(points[k]),width,color);
             var head=Project(points[points.Count-1]);var prev=Project(points[points.Count-2]);var dir=(head-prev).normalized;
+            if(!Arrows.Cube&&(Level.arrows[i].dx!=0||Level.arrows[i].dy!=0))dir=(Project(points[points.Count-1]+Arrows.Direction(i))-head).normalized;
             float arrowSize=Mathf.Min(boardCell*.58f,width*3.8f);int angle=((Mathf.RoundToInt((Mathf.Atan2(dir.y,dir.x)*Mathf.Rad2Deg+90)/45)*45)%360+360)%360;
             bool horizontal=Mathf.Abs(dir.x)>.5f;var center=head-dir*arrowSize*.5f;var headSize=horizontal?new Vector2(arrowSize,arrowSize*.8f):new Vector2(arrowSize*.8f,arrowSize);
             OriginalArt.Draw("ArrowHead_"+angle,new Rect(center-headSize*.5f,headSize),color);
@@ -123,12 +174,29 @@ namespace DrawArrow
         }
         int PickArrow(Vector2 p)
         {
-            int found=-1;float best=Mathf.Max(13,boardCell*.27f);
+            int found=-1;float best=14/scale;
             for(int i=0;i<Arrows.Active.Length;i++)if(Arrows.Active[i])
             {
-                var path=Arrows.Paths[i];for(int j=1;j<path.Count;j++){if(Arrows.Cube&&cubeArtwork&&!cubeArtwork.Visible(path[j]))continue;float dist=LinkBoard.DistanceToSegment(p,Project(path[j-1]),Project(path[j]));if(dist<best){best=dist;found=i;}}
+                float distance=ArrowHitDistance(i,p);
+                if(distance<best){best=distance;found=i;}
             }
             return found;
+        }
+        float ArrowHitDistance(int i,Vector2 p)
+        {
+            float distance=float.PositiveInfinity;var path=Arrows.Paths[i];
+            for(int j=1;j<path.Count;j++)
+            {
+                if(Arrows.Cube&&cubeArtwork&&!cubeArtwork.Visible(path[j]))continue;
+                distance=Mathf.Min(distance,LinkBoard.DistanceToSegment(p,Project(path[j-1]),Project(path[j])));
+            }
+            if(!Arrows.Cube&&path.Count>1)
+            {
+                var head=Project(Arrows.Head(i));var direction=(Project(Arrows.Head(i)+Arrows.Direction(i))-head).normalized;
+                float width=Mathf.Clamp(boardCell*.20f,1.8f/scale,12f/scale);
+                distance=Mathf.Min(distance,BoardLayout.ArrowHeadDistance(p,head,direction,Mathf.Min(boardCell*.58f,width*3.8f)));
+            }
+            return distance;
         }
         Vector2 GridPoint(int cell,Rect r,int w,int h)
         {

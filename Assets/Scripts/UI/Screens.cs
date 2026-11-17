@@ -8,10 +8,13 @@ namespace DrawArrow
         Rect gameViewport;float scale;Vector2 screenOffset;float carousel;bool carouselDragging,listDragging;float carouselStart;Vector2 listDragStart;float artEntered;Page lastArtPage;int modalArtState;float modalArtEntered;
         readonly GameMode[] homeModes={GameMode.Daily,GameMode.Arrows3D,GameMode.ArrowClash,GameMode.OctaArrows,GameMode.SharkRush};
         Color FG=>OriginalArt.Foreground;
-        string HomeLayout=>OriginalArt.Theme==1?"HomeV2UI":OriginalArt.Theme==2?"HomeStyle3UI":"HomeUI";
+        string HomeLayout=>"HomeUI";
         void OnGUI()
         {
-            Ink.Init();OriginalArt.Load();GUI.depth=0;scale=Mathf.Min(Screen.width/Width,Screen.height/Height);screenOffset=new Vector2((Screen.width-Width*scale)*.5f,(Screen.height-Height*scale)*.5f);
+            Ink.Init();OriginalArt.Load();GUI.depth=0;
+            GUI.matrix=Matrix4x4.identity;Ink.Rect(new Rect(0,0,Screen.width,Screen.height),OriginalArt.Background);
+            var mainCamera=Camera.main;if(mainCamera)mainCamera.backgroundColor=OriginalArt.Background;
+            scale=Mathf.Min(Screen.width/Width,Screen.height/Height);screenOffset=new Vector2((Screen.width-Width*scale)*.5f,(Screen.height-Height*scale)*.5f);
             if(page==Page.Game)
             {
                 var safe=Screen.safeArea;scale=Mathf.Min(safe.width/Width,safe.height/Height);
@@ -20,10 +23,12 @@ namespace DrawArrow
             }
             if(page!=lastArtPage){lastArtPage=page;artEntered=Time.unscaledTime;}
             GUI.matrix=Matrix4x4.TRS(screenOffset,Quaternion.identity,new Vector3(scale,scale,1));Ink.Rect(page==Page.Game?gameViewport:new Rect(0,0,Width,Height),OriginalArt.Background);
+            GUI.enabled=!LevelToolsOpen;
             if(page==Page.Game)DrawGame();else if(page==Page.Home)DrawHome();else
-            {DrawHeader();if(page==Page.Journey)DrawJourney();if(page==Page.Collection)DrawCollection();if(page==Page.Settings)DrawSettings();}
+            {if(page==Page.Settings)DrawSettings();else{DrawHeader();if(page==Page.Journey)DrawJourney();if(page==Page.Collection)DrawCollection();}}
             if(Time.unscaledTime<toastUntil&&!failed){OriginalArt.Draw("Toast_bg",new Rect(105,1520,870,130),Ink.WithAlpha(Color.black,.85f),false,true);Ink.TextAt(new Rect(135,1530,810,110),toast,31,Color.white,TextAnchor.MiddleCenter);}
             if(modalHelp)DrawHelp();
+            GUI.enabled=true;DrawLevelTestTools();
         }
         void DrawHeader()
         {
@@ -35,9 +40,11 @@ namespace DrawArrow
             string layout=HomeLayout;
             var binding=new ArtBinding
             {
-                Clip=OriginalArt.Theme==2?"ea_HomeUI_Style3":"ea_HomeUI",ClipTime=Time.unscaledTime-artEntered,
+                Clip="ea_HomeUI",ClipTime=Time.unscaledTime-artEntered,
                 Visible=(path,active)=>
                 {
+                    if(path=="/HomeUI/Bg")return false;
+                    if(!FeatureUnlocks.MoreGamesUnlocked(Progress)&&path.Contains("/GalleryBtn/"))return false;
                     if(path.Contains("/TopBanner")||path.Contains("/Effect/")||path.EndsWith("/Effect")||path.Contains("/NoNetwork")||path.Contains("/NotNetWork"))return false;
                     if(path.Contains("/Card/CardView/"))return false;
                     if(path.Contains("/Button/TarotBtn")||path.Contains("/Button/ContinueBtn")||path.Contains("/Button/RitualisticBtn")||path.Contains("/Button/OneLifeBtn")||path.Contains("/Arrow3DNode"))return false;
@@ -50,7 +57,7 @@ namespace DrawArrow
                     if(path.EndsWith("/Content/Bottom/Button/PlayBtn")||path.EndsWith("/Content/ContentBg/Bottom/Button/PlayBtn"))return true;
                     return active;
                 },
-                Color=(path,color)=>OriginalArt.Theme==1&&path.EndsWith("/PlayBtn/PlayBtnBG")?Ink.Hex("315CE8"):color,
+                Color=(path,color)=>path.EndsWith("/LogoText")||path.Contains("/TopLeft/SettingBtn")?FG:color,
                 Text=(path,text)=>
                 {
                     if(path.EndsWith("/LogoText"))return "Amaze GO!";
@@ -66,9 +73,20 @@ namespace DrawArrow
             var cardRect=OriginalArt.NodeRect(layout,"/Card/CardView",new Rect(0,0,Width,Height),new Vector2(Width,Height));if(cardRect.width<100||cardRect.height<100)cardRect=new Rect(40,278,1000,600);DrawCarousel(cardRect);
             var play=OriginalArt.NodeRect(layout,"/Button/PlayBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height));if(play.width<100)play=new Rect(140,1330,800,174);if(Ink.HitButton(play,GUIContent.none,GUIStyle.none))StartGame(GameMode.Classic);
             var gallery=OriginalArt.NodeRect(layout,"/GalleryButton/GalleryBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height));
-            if(gallery.width>100){if(Ink.HitButton(gallery,GUIContent.none,GUIStyle.none)){page=Page.Collection;scroll=Vector2.zero;}}
-            else {var more=new Rect(140,1862,800,50);Ink.TextAt(more,"More Games",30,FG,TextAnchor.MiddleCenter,true);if(Ink.HitButton(more,GUIContent.none,GUIStyle.none)){page=Page.Collection;scroll=Vector2.zero;}}
+            if(gallery.width<=100)gallery=new Rect(140,1740,800,150);
+            if(!FeatureUnlocks.MoreGamesUnlocked(Progress))
+            {
+                Ink.Card(gallery,Ink.Hex("815D3C"),24);
+                Ink.TextAt(new Rect(gallery.x+20,gallery.y+15,gallery.width-40,gallery.height*.36f),"More Games",38,Color.white,TextAnchor.MiddleCenter,true);
+                Ink.TextAt(new Rect(gallery.x+20,gallery.y+gallery.height*.50f,gallery.width-40,gallery.height*.38f),"Unlock at level "+FeatureUnlocks.MoreGamesLevel,30,Color.white,TextAnchor.MiddleCenter,true);
+            }
+            if(Ink.HitButton(gallery,GUIContent.none,GUIStyle.none))TryOpenMoreGames();
             var settings=OriginalArt.NodeRect(layout,"/TopLeft/SettingBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height));if(settings.width>0&&Ink.HitButton(settings,GUIContent.none,GUIStyle.none))page=Page.Settings;
+        }
+        bool TryOpenMoreGames()
+        {
+            if(!FeatureUnlocks.MoreGamesUnlocked(Progress)){Notify("Unlock at level "+FeatureUnlocks.MoreGamesLevel);return false;}
+            page=Page.Collection;scroll=Vector2.zero;return true;
         }
         void DrawCarousel(Rect viewport)
         {
@@ -79,12 +97,20 @@ namespace DrawArrow
         }
         void DrawModeCard(GameMode mode,Rect r)
         {
+            bool locked=mode==GameMode.Daily&&!FeatureUnlocks.DailyUnlocked(Progress);
             string layout=mode==GameMode.Arrows3D?"HomeArrows3DCard":mode==GameMode.ArrowClash?"HomeArrowClashCard":mode==GameMode.OctaArrows?"HomeOctaCard":mode==GameMode.SharkRush?"HomeSharkRushCard":"HomeDCCard";
             var binding=new ArtBinding
             {
-                Visible=(path,active)=>path=="/"+layout?true:path.Contains("CardBg_lock")||path.Contains("/arrow")||path.Contains("NotNetWork")||path.Contains("NotNet")||path.EndsWith("/IconOff")?false:path.EndsWith("/CardBg_unlock")||path.EndsWith("/BottomBtn")?true:active,
+                Visible=(path,active)=>locked&&(path.EndsWith("/BtnText")||path.EndsWith("/State"))?false:path=="/"+layout?true:path.Contains("CardBg_lock")||path.Contains("/arrow")||path.Contains("NotNetWork")||path.Contains("NotNet")||path.EndsWith("/IconOff")?false:path.EndsWith("/CardBg_unlock")||path.EndsWith("/BottomBtn")?true:active,
                 Text=(path,text)=>path.EndsWith("/Title")?mode==GameMode.Daily?"Daily Challenge":"New Mode":path.EndsWith("/SubheadTitle")?mode==GameMode.Daily?DateTime.Now.ToString("MMM dd"):Modes.Name(mode):path.EndsWith("/BtnText")||path.EndsWith("/State")?"Play":path.EndsWith("/TimeText")?"Challenge":text,
             };OriginalArt.Layout(layout,r,new Vector2(492,640),binding);
+            if(locked)
+            {
+                Ink.Card(r,new Color(.28f,.18f,.10f,.38f),24);
+                var button=OriginalArt.NodeRect(layout,"/BottomBtn",r,new Vector2(492,640),binding);
+                Ink.Card(button,Ink.Hex("815D3C"),20);
+                Ink.TextAt(new Rect(button.x+8,button.y+8,button.width-16,button.height-16),"Unlock at level "+FeatureUnlocks.DailyLevel,31,Color.white,TextAnchor.MiddleCenter,true);
+            }
         }
         void DrawJourney()
         {
@@ -92,6 +118,7 @@ namespace DrawArrow
         }
         void DrawCollection()
         {
+            if(!FeatureUnlocks.MoreGamesUnlocked(Progress)){page=Page.Home;return;}
             var viewport=new Rect(30,210,1020,1650);var content=new Rect(0,0,990,10*660);HandleScroll(viewport,content.height);scroll=GUI.BeginScrollView(viewport,scroll,content,false,false,GUIStyle.none,GUIStyle.none);
             for(int i=0;i<20;i++)
             {
@@ -108,57 +135,119 @@ namespace DrawArrow
         void HandleScroll(Rect viewport,float total){var e=Event.current;if(e.type==EventType.MouseDown&&viewport.Contains(e.mousePosition)){listDragging=false;listDragStart=e.mousePosition;}if(e.type==EventType.MouseDrag&&viewport.Contains(e.mousePosition)){if(Vector2.Distance(listDragStart,e.mousePosition)>12)listDragging=true;scroll.y=Mathf.Clamp(scroll.y-e.delta.y,0,Mathf.Max(0,total-viewport.height));}}
         void DrawSettings()
         {
-            string layout=OriginalArt.Theme==2?"GameSettingStyle3UI":OriginalArt.Theme==1?"GameSettingV2UI":"GameSettingUI";
-            var binding=new ArtBinding
+            var text=Ink.Hex("555B63");
+            Ink.Card(new Rect(64,240,952,1050),Color.white,32);
+            OriginalArt.Draw("CommonIconBack",new Rect(121,307,58,58),text,true);
+            if(Ink.HitButton(new Rect(105,290,90,90),GUIContent.none,GUIStyle.none)){ReturnHome();return;}
+            Ink.TextAt(new Rect(230,295,620,80),"Settings",54,text,TextAnchor.MiddleCenter,true);
+            Ink.Rect(new Rect(120,408,840,2),Ink.Hex("E7EBEF"));
+            DrawCompactSettingSwitch("Sound","Sound",new Rect(120,444,840,112));
+            DrawCompactSettingSwitch("Vibration","Vibration",new Rect(120,574,840,112));
+            Ink.TextAt(new Rect(120,740,840,60),"Art theme",38,text,TextAnchor.MiddleLeft,true);
+            string[] names={"Original","V2","V3"};
+            for(int i=0;i<3;i++)
             {
-                Visible=(path,active)=>{if(path.Contains("/CloseBg")||path.Contains("/Music")||path.Contains("/GuideLine")||path.Contains("/Voice")||path.Contains("/FoucsMode")||path.Contains("/FeedBack")||path.Contains("/EffectNode")||path.Contains("/DlgBtn")||path.Contains("/BtnOk"))return false;if(path.EndsWith("/TogglePar/Handle"))return false;if(path.Contains("/Sound/TogglePar/On"))return Progress.sound;if(path.Contains("/Sound/TogglePar/Off"))return !Progress.sound;if(path.Contains("/Vibration/TogglePar/On"))return Progress.vibration;if(path.Contains("/Vibration/TogglePar/Off"))return !Progress.vibration;return active;},
-                Text=(path,text)=>path.EndsWith("/Title")?"Settings":text
-            };
-            OriginalArt.Layout(layout,new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);SettingsSwitches(layout,binding);
-            float settingsOffset=OriginalArt.Theme==2?-1120:0;
-            Ink.TextAt(new Rect(160,1430+settingsOffset,760,70),"Art theme",40,FG,TextAnchor.MiddleCenter,true);string[] skins={"Original","V2","Style3"};for(int i=0;i<3;i++)if(OriginalArt.Button(new Rect(100+i*300,1520+settingsOffset,280,100),skins[i],i==OriginalArt.Theme?OriginalArt.Accent:Ink.Hex("9F9A8E"),33))OriginalArt.Theme=i;
-            if(OriginalArt.Button(new Rect(140,1710+settingsOffset,800,120),"How to play",OriginalArt.Accent,42))modalHelp=true;
-            var close=OriginalArt.NodeRect(layout,"/Dialog_mid/CloseBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);if(Ink.HitButton(close,GUIContent.none,GUIStyle.none))page=Page.Home;
+                var tile=new Rect(120+i*290,824,260,210);bool selected=OriginalArt.Theme==i;
+                Ink.Card(tile,selected?OriginalArt.Accent:Ink.Hex("E7EBEF"),20);
+                Ink.Card(new Rect(tile.x+3,tile.y+3,tile.width-6,tile.height-6),Color.white,18);
+                Ink.Circle(new Vector2(tile.center.x,tile.y+72),38,OriginalArt.ThemeBackground(i));
+                Ink.TextAt(new Rect(tile.x+10,tile.y+132,tile.width-20,55),names[i],34,text,TextAnchor.MiddleCenter,selected);
+                if(Ink.HitButton(tile,GUIContent.none,GUIStyle.none))OriginalArt.Theme=i;
+            }
+            if(Ink.Button(new Rect(120,1130,840,100),"How to play",OriginalArt.Accent,Color.white,38))modalHelp=true;
+        }
+        void DrawCompactSettingSwitch(string item,string label,Rect row)
+        {
+            bool enabled=item=="Sound"?Progress.sound:Progress.vibration;
+            var text=Ink.Hex("555B63");
+            Ink.Card(row,Ink.Hex("F3F5F7"),16);
+            OriginalArt.Draw(item=="Sound"?"Sound":"vibrations",new Rect(row.x+25,row.y+23,66,66),text,true);
+            Ink.TextAt(new Rect(row.x+118,row.y+20,460,72),label,37,text,TextAnchor.MiddleLeft);
+            var track=new Rect(row.xMax-160,row.center.y-35,130,70);
+            Ink.Card(track,enabled?Ink.Hex("205BE0"):Ink.Hex("A5A7AA"),35);
+            Ink.Circle(new Vector2(enabled?track.xMax-35:track.x+35,track.center.y),28,Color.white);
+            if(Ink.HitButton(row,GUIContent.none,GUIStyle.none))ToggleSetting(item);
         }
         void SettingsSwitches(string layout,ArtBinding binding)
         {
             foreach(string item in new[]{"Sound","Vibration"})
             {
                 bool enabled=item=="Sound"?Progress.sound:Progress.vibration;
-                var r=OriginalArt.NodeRect(layout,"/AreaBg/"+item,new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
+                var r=SettingsToggleBounds(layout,item,binding);
                 var toggle=OriginalArt.NodeRect(layout,"/AreaBg/"+item+"/TogglePar",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
-                if(toggle.width>0){float knob=Mathf.Min(60,toggle.height-10);OriginalArt.Draw(OriginalArt.Theme==1?"SettingToggleHandleV2":"SettingTogglebtn",new Rect(enabled?toggle.xMax-knob-5:toggle.x+5,toggle.center.y-knob*.5f,knob,knob),Color.white,true);}
-                if(r.width>0&&Ink.HitButton(r,GUIContent.none,GUIStyle.none)){if(item=="Sound")Progress.sound=!Progress.sound;else Progress.vibration=!Progress.vibration;SaveStore.Save(Progress);}
+                if(toggle.width>0){float knob=Mathf.Min(60,toggle.height-10);OriginalArt.Draw("SettingTogglebtn",new Rect(enabled?toggle.xMax-knob-5:toggle.x+5,toggle.center.y-knob*.5f,knob,knob),Color.white,true);}
+                if(r.width>0&&Ink.HitButton(r,GUIContent.none,GUIStyle.none))ToggleSetting(item);
             }
+        }
+        static Rect SettingsToggleBounds(string layout,string item,ArtBinding binding)
+        {
+            Rect result=Rect.zero;
+            // The prefab's 110-wide parent bounds cover the icon only. Its
+            // switch, label and original button are positioned outside it.
+            foreach(string suffix in new[]{"","/TogglePar","/"+item+"Btn","/Icon","/Text"})
+            {
+                var rect=OriginalArt.NodeRect(layout,"/AreaBg/"+item+suffix,new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
+                if(rect.width<=0||rect.height<=0)continue;
+                result=result.width<=0?rect:Rect.MinMaxRect(Mathf.Min(result.xMin,rect.xMin),Mathf.Min(result.yMin,rect.yMin),Mathf.Max(result.xMax,rect.xMax),Mathf.Max(result.yMax,rect.yMax));
+            }
+            return result;
+        }
+        void ToggleSetting(string item)
+        {
+            if(item=="Sound")
+            {
+                Progress.sound=!Progress.sound;
+                if(!Progress.sound&&audioSource)audioSource.Stop();
+            }
+            else if(item=="Vibration")Progress.vibration=!Progress.vibration;
+            else return;
+            SaveStore.Save(Progress);
         }
         void DrawGame()
         {
-            DrawGameBackground();GUI.BeginGroup(new Rect(0,gameViewport.yMin,Width,340));if(OriginalArt.IconButton(new Rect(48,58,94,94),OriginalArt.Theme==2?"back_icon_style3_2":"CommonIconBack"))paused=true;Ink.TextAt(new Rect(180,60,720,80),Mode==GameMode.Daily?DateTime.Now.ToString("MMM dd"):"Level "+(LevelIndex+1),58,FG,TextAnchor.MiddleCenter,true);if(OriginalArt.IconButton(new Rect(940,58,94,94),OriginalArt.Theme==2?"Style3SettingBtnIcon":"CommonIconSet"))paused=true;
-            for(int i=0;i<(Mode==GameMode.OneLife?1:3);i++)OriginalArt.Draw("CommonIconHeart1",new Rect(435+i*74,175,64,64),i<hearts?OriginalArt.Accent:Ink.WithAlpha(OriginalArt.Accent,.20f),true);
+            DrawGameBackground();GUI.BeginGroup(new Rect(0,gameViewport.yMin,Width,340));
+            if(OriginalArt.IconButton(new Rect(48,58,94,94),"CommonIconBack"))
+            {ReturnHome();GUI.EndGroup();return;}
+            Ink.TextAt(new Rect(180,60,720,80),Mode==GameMode.Daily?DateTime.Now.ToString("MMM dd"):"Level "+(LevelIndex+1),58,FG,TextAnchor.MiddleCenter,true);if(OriginalArt.IconButton(new Rect(940,58,94,94),"CommonIconSet"))paused=true;
+            for(int i=0;i<(Mode==GameMode.OneLife?1:3);i++)OriginalArt.Draw("CommonIconHeart1",new Rect(435+i*74,175,64,64),i<hearts?Color.white:Ink.WithAlpha(Color.white,.20f),true);
+            if(Mode==GameMode.Classic)
+            {
+                GUI.enabled=CanInteract;
+                if(OriginalArt.IconButton(new Rect(940,160,94,94),"CommonIconHint"))Hint();
+                GUI.enabled=true;
+            }
             if(Modes.IsTimed(Mode)||Schulte!=null||Octa!=null)Ink.TextAt(new Rect(160,249,760,70),Modes.IsTimed(Mode)?Mathf.CeilToInt(timeLeft)+"s":Schulte!=null?"Find "+Schulte.Next:Octa.MovesLeft+" moves",39,FG,TextAnchor.MiddleCenter,true);
             GUI.EndGroup();
             float top=gameViewport.yMin+(Modes.IsTimed(Mode)||Schulte!=null||Octa!=null?330:265);
-            float bottom=gameViewport.yMax-(Mode==GameMode.ArrowClash?590:455);
+            float bottom=gameViewport.yMax-(Mode==GameMode.Classic?220:Mode==GameMode.ArrowClash?590:455);
             var boardRect=new Rect(gameViewport.xMin+32,top,gameViewport.width-64,Mathf.Max(100,bottom-top));
             GUI.BeginGroup(boardRect);DrawBoard(new Rect(0,0,boardRect.width,boardRect.height));GUI.EndGroup();
             if(Mode==GameMode.ArrowClash){GUI.BeginGroup(new Rect(0,gameViewport.yMax-Height,Width,Height));DrawTray();GUI.EndGroup();}
             GUI.BeginGroup(new Rect(0,gameViewport.yMax-Height,Width,Height));
-            if(Mode==GameMode.Battle){Ink.TextAt(new Rect(78,1470,930,40),"Local opponent",27,FG);OriginalArt.Draw("BarBg",new Rect(78,1520,924,18),Ink.Hex("CCBDA3"),false,true);Ink.Rect(new Rect(78,1520,924*botProgress,18),Ink.Red);}else Ink.TextAt(new Rect(78,1480,924,70),BoardInstruction(),27,FG,TextAnchor.MiddleCenter);
-            GUI.enabled=CanInteract;if(OriginalArt.IconButton(new Rect(170,1630,154,154),"CommonIconBack","Undo"))Undo();if(OriginalArt.IconButton(new Rect(463,1630,154,154),OriginalArt.Theme==2?"Style3GameHintBtnIcon":"CommonIconHint","Hint · 15"))Hint();if(OriginalArt.IconButton(new Rect(756,1630,154,154),"restart","Restart"))StartGame(Mode,LevelIndex);
+            if(Mode==GameMode.Battle){Ink.TextAt(new Rect(78,1470,930,40),"Local opponent",27,FG);OriginalArt.Draw("BarBg",new Rect(78,1520,924,18),Ink.Hex("CCBDA3"),false,true);Ink.Rect(new Rect(78,1520,924*botProgress,18),Ink.Red);}else Ink.TextAt(new Rect(78,Mode==GameMode.Classic?1720:1480,924,70),BoardInstruction(),27,FG,TextAnchor.MiddleCenter);
+            GUI.enabled=CanInteract;
+            if(Mode!=GameMode.Classic)
+            {
+                if(OriginalArt.IconButton(new Rect(170,1630,154,154),"CommonIconBack","Undo"))Undo();
+                if(OriginalArt.IconButton(new Rect(463,1630,154,154),"CommonIconHint","Hint · 15"))Hint();
+                if(OriginalArt.IconButton(new Rect(756,1630,154,154),"restart","Restart"))StartGame(Mode,LevelIndex);
+            }
             if(Arrows!=null){if(Ink.HitButton(new Rect(70,1840,190,65),GUIContent.none,GUIStyle.none))zoom=Mathf.Max(.6f,zoom-.25f);Ink.TextAt(new Rect(70,1840,190,65),"−",44,FG,TextAnchor.MiddleCenter);if(Ink.HitButton(new Rect(360,1840,360,65),GUIContent.none,GUIStyle.none)){zoom=1;pan=Vector2.zero;}Ink.TextAt(new Rect(360,1840,360,65),Arrows.Cube?"Rotate / Zoom":"Fit board",28,FG,TextAnchor.MiddleCenter);if(Ink.HitButton(new Rect(820,1840,190,65),GUIContent.none,GUIStyle.none))zoom=Mathf.Min(4,zoom+.25f);Ink.TextAt(new Rect(820,1840,190,65),"+",44,FG,TextAnchor.MiddleCenter);}
             GUI.EndGroup();
-            GUI.enabled=true;if(paused||won||failed)DrawModal();
+            GUI.enabled=true;
+            if(CanInteract&&Arrows!=null&&!Arrows.Cube)DrawHeldArrowRoute(boardRect.position);
+            if(paused||won||failed)DrawModal();
         }
         void DrawGameBackground(){string background=Mode==GameMode.SharkRush?"Sea_BG":Mode==GameMode.ArrowClash?"clash_level_bg_1":Mode==GameMode.Schulte?"green_wallpaper_1":null;if(background!=null)OriginalArt.Draw(background,gameViewport);}
         string BoardStatus()=>Arrows!=null?Arrows.Remaining+" / "+Arrows.TargetCount+" arrows":Octa!=null?Octa.Remaining+" arrows":OneLine!=null?OneLine.Trail.Count+" steps":Links!=null?ConnectedCount()+" / "+Links.Connected.Length+" pairs":Mathf.FloorToInt(elapsed)+"s";
         int ConnectedCount(){int n=0;foreach(bool c in Links.Connected)if(c)n++;return n;}
-        string BoardInstruction()=>Arrows!=null?(Arrows.Cube?"Drag to rotate. Tap an arrow to free it.":Mode==GameMode.Countdown?"Clear the marked arrow before its countdown expires.":Mode==GameMode.Reasoning?"Remember the paths. Tap to reveal an arrow.":"Tap arrows to clear the board."):Octa!=null?"Find a clear route through the arrows.":OneLine!=null?"Connect every line in one stroke.":Links!=null?"Connect matching dots. Do not cross lines.":"Find the numbers in order.";
+        string BoardInstruction()=>Arrows!=null?(Arrows.Cube?"Drag to rotate. Tap an arrow to free it.":Mode==GameMode.Countdown?"Clear the marked arrow before its countdown expires.":Mode==GameMode.Reasoning?"Remember the paths. Tap to reveal an arrow.":"Tap to clear. Hold an arrow to preview its path."):Octa!=null?"Find a clear route through the arrows.":OneLine!=null?"Connect every line in one stroke.":Links!=null?"Connect matching dots. Do not cross lines.":"Find the numbers in order.";
         void DrawTray(){OriginalArt.Draw("CommonAreaBg",new Rect(55,1370,970,120),Ink.Hex("D1C5AF"),false,true);for(int i=0;i<7;i++){var p=new Rect(105+i*132,1387,100,86);OriginalArt.Draw("CommonBtnProps",p,Color.white,false,true);if(i<tray.Colors.Count)OriginalArt.Draw("Arrow_head_black",new Rect(p.x+19,p.y+10,62,62),Ink.Palette[Mathf.Abs(tray.Colors[i])%7],true);}}
         void DrawModal()
         {
             int state=won?1:failed?2:3;if(state!=modalArtState){modalArtState=state;modalArtEntered=Time.unscaledTime;}
             if(paused&&!won&&!failed){DrawPauseArtwork();return;}
-            string layout=won?(Mode==GameMode.Arrows3D?"Arrow3DSuccessUI":OriginalArt.Theme==2?"SuccessScoreResultStyle3UI":OriginalArt.Theme==1?"SuccessScoreResultV2UI":"SuccessResultUI"):(OriginalArt.Theme==2?"FailResultStyle3UI":OriginalArt.Theme==1?"FailResultV2UI":"FailResultUI");
+            string layout=won?(Mode==GameMode.Arrows3D?"Arrow3DSuccessUI":"SuccessResultUI"):("FailResultUI");
             var binding=new ArtBinding
             {
                 Clip=won?"SuccessResultUI":null,ClipTime=Time.unscaledTime-modalArtEntered,
@@ -186,11 +275,12 @@ namespace DrawArrow
         }
         void DrawPauseArtwork()
         {
-            string layout=OriginalArt.Theme==2?"GameSettingStyle3UI":OriginalArt.Theme==1?"GameSettingV2UI":"GameSettingUI";
+            string layout="GameSettingUI";
             var binding=new ArtBinding
             {
                 Visible=(path,active)=>
                 {
+                    if(path.Contains("/HomeBtn"))return false;
                     if(path.Contains("/Music")||path.Contains("/GuideLine")||path.Contains("/Voice")||path.Contains("/FoucsMode")||path.Contains("/FeedBack")||path.Contains("/EffectNode")||path.EndsWith("/TogglePar/Handle"))return false;
                     if(path.Contains("/Sound/TogglePar/On"))return Progress.sound;if(path.Contains("/Sound/TogglePar/Off"))return !Progress.sound;if(path.Contains("/Vibration/TogglePar/On"))return Progress.vibration;if(path.Contains("/Vibration/TogglePar/Off"))return !Progress.vibration;return active;
                 }
@@ -198,8 +288,8 @@ namespace DrawArrow
             OriginalArt.Layout(layout,new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
             SettingsSwitches(layout,binding);
             var close=OriginalArt.NodeRect(layout,"/Dialog_mid/CloseBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);if(Ink.HitButton(close,GUIContent.none,GUIStyle.none))paused=false;
-            var restart=OriginalArt.NodeRect(layout,OriginalArt.Theme==2?"/BtnOk/ContinueBtn":"/DlgBtn/RestartBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);if(restart.width>0&&Ink.HitButton(restart,GUIContent.none,GUIStyle.none))StartGame(Mode,LevelIndex);
-            if(OriginalArt.Button(new Rect(260,OriginalArt.Theme==2?300:1540,560,110),"Home",OriginalArt.Accent,40)){page=Page.Home;paused=false;}
+            var restart=OriginalArt.NodeRect(layout,"/DlgBtn/RestartBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
+            if(restart.width>0&&Ink.HitButton(restart,GUIContent.none,GUIStyle.none))StartGame(Mode,LevelIndex);
         }
         void DrawCelebration(){for(int i=0;i<22;i++){float t=(Time.unscaledTime*.28f+i*.073f)%1;float x=95+(i*137%890)+Mathf.Sin(t*9+i)*30;OriginalArt.Draw("RiBtnStar",new Rect(x,-100+t*2000,24+i%4*9,24+i%4*9),Ink.Palette[i%7],true);}}
         void DrawHelp()

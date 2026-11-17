@@ -34,7 +34,8 @@ namespace DrawArrow
     [Serializable] public class LevelPack { public LevelData[] levels; }
     [Serializable] public class CatalogGroup { public string name; public int count, packSize; }
     [Serializable] public class ModeSequence { public string mode,group; public int[] indices; }
-    [Serializable] public class Catalog { public CatalogGroup[] groups; public ModeSequence[] sequences; }
+    [Serializable] public class LevelOverride { public string mode,group; public int index,levelIndex; }
+    [Serializable] public class Catalog { public CatalogGroup[] groups; public ModeSequence[] sequences; public LevelOverride[] overrides; }
 
     public sealed class LevelRepository
     {
@@ -49,7 +50,14 @@ namespace DrawArrow
         ModeSequence Sequence(GameMode mode){if(catalog.sequences!=null)foreach(var sequence in catalog.sequences)if(sequence.mode==mode.ToString())return sequence;return null;}
         public int Count(GameMode mode) {var sequence=Sequence(mode);return sequence!=null?sequence.indices.Length:Count(Group(mode));}
         public int Count(string name) { foreach(var g in catalog.groups) if(g.name == name) return g.count; return 0; }
-        public LevelData Load(GameMode mode, int index) {var sequence=Sequence(mode);if(sequence!=null)return Load(sequence.group,sequence.indices[((index%sequence.indices.Length)+sequence.indices.Length)%sequence.indices.Length]);return Load(Group(mode),index);}
+        public LevelData Load(GameMode mode, int index)
+        {
+            int count=Count(mode);if(count<=0)throw new InvalidDataException("No levels for "+mode);
+            index=((index%count)+count)%count;
+            if(catalog.overrides!=null)foreach(var replacement in catalog.overrides)
+                if(replacement.mode==mode.ToString()&&replacement.index==index)return Load(replacement.group,replacement.levelIndex);
+            var sequence=Sequence(mode);return sequence!=null?Load(sequence.group,sequence.indices[index]):Load(Group(mode),index);
+        }
         public LevelData Load(string group, int index)
         {
             CatalogGroup config = null; foreach(var g in catalog.groups) if(g.name == group) config = g;
@@ -73,8 +81,8 @@ namespace DrawArrow
 
     [Serializable] public class ProgressData
     {
-        public int[] levels = new int[20]; public int coins = 250, wins, streak, bestStreak, hintsUsed;
-        public bool sound = true, vibration = true, dark; public string lastDaily = "";
+        public int[] levels = new int[20]; public int coins = 250, wins, streak, bestStreak, hintsUsed,mainLevelsCompleted;
+        public bool sound = true, vibration = true, dark,hasStartedGame; public string lastDaily = "";
         public List<string> dailyWins = new List<string>();
     }
     public static class SaveStore
@@ -82,7 +90,19 @@ namespace DrawArrow
         const string Key = "drawarrow.progress.v1";
         public static ProgressData Load()
         {
-            try { var p = JsonUtility.FromJson<ProgressData>(PlayerPrefs.GetString(Key,"")); if(p != null && p.levels != null && p.levels.Length == 20) { if(p.dailyWins == null)p.dailyWins = new List<string>(); return p; } } catch(Exception) { }
+            try
+            {
+                string json=PlayerPrefs.GetString(Key,"");var p=JsonUtility.FromJson<ProgressData>(json);
+                if(p!=null&&p.levels!=null&&p.levels.Length==20)
+                {
+                    if(p.dailyWins==null)p.dailyWins=new List<string>();
+                    // Older saves used the next main-level index as their completion marker.
+                    if(!json.Contains("\"mainLevelsCompleted\""))p.mainLevelsCompleted=Mathf.Max(0,p.levels[0]);
+                    if(!json.Contains("\"hasStartedGame\""))p.hasStartedGame=true;
+                    return p;
+                }
+            }
+            catch(Exception) { }
             return new ProgressData();
         }
         public static void Save(ProgressData p) { PlayerPrefs.SetString(Key,JsonUtility.ToJson(p)); PlayerPrefs.Save(); }

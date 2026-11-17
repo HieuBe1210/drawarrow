@@ -29,21 +29,33 @@ namespace DrawArrow
             audioSource=gameObject.AddComponent<AudioSource>();audioSource.playOnAwake=false;audioSource.spatialBlend=0;
             Ink.Clicked=PlayUiClick;
             var camera = Camera.main;if(!camera){camera=new GameObject("Main Camera").AddComponent<Camera>();camera.tag="MainCamera";}if(FindFirstObjectByType<AudioListener>()==null)camera.gameObject.AddComponent<AudioListener>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Ink.Paper;
+            OpenInitialPage();
             var args=Environment.GetCommandLineArgs();for(int i=0;i<args.Length;i++)
             {
                 if(args[i]=="--mode"&&i+1<args.Length&&Enum.TryParse(args[i+1],out GameMode m))StartGame(m);
                 if(args[i]=="--capture"&&i+1<args.Length)capturePath=args[i+1];
                 if(args[i]=="--art-theme"&&i+1<args.Length&&int.TryParse(args[i+1],out int theme))OriginalArt.Theme=theme;
                 if(args[i]=="--smoke-dir"&&i+1<args.Length)StartCoroutine(SmokeAll(args[i+1]));
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+                if(args[i]=="--interaction-smoke-dir"&&i+1<args.Length)StartCoroutine(InteractionSmoke(args[i+1]));
+#endif
             }
+        }
+        void OpenInitialPage()
+        {
+            page=Page.Home;
+            if(Progress.hasStartedGame)return;
+            StartGame(GameMode.Classic,0);
+            Progress.hasStartedGame=true;SaveStore.Save(Progress);
         }
         void Update()
         {
-            if(page==Page.Game&&!paused&&!modalHelp)
+            if(page==Page.Game&&CanInteract)arrowPress.Tick(Time.unscaledTime);
+            if(page==Page.Game&&!paused&&!modalHelp&&!LevelToolsOpen)
                 foreach(var arrow in flying)arrow.elapsed+=Time.unscaledDeltaTime;
             flying.RemoveAll(a=>a.elapsed>=FlightDuration(a.id));
             if(!Progress.sound&&audioSource.isPlaying)audioSource.Stop();
-            if(page==Page.Game&&!paused&&!won&&!failed)
+            if(page==Page.Game&&!paused&&!won&&!failed&&!LevelToolsOpen)
             {
                 elapsed+=Time.unscaledDeltaTime;
                 if(Modes.IsTimed(Mode))
@@ -54,7 +66,13 @@ namespace DrawArrow
                 }
             }
             if(!string.IsNullOrEmpty(capturePath)&&!captureStarted&&++screenshotFrames>35){captureStarted=true;StartCoroutine(Capture());}
-            if(Input.GetKeyDown(KeyCode.Escape)){if(page==Page.Game)paused=!paused;else page=Page.Home;}
+            if(Input.GetKeyDown(KeyCode.Escape)){if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
+        }
+        void ReturnHome()
+        {
+            CloseLevelTestTools();
+            CancelArrowPress();paused=won=failed=modalHelp=false;
+            page=Page.Home;scroll=Vector2.zero;SaveStore.Save(Progress);
         }
         IEnumerator Capture(){yield return null;ScreenCapture.CaptureScreenshot(capturePath);yield return new WaitForSeconds(1);Application.Quit();}
         IEnumerator SmokeAll(string directory)
@@ -85,6 +103,10 @@ namespace DrawArrow
         }
         public void StartGame(GameMode mode,int index=-1)
         {
+            if(mode==GameMode.Daily&&!FeatureUnlocks.DailyUnlocked(Progress))
+            {Notify("Unlock at level "+FeatureUnlocks.DailyLevel);return;}
+            CloseLevelTestTools();
+            CancelArrowPress();
             Mode=mode;LevelIndex=index<0?Progress.levels[(int)mode]:index;
             if(mode==GameMode.Daily){int.TryParse(DateTime.Now.ToString("yyyyMMdd"),out int day);LevelIndex=day%Repository.Count(mode);}
             Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();motionPaths.Clear();tray.Colors.Clear();
@@ -137,6 +159,7 @@ namespace DrawArrow
                 string today=DateTime.Now.ToString("yyyy-MM-dd");if(!Progress.dailyWins.Contains(today))Progress.dailyWins.Add(today);Progress.lastDaily=today;
             }
             else Progress.levels[(int)Mode]=Mathf.Max(Progress.levels[(int)Mode],LevelIndex+1);
+            if(Mode==GameMode.Classic)FeatureUnlocks.RecordMainWin(Progress,LevelIndex+1);
             SaveStore.Save(Progress);Play("result_pass",.65f);
         }
         void Lose(string reason){if(failed||won)return;failed=true;toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
@@ -168,7 +191,7 @@ namespace DrawArrow
             if(Progress.vibration)Handheld.Vibrate();
 #endif
         }
-        void OnApplicationPause(bool value){if(value&&page==Page.Game&&!won&&!failed)paused=true;if(Progress!=null)SaveStore.Save(Progress);}
+        void OnApplicationPause(bool value){if(value){CancelArrowPress();if(page==Page.Game&&!won&&!failed)paused=true;}if(Progress!=null)SaveStore.Save(Progress);}
         void OnApplicationQuit(){if(Progress!=null)SaveStore.Save(Progress);}
     }
 }

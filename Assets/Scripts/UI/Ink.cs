@@ -14,7 +14,7 @@ namespace DrawArrow
         }
         public static readonly Color Paper = Hex("F5ECDB"), Text = Hex("302F2D"), Muted = Hex("969184"), Teal = Hex("BF7737"), Gold = Hex("FFCE42"), Red = Hex("DA5245");
         public static readonly Color[] Palette = { Hex("DB473D"),Hex("4D7CE3"),Hex("63A94D"),Hex("DEB942"),Hex("9867C8"),Hex("D77BA3"),Hex("5AADD0") };
-        static Texture2D circle, round, white; static Font font,boldFont;static GUIStyle label;
+        static Texture2D circle, round, white,heart; static Font font,boldFont;static GUIStyle label;
         static readonly Dictionary<string,Texture2D> strokes=new Dictionary<string,Texture2D>();
         public static Color Hex(string s){ColorUtility.TryParseHtmlString("#"+s,out var c);return c;}
         public static Color WithAlpha(Color c,float a){c.a=a;return c;}
@@ -24,13 +24,23 @@ namespace DrawArrow
             white=Texture2D.whiteTexture; font=Resources.Load<Font>("OriginalArt/font_Inter_28pt_Medium");boldFont=Resources.Load<Font>("OriginalArt/font_Inter_28pt_Bold");if(!font)font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");if(!boldFont)boldFont=font;
             circle=new Texture2D(128,128,TextureFormat.RGBA32,false);circle.filterMode=FilterMode.Bilinear;
             round=new Texture2D(128,128,TextureFormat.RGBA32,false);round.filterMode=FilterMode.Bilinear;
+            heart=new Texture2D(128,128,TextureFormat.RGBA32,false);heart.filterMode=FilterMode.Bilinear;heart.wrapMode=TextureWrapMode.Clamp;
             for(int y=0;y<128;y++)for(int x=0;x<128;x++)
             {
                 float d=Vector2.Distance(new Vector2(x+.5f,y+.5f),new Vector2(64,64));circle.SetPixel(x,y,new Color(1,1,1,Mathf.Clamp01(64-d)));
                 float qx=Mathf.Max(Mathf.Abs(x-63.5f)-40,0),qy=Mathf.Max(Mathf.Abs(y-63.5f)-40,0);
                 float a=Mathf.Clamp01(23.5f-Mathf.Sqrt(qx*qx+qy*qy));round.SetPixel(x,y,new Color(1,1,1,a));
+                int inside=0;
+                for(int sy=0;sy<2;sy++)for(int sx=0;sx<2;sx++)
+                {
+                    float hx=(x+(sx+.5f)*.5f)/128f*2.5f-1.25f;
+                    float hy=(y+(sy+.5f)*.5f)/128f*2.5f-1.15f;
+                    float q=hx*hx+hy*hy-1;
+                    if(q*q*q-hx*hx*hy*hy*hy<=0)inside++;
+                }
+                heart.SetPixel(x,y,new Color(1,1,1,inside*.25f));
             }
-            circle.Apply();round.Apply();label=new GUIStyle {font=font,wordWrap=true,richText=true};
+            circle.Apply();round.Apply();heart.Apply();label=new GUIStyle {font=font,wordWrap=true,richText=true};
         }
         public static void Rect(Rect r,Color c){var old=GUI.color;GUI.color=c;GUI.DrawTexture(r,white);GUI.color=old;}
         public static void Card(Rect r,Color c,float radius=24)
@@ -40,6 +50,7 @@ namespace DrawArrow
             GUI.color=old;
         }
         public static void Circle(Vector2 center,float radius,Color c){var old=GUI.color;GUI.color=c;GUI.DrawTexture(new Rect(center.x-radius,center.y-radius,radius*2,radius*2),circle);GUI.color=old;}
+        public static void Heart(Rect rect,Color color){Init();var old=GUI.color;GUI.color=color;GUI.DrawTexture(rect,heart);GUI.color=old;}
         public static void Line(Vector2 a,Vector2 b,float width,Color c,bool caps=true)
         {
             var delta=b-a;if(delta.sqrMagnitude<.001f)return;

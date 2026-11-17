@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "releaseBuild": true,
+  "testToolFunctionsExcluded": {
+    "TryJumpToMainLevel": true,
+    "ResetMainLevelProgress": true,
+    "levelToolsOpen": true,
+    "levelTestInput": true
+  }
+}

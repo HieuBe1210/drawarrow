@@ -5,6 +5,7 @@
 /UserSettings/
 /Builds/
 /.utmp/
+/apk-inspection/
 /.vs/
 /.idea/
 **/__pycache__/
