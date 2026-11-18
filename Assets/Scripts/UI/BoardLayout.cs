@@ -18,6 +18,14 @@ namespace DrawArrow
         public static float FitScale(Rect viewport,Rect content)
             =>Mathf.Min(viewport.width/Mathf.Max(1,content.width+1),viewport.height/Mathf.Max(1,content.height+1));
 
+        public static float FitArrowScale(Rect viewport,ArrowBoard board)
+        {
+            float scale=FitScale(viewport,OrientedBounds(board.ContentBounds));
+            if(board.ReferenceBounds.HasValue)
+                scale=Mathf.Min(scale,FitScale(viewport,OrientedBounds(board.ReferenceBounds.Value)));
+            return scale;
+        }
+
         public static Rect Viewport(Rect safeArea,float screenHeight,Vector2 offset,float scale)
             =>new Rect((safeArea.x-offset.x)/scale,(screenHeight-safeArea.yMax-offset.y)/scale,safeArea.width/scale,safeArea.height/scale);
         public static float RayDistanceToEdge(Vector2 head,Vector2 direction,Rect viewport)

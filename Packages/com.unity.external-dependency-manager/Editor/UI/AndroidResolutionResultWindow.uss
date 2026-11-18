@@ -1,0 +1,33 @@
+.top-container {
+    flex-direction: column;
+    flex-grow: 1;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 12px;
+    padding-bottom: 4px;
+}
+
+.title-row {
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+}
+
+
+.icon {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    padding: 0;
+    margin-left: 4px;
+    margin-bottom: 1px;
+    flex-shrink: 0;
+}
+
+.message {
+    white-space: nowrap;
+    padding: 0;
+    margin: 0;
+    flex-shrink: 0;
+    flex-grow: 0;
+}

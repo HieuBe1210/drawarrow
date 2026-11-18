@@ -1,0 +1,11 @@
+{
+  "applied": true,
+  "group": "milestonehard",
+  "changedMainLevels": 314,
+  "firstLevel": 5,
+  "lastLevel": 1570,
+  "nonTargetMainMappingsUnchanged": 22229,
+  "originalPacksUnchanged": 412,
+  "candidateSha256": "45f959278de8c5375e235139a5a32825041f76e98bfaf06cb4e54719751df3fd",
+  "supersededInteriorVariants": 311
+}

@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.unity.external-dependency-manager/Editor/UI/EDMEditorWindows.uss"/>
+    <Style src="project://database/Packages/com.unity.external-dependency-manager/Editor/UI/IOSCocoapodsIntegrationWindow.uss"/>
+    <ui:VisualElement name="separator" class="separator"/>
+    <ui:VisualElement name="contentContainer" class="content-container">
+        <ui:Label name="message" class="message"/>
+        <ui:Label name="description" class="description"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="bottomContainer" class="bottom-container">
+        <ui:Button text="Silence Warning" name="silenceButton"/>
+        <ui:VisualElement style="flex-grow: 1;"/>
+        <ui:Button text="Not Now" name="notNowButton"/>
+        <ui:Button text="Yes" name="yesButton"/>
+    </ui:VisualElement>
+</ui:UXML>

@@ -1,0 +1,15 @@
+{
+  "applied": true,
+  "replacedBosses": 20,
+  "ordinary80Unchanged": true,
+  "neighborMinArrowRatio": 1.35,
+  "minExtraDependencyDepth": 2,
+  "roundedPathPreviewsInspected": [
+    5,
+    6,
+    9,
+    10
+  ],
+  "candidateSha256": "0ba488a51cb04269c39c275a1180d42d228ceafd9bb5df3c88eb640b4e90f7f0",
+  "playModeVerified": false
+}

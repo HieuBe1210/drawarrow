@@ -1,0 +1,41 @@
+{
+  "count": 4,
+  "rows": [
+    {
+      "level": 2,
+      "arrows": 6,
+      "dominanceBefore": 1,
+      "dominanceAfter": 0.3333333333333333,
+      "directions": 4,
+      "dependencyDepth": 5,
+      "bentArrows": 4
+    },
+    {
+      "level": 7,
+      "arrows": 5,
+      "dominanceBefore": 0.8,
+      "dominanceAfter": 0.6,
+      "directions": 2,
+      "dependencyDepth": 2,
+      "bentArrows": 1
+    },
+    {
+      "level": 11,
+      "arrows": 6,
+      "dominanceBefore": 0.6666666666666666,
+      "dominanceAfter": 0.5,
+      "directions": 3,
+      "dependencyDepth": 2,
+      "bentArrows": 1
+    },
+    {
+      "level": 15,
+      "arrows": 7,
+      "dominanceBefore": 0.7142857142857143,
+      "dominanceAfter": 0.42857142857142855,
+      "directions": 4,
+      "dependencyDepth": 5,
+      "bentArrows": 4
+    }
+  ]
+}

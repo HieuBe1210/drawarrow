@@ -6,6 +6,8 @@ namespace DrawArrow
 {
     public sealed class ArrowBoard
     {
+        public const int FlatGridSteps = 100;
+        public const int ExtendedGridSteps = 1000;
         public readonly LevelData Level; public readonly bool[] Active; public readonly List<Vector3>[] Paths;
         public readonly Dictionary<Vector3Int,int> Occupancy = new Dictionary<Vector3Int,int>();
         public readonly HashSet<Vector3> ClearedCells = new HashSet<Vector3>();
@@ -16,19 +18,69 @@ namespace DrawArrow
         public int TargetCount {get;private set;}
         public readonly bool Cube;
         public readonly Rect ContentBounds;
-        public ArrowBoard(LevelData level, bool cube = false)
+        public readonly Rect? ReferenceBounds;
+        readonly Vector3[] flatDirections;
+        readonly Vector2Int flatSize;
+        readonly bool compactLayout;
+        readonly bool preserveSourceLengths;
+        readonly bool searchHoles;
+        public ArrowBoard(LevelData level, bool cube = false, bool fitInitialGaps = false,
+            bool compactLayout = false, bool preserveSourceLengths = false, bool searchHoles = false)
         {
             Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];DotPositions=new List<Vector3>[Active.Length];
+            if(!Cube&&fitInitialGaps)flatDirections=new Vector3[Active.Length];
             for(int i=0;i<Active.Length;i++)
             {
                 Active[i]=true;Paths[i]=Expand(level.arrows[i].points);
+                if(flatDirections!=null)
+                {
+                    flatDirections[i]=Cardinal(Direction(i));
+                    continue;
+                }
                 if(!Cube&&Paths[i].Count==1)
                 {
-                    // A one-cell source arrow still needs one visible segment.
-                    // Both ends stay inside its original occupancy cell.
+                    // Both ends of a source one-cell arrow fit in its occupancy cell.
                     var center=Paths[i][0];var direction=Direction(i);
                     Paths[i][0]=center-direction*.3f;Paths[i].Add(center+direction*.3f);
                 }
+                if(!Cube)TrimSelfPointingTail(Paths[i],Direction(i));
+            }
+            flatSize=new Vector2Int(level.width,level.height);
+            if(flatDirections!=null&&level.packedFitBounds!=null&&level.packedFitBounds.Length==2)
+            {
+                // The packed routes were already checked for clearance and solvability.
+                ReferenceBounds=new Rect(0,0,level.packedFitBounds[0],level.packedFitBounds[1]);
+                int widthSteps=level.width-1>FlatGridSteps?ExtendedGridSteps:FlatGridSteps;
+                flatSize=new Vector2Int(widthSteps+1,FlatGridSteps+1);
+            }
+            else if(flatDirections!=null)
+            {
+                this.preserveSourceLengths=preserveSourceLengths;
+                if(preserveSourceLengths)
+                {
+                    var reference=new ArrowBoard(level);
+                    ReferenceBounds=reference.ContentBounds;
+                    for(int i=0;i<Paths.Length;i++)
+                    {
+                        var visible=reference.Paths[i];
+                        if(visible.Count>=Paths[i].Count)continue;
+                        var route=Paths[i];
+                        route.Clear();
+                        foreach(var point in visible)
+                        {
+                            var node=(Vector3)Key(point);
+                            if(route.Count==0||route[route.Count-1]!=node)route.Add(node);
+                        }
+                    }
+                }
+                var layout=new FlatArrowLayout(Paths,flatDirections,level.width,level.height,preserveSourceLengths);
+                flatSize=layout.FitInitialGaps(level.arrowVisualScale);
+                this.compactLayout=compactLayout;
+                this.searchHoles=searchHoles;
+                if(compactLayout)layout.CompactPlacedPaths(flatSize,searchHoles);
+            }
+            for(int i=0;i<Active.Length;i++)
+            {
                 DotPositions[i]=StraightSegmentVertices(Paths[i]);if(!IsMechanism(i))TargetCount++;
             }
             var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);
@@ -56,6 +108,22 @@ namespace DrawArrow
                 if(result.Count>0)
                 {
                     var last=result[result.Count-1]; var delta=p-last;
+                    if(flatDirections!=null)
+                    {
+                        var cell=Key(last);
+                        var end=Key(p);
+                        while(cell.x!=end.x)
+                        {
+                            cell.x+=(end.x>cell.x?1:-1)*FlatArrowLayout.GridStep;
+                            result.Add(cell);
+                        }
+                        while(cell.y!=end.y)
+                        {
+                            cell.y+=(end.y>cell.y?1:-1)*FlatArrowLayout.GridStep;
+                            result.Add(cell);
+                        }
+                        continue;
+                    }
                     int steps=Mathf.RoundToInt(Mathf.Max(Mathf.Abs(delta.x),Mathf.Abs(delta.y),Mathf.Abs(delta.z)));
                     for(int s=1;s<steps;s++) result.Add(Vector3.Lerp(last,p,(float)s/steps));
                 }
@@ -66,6 +134,7 @@ namespace DrawArrow
         public Vector3 Head(int i) => Paths[i][Paths[i].Count-1];
         public Vector3 Direction(int i)
         {
+            if(flatDirections!=null&&flatDirections[i]!=Vector3.zero)return flatDirections[i];
             var data=Level.arrows[i];
             if(!Cube&&(data.dx!=0||data.dy!=0))return new Vector3(data.dx,data.dy,0);
             var p=Paths[i]; if(p.Count<2)return Vector3.right;
@@ -73,7 +142,82 @@ namespace DrawArrow
             int axis=Mathf.Abs(d.x)>=Mathf.Abs(d.y)&&Mathf.Abs(d.x)>=Mathf.Abs(d.z)?0:Mathf.Abs(d.y)>=Mathf.Abs(d.z)?1:2;
             var v=Vector3.zero;v[axis]=Mathf.Sign(d[axis]);return v;
         }
+        static Vector3 Cardinal(Vector3 direction)
+        {
+            if(Mathf.Abs(direction.x)>=Mathf.Abs(direction.y))return Vector3.right*Mathf.Sign(direction.x);
+            return Vector3.up*Mathf.Sign(direction.y);
+        }
+        internal static void TrimFlatTail(List<Vector3> path,Vector3 direction)
+        {
+            if(path.Count<2)return;
+            var head=path[path.Count-1];
+            for(int i=path.Count-2;i>=0;i--)
+            {
+                var delta=path[i]-head;
+                if(Vector3.Dot(delta,direction)>0&&Vector3.Cross(delta,direction).sqrMagnitude==0)
+                {
+                    path.RemoveRange(0,i+1);
+                    return;
+                }
+            }
+        }
         public static Vector3Int Key(Vector3 p) => new Vector3Int(Mathf.RoundToInt(p.x),Mathf.RoundToInt(p.y),Mathf.RoundToInt(p.z));
+        // Normalize once, before rendering, occupancy, hit testing and footprint
+        // generation. Remove the tail prefix through the LAST crossing of the
+        // head's forward ray, so multiple loops cannot leave another self blocker.
+        public static bool TrimSelfPointingTail(List<Vector3> path,Vector3 direction)
+        {
+            if(path.Count<2||direction.sqrMagnitude<.000001f)return false;
+            direction.Normalize();var head=path[path.Count-1];
+            const float clearance=.4f,margin=.6f;
+            float length=0,cut=-1;
+            for(int i=1;i<path.Count;i++)
+            {
+                var a=path[i-1]-head;var b=path[i]-head;
+                float segment=Vector3.Distance(path[i-1],path[i]);
+                float fa=Vector3.Dot(a,direction),fb=Vector3.Dot(b,direction);
+                if(Mathf.Max(fa,fb)>.00001f)
+                {
+                    var side=a-direction*fa;var delta=b-direction*fb-side;
+                    float aa=delta.sqrMagnitude,bb=2*Vector3.Dot(side,delta),cc=side.sqrMagnitude-clearance*clearance;
+                    float low=0,high=1;bool intersects=true;
+                    if(aa<.0000001f)intersects=cc<=0;
+                    else
+                    {
+                        float discriminant=bb*bb-4*aa*cc;
+                        if(discriminant<0)intersects=false;
+                        else
+                        {
+                            float root=Mathf.Sqrt(discriminant);
+                            low=Mathf.Max(0,(-bb-root)/(2*aa));high=Mathf.Min(1,(-bb+root)/(2*aa));
+                            intersects=low<=high;
+                        }
+                    }
+                    if(intersects&&Mathf.Max(Mathf.Lerp(fa,fb,low),Mathf.Lerp(fa,fb,high))>.00001f)
+                        cut=Mathf.Max(cut,length+segment*high+margin);
+                }
+                length+=segment;
+            }
+            if(cut<0)return false;
+            if(cut>=length-.001f)
+            {
+                // Malformed/backwards source directions still keep a visible
+                // head and one short segment strictly behind it.
+                path.Clear();path.Add(head-direction*margin);path.Add(head);return true;
+            }
+            float walked=0;
+            for(int i=1;i<path.Count;i++)
+            {
+                float segment=Vector3.Distance(path[i-1],path[i]);
+                if(walked+segment>=cut)
+                {
+                    var tail=Vector3.Lerp(path[i-1],path[i],(cut-walked)/segment);
+                    path.RemoveRange(0,i);path.Insert(0,tail);return true;
+                }
+                walked+=segment;
+            }
+            return false;
+        }
         static List<Vector3> StraightSegmentVertices(List<Vector3> path)
         {
             var vertices=new List<Vector3>();
@@ -105,14 +249,29 @@ namespace DrawArrow
             if(i<0 || i>=Active.Length || !Active[i] || Paths[i].Count==0 || IsMechanism(i)) return false;
             if(Cube)return CubeRoute(i,false,out _)||(Level.arrows[i].special==3002&&CubeRoute(i,true,out _));
             var pos=Head(i);var dir=Direction(i);
-            int max=Level.width+Level.height+Mathf.Max(Level.depth,1)+4;
-            for(int step=1;step<=max;step++)
+            int max=flatSize.x+flatSize.y+Mathf.Max(Level.depth,1)+4;
+            for(int step=FlatArrowLayout.GridStep;step<=max;step+=FlatArrowLayout.GridStep)
             {
                 var p=pos+dir*step;
-                if(p.x<-.4f||p.y<-.4f||p.x>Level.width-.6f||p.y>Level.height-.6f|| (Cube&&(p.z<-.4f||p.z>Level.depth-.6f)))return true;
+                if(p.x<-.4f||p.y<-.4f||p.x>flatSize.x-.6f||p.y>flatSize.y-.6f)return true;
+                if(flatDirections!=null&&(p.x<ContentBounds.xMin||p.y<ContentBounds.yMin||p.x>ContentBounds.xMax||p.y>ContentBounds.yMax))return true;
                 if(Occupancy.TryGetValue(Key(p),out int other)&&other!=i) return false;
             }
             return true;
+        }
+        public float BlockedTravel(int i)
+        {
+            if(Cube||i<0||i>=Active.Length||!Active[i]||Paths[i].Count==0)return 0;
+            var head=Head(i);var direction=Direction(i);
+            for(int step=FlatArrowLayout.GridStep;step<=flatSize.x+flatSize.y+4;step+=FlatArrowLayout.GridStep)
+            {
+                var point=head+direction*step;
+                if(point.x<-.4f||point.y<-.4f||point.x>flatSize.x-.6f||point.y>flatSize.y-.6f)break;
+                if(flatDirections!=null&&(point.x<ContentBounds.xMin||point.y<ContentBounds.yMin||point.x>ContentBounds.xMax||point.y>ContentBounds.yMax))break;
+                if(Occupancy.TryGetValue(Key(point),out int other)&&other!=i)
+                    return Mathf.Max(0,step*direction.magnitude-.12f);
+            }
+            return 0;
         }
         bool CubeRoute(int i,bool reverse,out int receiver)
         {
@@ -142,7 +301,7 @@ namespace DrawArrow
         public int Hint() { for(int i=0;i<Active.Length;i++)if(CanExit(i))return i;return -1; }
         public int[] Solve()
         {
-            var copy = new ArrowBoard(Level,Cube); var result=new List<int>();
+            var copy = new ArrowBoard(Level,Cube,flatDirections!=null,compactLayout,preserveSourceLengths,searchHoles); var result=new List<int>();
             while(copy.Remaining>0) {int i=copy.Hint();if(i<0)break;copy.Remove(i);result.Add(i);}
             return result.ToArray();
         }

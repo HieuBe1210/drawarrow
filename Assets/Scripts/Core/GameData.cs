@@ -28,6 +28,8 @@ namespace DrawArrow
     {
         public string id, category, source; public int width, height, depth, moveLimit;
         public float[] initialView;
+        public float arrowVisualScale;
+        public float[] packedFitBounds;
         public ArrowData[] arrows; public TurnData[] turns; public PortalData[] portals;
         public PairData[] pairs; public PointData[] nodes; public EdgeData[] edges; public int[] solution;
     }
@@ -82,6 +84,7 @@ namespace DrawArrow
     [Serializable] public class ProgressData
     {
         public int[] levels = new int[20]; public int coins = 250, wins, streak, bestStreak, hintsUsed,mainLevelsCompleted;
+        public int freeHints=3,hintEconomyVersion=2;
         public bool sound = true, vibration = true, dark,hasStartedGame; public string lastDaily = "";
         public List<string> dailyWins = new List<string>();
     }
@@ -99,6 +102,10 @@ namespace DrawArrow
                     // Older saves used the next main-level index as their completion marker.
                     if(!json.Contains("\"mainLevelsCompleted\""))p.mainLevelsCompleted=Mathf.Max(0,p.levels[0]);
                     if(!json.Contains("\"hasStartedGame\""))p.hasStartedGame=true;
+                    if(!json.Contains("\"freeHints\"")){p.freeHints=3;p.hintEconomyVersion=2;}
+                    else if(!json.Contains("\"hintEconomyVersion\""))p.hintEconomyVersion=1;
+                    HintEconomy.UpgradeSave(p);
+                    p.freeHints=Mathf.Max(0,p.freeHints);
                     return p;
                 }
             }
@@ -106,5 +113,47 @@ namespace DrawArrow
             return new ProgressData();
         }
         public static void Save(ProgressData p) { PlayerPrefs.SetString(Key,JsonUtility.ToJson(p)); PlayerPrefs.Save(); }
+    }
+    // A result belongs to the level that produced it. Consume it only once,
+    // outside OnGUI, even if multiple input events request continuation.
+    public sealed class LevelResultTransition
+    {
+        GameMode mode;int index;bool won,available,pending;
+        public bool Pending=>pending;
+        public void Clear(){available=pending=false;}
+        public void Begin(GameMode resultMode,int resultIndex,bool victory)
+        {mode=resultMode;index=resultIndex;won=victory;available=true;pending=false;}
+        public bool Request()
+        {if(!available||pending)return false;pending=true;return true;}
+        public bool Take(out GameMode nextMode,out int nextIndex)
+        {
+            nextMode=mode;nextIndex=index;
+            if(!pending)return false;
+            if(won&&mode!=GameMode.Daily)nextIndex=index+1;
+            Clear();return true;
+        }
+    }
+    public static class HintEconomy
+    {
+        public static bool Unlimited(GameMode mode,int levelIndex)=>mode==GameMode.Classic&&levelIndex<4;
+        public static void UpgradeSave(ProgressData progress)
+        {
+            if(progress.hintEconomyVersion>=2)return;
+            // Change the original reserve from five to three once, accounting
+            // for hints already spent or earned instead of resetting the balance.
+            progress.freeHints=Mathf.Max(0,progress.freeHints-2);
+            progress.hintEconomyVersion=2;
+        }
+        public static bool SpendFree(ProgressData progress,GameMode mode,int levelIndex)
+        {
+            if(Unlimited(mode,levelIndex))return true;
+            if(progress.freeHints<=0)return false;
+            progress.freeHints--;return true;
+        }
+        public static int RewardWin(ProgressData progress,GameMode mode,int completedLevel)
+        {
+            if(mode!=GameMode.Classic||completedLevel<5||completedLevel%5!=0)return 0;
+            progress.freeHints++;return 1;
+        }
     }
 }

@@ -1,0 +1,73 @@
+{
+  "applied": true,
+  "count": 1574,
+  "allCountsMatch": true,
+  "increased": 42,
+  "decreased": 1527,
+  "unchanged": 5,
+  "scaledBoards": [
+    {
+      "level": 5,
+      "scale": 2
+    },
+    {
+      "level": 7,
+      "scale": 2
+    },
+    {
+      "level": 8,
+      "scale": 2
+    },
+    {
+      "level": 10,
+      "scale": 2
+    },
+    {
+      "level": 12,
+      "scale": 2
+    },
+    {
+      "level": 13,
+      "scale": 2
+    },
+    {
+      "level": 14,
+      "scale": 2
+    },
+    {
+      "level": 21,
+      "scale": 4
+    },
+    {
+      "level": 22,
+      "scale": 2
+    },
+    {
+      "level": 23,
+      "scale": 2
+    },
+    {
+      "level": 25,
+      "scale": 2
+    },
+    {
+      "level": 26,
+      "scale": 2
+    },
+    {
+      "level": 36,
+      "scale": 2
+    },
+    {
+      "level": 38,
+      "scale": 2
+    },
+    {
+      "level": 39,
+      "scale": 2
+    }
+  ],
+  "supersededInteriorVariants": 504,
+  "outsideFirst1574Unchanged": true,
+  "candidateSha256": "b74f1de8f916ef47b2aceabc43b6aa44d8449250eccc38457b99dc30c0fcba4a"
+}

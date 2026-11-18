@@ -59,7 +59,118 @@ namespace DrawArrow.Editor
             Check(BoardLayout.RayDistanceToEdge(Vector2.one,Vector2.zero,previewViewport)==0,"Invalid direction cannot produce an infinite preview loop");
             Check(BoardLayout.RayDistanceToEdge(new Vector2(0,200),new Vector2(-.0000001f,1),previewViewport)>1700,"Off-axis projection noise cannot erase a vertical preview at the left edge");
             Check(BoardLayout.RayDistanceToEdge(new Vector2(200,0),new Vector2(1,-.0000001f),previewViewport)>800,"Off-axis projection noise cannot erase a horizontal preview at the top edge");
-            var repository=new LevelRepository();var board=new ArrowBoard(repository.Load(GameMode.Classic,6));
+            var initialGapBoard=new ArrowBoard(new LevelData{width=6,height=4,arrows=new[]{
+                new ArrowData{points=new[]{7,6}},
+                new ArrowData{points=new[]{15,3}}
+            }},fitInitialGaps:true);
+            Check(initialGapBoard.Head(0)-initialGapBoard.Paths[0][0]==Vector3.right*2,"The initial head extends toward the blocker");
+            Check(!initialGapBoard.CanExit(0)&&initialGapBoard.CanExit(1),"Closing the initial gap preserves the exit order");
+            var spreadLevel=new LevelData{width=8,height=8,arrows=new[]{
+                new ArrowData{points=new[]{1,0}},
+                new ArrowData{points=new[]{45,44}}
+            }};
+            var spread=new ArrowBoard(spreadLevel,fitInitialGaps:true);
+            var compact=new ArrowBoard(spreadLevel,fitInitialGaps:true,compactLayout:true);
+            Check(compact.ContentBounds.width*compact.ContentBounds.height<
+                spread.ContentBounds.width*spread.ContentBounds.height,"Compaction shrinks the occupied area");
+            for(int i=0;i<compact.Paths.Length;i++)
+                Check(compact.Head(i)-compact.Paths[i][0]==spread.Head(i)-spread.Paths[i][0]&&
+                    compact.CanExit(i)==spread.CanExit(i),"Compaction preserves unit lengths and exit dependencies");
+            foreach(var direction in new[]{Vector2Int.left,Vector2Int.right,Vector2Int.up,Vector2Int.down})
+            {
+                int tail=12-direction.y+direction.x*5;
+                var boardWithTurn=new ArrowBoard(new LevelData{width=5,height=5,arrows=new[]{
+                    new ArrowData{points=new[]{12,tail},dx=direction.x,dy=direction.y}
+                }},fitInitialGaps:true);
+                var path=boardWithTurn.Paths[0];
+                var lastStep=path[path.Count-1]-path[path.Count-2];
+                Check(lastStep==new Vector3(direction.x,direction.y),"An arrow ends with a full step in the requested direction");
+                var motion=new ArrowMotionPath(path,lastStep,0);
+                Check(motion.Sample(motion.Length)==path[path.Count-1],"The rendered tip is the exact path endpoint");
+                var shaft=new System.Collections.Generic.List<Vector3>();
+                motion.Slice(0,shaft,.4f);
+                Check((shaft[shaft.Count-1]+lastStep*.4f-motion.Sample(motion.Length)).sqrMagnitude<.000001f,
+                    "The shaft ends behind the tip on the same straight segment");
+            }
+            var crossingBoard=new ArrowBoard(new LevelData{width=7,height=6,arrows=new[]{
+                new ArrowData{points=new[]{22,21}},
+                new ArrowData{points=new[]{33,19}},
+                new ArrowData{points=new[]{10,3,6,41,40}}
+            }},fitInitialGaps:true);
+            for(int i=0;i<crossingBoard.Paths.Length;i++)
+            {
+                if(crossingBoard.CanExit(i))continue;
+                var next=ArrowBoard.Key(crossingBoard.Head(i)+crossingBoard.Direction(i));
+                Check(crossingBoard.Occupancy.TryGetValue(next,out int neighbor)&&neighbor!=i,
+                    "A blocked arrow ends one step before its obstacle");
+            }
+            Check(crossingBoard.Solve().Length==crossingBoard.Paths.Length,"Closing crossing routes must leave a solution");
+            var repository=new LevelRepository();
+            var fifthLevel=repository.Load("lengthmatched",4);
+            var fifthPacked=new ArrowBoard(fifthLevel,fitInitialGaps:true,compactLayout:true);
+            var packedHead=fifthPacked.Head(40);
+            Check(packedHead.x>fifthPacked.ContentBounds.xMin&&packedHead.x<fifthPacked.ContentBounds.xMax&&
+                packedHead.y>fifthPacked.ContentBounds.yMin&&packedHead.y<fifthPacked.ContentBounds.yMax,
+                "The isolated short arrow in Level 5 fits inside the packed board");
+            Check(fifthPacked.Solve().Length==fifthPacked.Paths.Length,"Packing Level 5 preserves a full solution");
+            var openingLevel=repository.Load("lengthmatched",0);
+            var openingBoard=new ArrowBoard(openingLevel,fitInitialGaps:true);
+            Check(openingBoard.DotPositions[3].Count==3,"Level 1 keeps the lower arrow's elbow on the visual grid");
+            var lowerHead=openingBoard.Head(3);
+            var nextNode=ArrowBoard.Key(lowerHead+openingBoard.Direction(3));
+            Check(openingBoard.Occupancy.TryGetValue(nextNode,out int openingBlocker)&&openingBlocker==1,
+                "The lower arrow starts one grid step before the upper body");
+            var oversizedBoard=new ArrowBoard(new LevelData{width=250,height=20,arrows=new[]{
+                new ArrowData{points=new[]{0,19*250+249}},
+                new ArrowData{points=new[]{18*250+245,17*250+245}}
+            }},fitInitialGaps:true);
+            Check(oversizedBoard.ContentBounds.width==249,"A long layout keeps its span on the extended grid");
+            foreach(var testBoard in new[]{openingBoard,oversizedBoard})
+            foreach(var path in testBoard.Paths)
+            {
+                for(int i=0;i<path.Count;i++)
+                {
+                    var point=path[i];
+                    Check(point==(Vector3)ArrowBoard.Key(point)&&point.x>=0&&point.y>=0&&
+                        point.x<=ArrowBoard.ExtendedGridSteps&&point.y<=ArrowBoard.FlatGridSteps,
+                        "Oversized source paths use integer nodes within the fixed board");
+                    if(i==0)continue;
+                    var step=point-path[i-1];
+                    Check(Mathf.Abs(step.x)+Mathf.Abs(step.y)==1,"Arrow bodies use cardinal unit steps");
+                }
+            }
+            Check(oversizedBoard.Solve().Length==oversizedBoard.Paths.Length,"The fixed-grid board remains solvable");
+            var thirdLevel=repository.Load(GameMode.Classic,2);
+            Check(thirdLevel.id==repository.Load("classic",2).id,"Level 3 loads its base layout");
+            var thirdBase=new ArrowBoard(thirdLevel);
+            var thirdBoard=new ArrowBoard(thirdLevel,fitInitialGaps:true,compactLayout:true,preserveSourceLengths:true);
+            var levelThreeLengths=new[]{3,7,8,3};
+            var originShift=thirdBoard.Paths[0][0]-thirdBase.Paths[0][0];
+            for(int i=0;i<levelThreeLengths.Length;i++)
+            {
+                Check(thirdBoard.Paths[i].Count-1==levelThreeLengths[i],"Level 3 keeps each original arrow length");
+                for(int j=0;j<thirdBoard.Paths[i].Count;j++)
+                    Check(thirdBoard.Paths[i][j]-thirdBase.Paths[i][j]==originShift,"Level 3 keeps its original geometry");
+            }
+            Check(BoardLayout.FitArrowScale(previewViewport,thirdBoard)==BoardLayout.FitArrowScale(previewViewport,thirdBase),
+                "Level 3 keeps its original display scale");
+            Check((thirdBoard.ContentBounds.width+1)*(thirdBoard.ContentBounds.height+1)==thirdBoard.Occupancy.Count,
+                "Packing leaves no unused nodes in Level 3");
+            var tenthLevel=repository.Load(GameMode.Classic,9);
+            var tenthBase=new ArrowBoard(tenthLevel,fitInitialGaps:true,preserveSourceLengths:true);
+            var tenthPacked=new ArrowBoard(tenthLevel,fitInitialGaps:true,compactLayout:true,preserveSourceLengths:true);
+            float tenthEmpty=(tenthPacked.ContentBounds.width+1)*(tenthPacked.ContentBounds.height+1)-tenthPacked.Occupancy.Count;
+            Check(tenthEmpty<=506&&tenthPacked.Occupancy.Count==tenthBase.Occupancy.Count,
+                "Packing shared edges removes empty nodes in Level 10");
+            Check(tenthPacked.Solve().Length==tenthPacked.Paths.Length,"Packing shared edges preserves a solution");
+            var twentiethLevel=repository.Load(GameMode.Classic,19);
+            var twentiethPacked=new ArrowBoard(twentiethLevel,fitInitialGaps:true,compactLayout:true,preserveSourceLengths:true);
+            float twentiethEmpty=(twentiethPacked.ContentBounds.width+1)*(twentiethPacked.ContentBounds.height+1)-
+                twentiethPacked.Occupancy.Count;
+            Check(twentiethLevel.packedFitBounds?.Length==2&&twentiethEmpty<=173,
+                "Level 20 loads its precomputed routes through the interior holes");
+            Check(twentiethPacked.Solve().Length==twentiethPacked.Paths.Length,"The packed Level 20 remains solvable");
+            var board=new ArrowBoard(repository.Load(GameMode.Classic,6));
             Check(board.ClearedCells.Count==0,"Fresh board has no footprint dots");
             int arrow=board.Hint();int active=board.Remaining;
             Check(arrow>=0&&board.Remove(arrow)&&board.Remaining==active-1,"Clear an arrow for dot footprints");
@@ -90,9 +201,11 @@ namespace DrawArrow.Editor
             elbow.Remove(0);Check(!elbow.ClearedCells.Contains(new Vector3Int(2,5,0)),"No intermediate grid-cell dots along a straight segment");
             foreach(var direction in new[]{Vector2Int.right,Vector2Int.left,Vector2Int.up,Vector2Int.down})
             {
-                var single=new ArrowBoard(new LevelData{width=5,height=5,arrows=new[]{new ArrowData{points=new[]{12},dx=direction.x,dy=direction.y}}});
+                var single=new ArrowBoard(new LevelData{width=5,height=5,arrows=new[]{new ArrowData{points=new[]{12},dx=direction.x,dy=direction.y}}},fitInitialGaps:true);
                 Check(single.Paths[0].Count==2&&single.DotPositions[0].Count==2,"Shortest arrow is one segment with two distinct endpoints");
-                Check(single.Occupancy.Count==1&&single.Occupancy.ContainsKey(new Vector3Int(2,2,0)),"Shortest arrow keeps its original occupancy cell");
+                Check(single.Occupancy.Count==2&&
+                    (single.Paths[0][1]-single.Paths[0][0]).sqrMagnitude==1,
+                    "Shortest arrow spans one grid step");
                 Check(single.Direction(0)==new Vector3(direction.x,direction.y,0),"Shortest arrow preserves its direction");
                 Check(single.Remove(0)&&single.ClearedCells.Count==2,"Shortest arrow leaves exactly two dots at its initial endpoints");
             }

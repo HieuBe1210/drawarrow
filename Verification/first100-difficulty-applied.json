@@ -1,0 +1,13 @@
+{
+  "applied": true,
+  "count": 100,
+  "ordinaryLevels": 80,
+  "bossLevels": 20,
+  "ordinaryScoresNondecreasing": true,
+  "bossScoresIncreasing": true,
+  "bossMinimumNeighborScoreRatio": 1.3,
+  "supersededInteriorVariants": 69,
+  "outsideFirst100Unchanged": true,
+  "candidateSha256": "f4d0ca04151dae4ae4622bb8669ef19a03a1236d76ba9a387285790d01b0d0ae",
+  "bossMetricsSupersededBy": "rich-boss-applied.json"
+}

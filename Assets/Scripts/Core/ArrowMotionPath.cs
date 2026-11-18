@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DrawArrow
 {
-    // A fixed, rounded route. Moving the visible interval preserves every bend;
+    // A fixed route. Moving the visible interval preserves every bend;
     // moving only the original vertices would cut diagonally across corners.
     public sealed class ArrowMotionPath
     {
@@ -21,6 +21,7 @@ namespace DrawArrow
                 var a=source[i]-source[i-1];var b=source[i+1]-source[i];
                 if(a.sqrMagnitude<.000001f||b.sqrMagnitude<.000001f)continue;
                 if(Vector3.Dot(a.normalized,b.normalized)>.999f)continue;
+                if(radius<=0){Add(source[i]);continue;}
                 float trim=Mathf.Min(radius,Mathf.Min(a.magnitude,b.magnitude)*.45f);
                 var start=source[i]-a.normalized*trim;var end=source[i]+b.normalized*trim;
                 Add(start);
@@ -44,10 +45,10 @@ namespace DrawArrow
                 return Vector3.Lerp(points[i-1],points[i],(distance-distances[i-1])/(distances[i]-distances[i-1]));
             return points[points.Count-1]+direction*(distance-Length);
         }
-        public void Slice(float offset,List<Vector3> result)
+        public void Slice(float offset,List<Vector3> result,float headInset=0)
         {
             result.Clear();if(points.Count==0)return;
-            float start=Mathf.Max(0,offset),end=start+Length;
+            float start=Mathf.Max(0,offset),end=start+Mathf.Max(0,Length-headInset);
             result.Add(Sample(start));
             for(int i=1;i<points.Count;i++)if(distances[i]>start&&distances[i]<end)result.Add(points[i]);
             result.Add(Sample(end));

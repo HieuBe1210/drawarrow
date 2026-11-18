@@ -34,6 +34,7 @@ namespace DrawArrow.Editor
             public int mainLevelCount,changedLevels,changedArrows,noInteriorLevels,unchangedInteriorLevels,unverifiedCandidatesKeptOriginal;
             public bool allAppliedVariantsSolved,outlinePreserved;
         }
+        [Serializable] class MilestoneAppliedReport { public int supersededInteriorVariants; }
 
         static LevelData Original(LevelRepository repository,Catalog baseline,int index)
         {
@@ -124,7 +125,18 @@ namespace DrawArrow.Editor
                     throw new Exception("Variant sample did not solve at "+(entry.index+1));
                 changed++;
             }
-            if(changed!=report.changedLevels)throw new Exception("Wrong changed level count");
+            int superseded=0;
+            if(repository.Count("milestonehard")>0&&File.Exists("Verification/milestone-difficulty-applied.json"))
+                superseded=JsonUtility.FromJson<MilestoneAppliedReport>(File.ReadAllText("Verification/milestone-difficulty-applied.json")).supersededInteriorVariants;
+            if(repository.Count("gapfilled")>0&&File.Exists("Verification/gapfill-applied.json"))
+                superseded+=JsonUtility.FromJson<MilestoneAppliedReport>(File.ReadAllText("Verification/gapfill-applied.json")).supersededInteriorVariants;
+            if(repository.Count("directionvariety")>0&&File.Exists("Verification/direction-variety-applied.json"))
+                superseded+=JsonUtility.FromJson<MilestoneAppliedReport>(File.ReadAllText("Verification/direction-variety-applied.json")).supersededInteriorVariants;
+            if(repository.Count("progression100")>0&&File.Exists("Verification/first100-difficulty-applied.json"))
+                superseded+=JsonUtility.FromJson<MilestoneAppliedReport>(File.ReadAllText("Verification/first100-difficulty-applied.json")).supersededInteriorVariants;
+            if(repository.Count("oldcount")>0&&File.Exists("Verification/old-arrow-counts-applied.json"))
+                superseded+=JsonUtility.FromJson<MilestoneAppliedReport>(File.ReadAllText("Verification/old-arrow-counts-applied.json")).supersededInteriorVariants;
+            if(changed+superseded!=report.changedLevels)throw new Exception("Wrong changed level count");
             File.WriteAllText("Verification/main-interior-validation.json","{\"passed\":true,\"changedLevels\":"+changed+",\"outlineArrowsChecked\":"+checkedArrows+",\"generationSolverCheckedEveryAppliedVariant\":true}");
             Debug.Log("MAIN_INTERIOR_VALIDATION_PASSED changed="+changed+" outlineArrows="+checkedArrows);
         }

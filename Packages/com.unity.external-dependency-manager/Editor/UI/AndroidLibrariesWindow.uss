@@ -1,0 +1,61 @@
+#platformWarning {
+    min-height: 40px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    align-items: center;
+}
+
+#platformWarning .unity-help-box__icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    align-self: center;
+}
+
+#platformWarning .unity-help-box__label {
+    -unity-text-align: middle-left;
+    align-self: center;
+    font-size: 12px;
+}
+
+.scroll-view {
+    flex-grow: 1;
+    background-color: rgba(0, 0, 0, 0.08);
+    margin: 8px;
+    border-radius: 4px;
+}
+
+.content {
+    white-space: normal;
+    font-size: 13px;
+    padding: 10px;
+    margin: 0;
+}
+
+.empty-state {
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.empty-state-icon {
+    width: 32px;
+    height: 32px;
+    margin-bottom: 12px;
+}
+
+.empty-state-title {
+    -unity-text-align: middle-center;
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.empty-state-description {
+    -unity-text-align: middle-center;
+    color: rgb(128, 128, 128);
+    white-space: normal;
+    max-width: 360px;
+    font-size: 11px;
+}

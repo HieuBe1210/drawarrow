@@ -19,7 +19,21 @@ namespace DrawArrow
         AudioSource audioSource;readonly Dictionary<string,AudioClip> sounds=new Dictionary<string,AudioClip>();
         readonly List<FlyingArrow> flying=new List<FlyingArrow>();
         sealed class FlyingArrow{public int id;public float elapsed;}
+        readonly HashSet<int> collidedArrows=new HashSet<int>();
+        readonly Dictionary<int,BlockedFlight> blockedFlights=new Dictionary<int,BlockedFlight>();
+        sealed class BlockedFlight
+        {
+            public float elapsed,distance;
+            public float ImpactTime=>Mathf.Clamp(.14f+distance*.035f,.18f,.48f);
+            public float Duration=>ImpactTime+.28f;
+            public float Offset=>elapsed<ImpactTime
+                ?distance*Mathf.SmoothStep(0,1,elapsed/ImpactTime)
+                :distance*(1-Mathf.SmoothStep(0,1,(elapsed-ImpactTime)/.28f));
+        }
         int screenshotFrames;string capturePath;bool captureStarted;
+        bool hintAdPending;int hintRequestVersion,winHintReward;
+        HintRewardedAds hintAds;
+        readonly LevelResultTransition resultTransition=new LevelResultTransition();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Bootstrap(){if(FindFirstObjectByType<GameApp>()==null)new GameObject("Draw Arrow").AddComponent<GameApp>();}
@@ -50,10 +64,23 @@ namespace DrawArrow
         }
         void Update()
         {
+            if(resultTransition.Take(out var nextMode,out int nextIndex))
+            {StartGame(nextMode,nextIndex);return;}
             if(page==Page.Game&&CanInteract)arrowPress.Tick(Time.unscaledTime);
             if(page==Page.Game&&!paused&&!modalHelp&&!LevelToolsOpen)
                 foreach(var arrow in flying)arrow.elapsed+=Time.unscaledDeltaTime;
             flying.RemoveAll(a=>a.elapsed>=FlightDuration(a.id));
+            if(page==Page.Game&&!paused&&!modalHelp&&!LevelToolsOpen&&blockedFlights.Count>0)
+            {
+                var finished=new List<int>();
+                foreach(var pair in blockedFlights)
+                {
+                    pair.Value.elapsed+=Time.unscaledDeltaTime;
+                    if(pair.Value.elapsed>=pair.Value.ImpactTime)collidedArrows.Add(pair.Key);
+                    if(pair.Value.elapsed>=pair.Value.Duration)finished.Add(pair.Key);
+                }
+                foreach(int id in finished)blockedFlights.Remove(id);
+            }
             if(!Progress.sound&&audioSource.isPlaying)audioSource.Stop();
             if(page==Page.Game&&!paused&&!won&&!failed&&!LevelToolsOpen)
             {
@@ -70,6 +97,8 @@ namespace DrawArrow
         }
         void ReturnHome()
         {
+            resultTransition.Clear();
+            hintRequestVersion++;
             CloseLevelTestTools();
             CancelArrowPress();paused=won=failed=modalHelp=false;
             page=Page.Home;scroll=Vector2.zero;SaveStore.Save(Progress);
@@ -106,10 +135,12 @@ namespace DrawArrow
             if(mode==GameMode.Daily&&!FeatureUnlocks.DailyUnlocked(Progress))
             {Notify("Unlock at level "+FeatureUnlocks.DailyLevel);return;}
             CloseLevelTestTools();
+            hintRequestVersion++;winHintReward=0;
+            resultTransition.Clear();
             CancelArrowPress();
             Mode=mode;LevelIndex=index<0?Progress.levels[(int)mode]:index;
             if(mode==GameMode.Daily){int.TryParse(DateTime.Now.ToString("yyyyMMdd"),out int day);LevelIndex=day%Repository.Count(mode);}
-            Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();motionPaths.Clear();tray.Colors.Clear();
+            Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();blockedFlights.Clear();collidedArrows.Clear();motionPaths.Clear();tray.Colors.Clear();
             won=failed=paused=false;hearts=mode==GameMode.OneLife?1:3;moves=0;elapsed=0;timeLeft=mode==GameMode.SharkRush?22:mode==GameMode.Battle?150:90;botProgress=0;hint=-1;zoom=1;pan=Vector2.zero;
             if(mode==GameMode.Schulte){Schulte=new SchulteBoard(3+Mathf.Min(LevelIndex/3,3),137+LevelIndex);Level=null;}
             else
@@ -118,7 +149,12 @@ namespace DrawArrow
                 if(mode==GameMode.OctaArrows)Octa=new OctaBoard(Level);
                 else if(mode==GameMode.LinkDots)Links=new LinkBoard(Level);
                 else if(mode==GameMode.OneLine)OneLine=new OneLineBoard(Level);
-                else Arrows=new ArrowBoard(Level,mode==GameMode.Arrows3D);
+                else
+                {
+                    bool baseCampaign=mode==GameMode.Classic&&LevelIndex%Repository.Count(mode)<1574;
+                    Arrows=new ArrowBoard(Level,mode==GameMode.Arrows3D,fitInitialGaps:true,
+                        compactLayout:baseCampaign,preserveSourceLengths:baseCampaign);
+                }
                 if(mode==GameMode.Arrows3D){var view=Level.initialView;yaw=view!=null&&view.Length>=3?view[1]:-45;pitch=view!=null&&view.Length>=3?-view[0]:18;roll=view!=null&&view.Length>=3?view[2]:18;}
             }
             urgentIndex=Arrows!=null?Arrows.Hint():-1;countdownDeadline=8;page=Page.Game;scroll=Vector2.zero;
@@ -126,7 +162,7 @@ namespace DrawArrow
         void TapArrow(int i)
         {
             if(paused||won||failed)return;
-            if(i<0||i>=Arrows.Active.Length||!Arrows.Active[i])return;
+            if(i<0||i>=Arrows.Active.Length||!Arrows.Active[i]||blockedFlights.ContainsKey(i))return;
             Play("arrow_click",.48f);
             if(Arrows.CanExit(i))
             {
@@ -147,6 +183,7 @@ namespace DrawArrow
             }
             else
             {
+                if(!Arrows.Cube)blockedFlights[i]=new BlockedFlight{distance=Arrows.BlockedTravel(i)};
                 hearts--;Play("arrow_back");Notify("This arrow is blocked. Clear its path first.");Vibrate();if(hearts<=0)Lose("No hearts left. Every puzzle has another way.");
             }
         }
@@ -154,6 +191,8 @@ namespace DrawArrow
         void Win()
         {
             if(won)return;won=true;Progress.wins++;Progress.streak++;Progress.bestStreak=Mathf.Max(Progress.streak,Progress.bestStreak);Progress.coins+=50+hearts*10;
+            resultTransition.Begin(Mode,LevelIndex,true);
+            winHintReward=HintEconomy.RewardWin(Progress,Mode,LevelIndex+1);
             if(Mode==GameMode.Daily)
             {
                 string today=DateTime.Now.ToString("yyyy-MM-dd");if(!Progress.dailyWins.Contains(today))Progress.dailyWins.Add(today);Progress.lastDaily=today;
@@ -162,23 +201,51 @@ namespace DrawArrow
             if(Mode==GameMode.Classic)FeatureUnlocks.RecordMainWin(Progress,LevelIndex+1);
             SaveStore.Save(Progress);Play("result_pass",.65f);
         }
-        void Lose(string reason){if(failed||won)return;failed=true;toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
+        void Lose(string reason){if(failed||won)return;failed=true;resultTransition.Begin(Mode,LevelIndex,false);toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
         void Notify(string text){toast=text;toastUntil=Time.unscaledTime+3;}
         void Undo()
         {
-            if(OneLine!=null){OneLine.Undo();return;}
+            if(OneLine!=null){OneLine.Undo();hint=-1;return;}
             if(history.Count==0){Notify("No move to undo.");return;}
-            var state=history.Pop();Arrows.Restore(state.arrow);tray.Colors.Clear();tray.Colors.AddRange(state.colors);hearts=state.hearts;moves=state.moves;urgentIndex=state.urgent;countdownDeadline=state.deadline;failed=false;flying.Clear();Play("arrow_tap");
+            hint=-1;var state=history.Pop();Arrows.Restore(state.arrow);tray.Colors.Clear();tray.Colors.AddRange(state.colors);hearts=state.hearts;moves=state.moves;urgentIndex=state.urgent;countdownDeadline=state.deadline;failed=false;flying.Clear();blockedFlights.Clear();Play("arrow_tap");
         }
         void Hint()
         {
-            int found=Arrows!=null?Arrows.Hint():Octa!=null?Octa.Hint():OneLine!=null?OneLine.NextHint():-1;
-            if(Schulte!=null){for(int i=0;i<Schulte.Numbers.Length;i++)if(Schulte.Numbers[i]==Schulte.Next)found=i;}
+            if(!CanInteract)return;
             if(Links!=null){Notify("Connect two matching dots. Draw around the other paths.");return;}
+            int found=FindHint();
             if(found<0){Notify("No simple hint on this board. Undo a move or restart.");return;}
-            if(Progress.coins<15){Notify("A hint costs 15 coins. Complete levels to earn more.");return;}
-            Progress.coins-=15;Progress.hintsUsed++;SaveStore.Save(Progress);hint=found;hintUntil=Time.unscaledTime+4;Play("arrow_tap");
+            // Repeated taps on the currently highlighted target do not spend again.
+            if(found==hint&&Time.unscaledTime<hintUntil)return;
+            if(HintEconomy.SpendFree(Progress,Mode,LevelIndex)){ApplyHint(found);return;}
+            if(!hintAds)hintAds=gameObject.AddComponent<HintRewardedAds>();
+            int request=++hintRequestVersion;
+            hintAdPending=true;paused=true;CancelArrowPress();
+            hintAds.Show(rewarded=>
+            {
+                if(!this)return;
+                hintAdPending=false;
+                if(request!=hintRequestVersion)
+                {if(rewarded){Progress.freeHints++;SaveStore.Save(Progress);}return;}
+                paused=false;
+                if(!rewarded){Notify("Ad not completed or unavailable. Try again.");return;}
+                int target=FindHint();
+                if(target<0||won||failed||page!=Page.Game)
+                {Progress.freeHints++;SaveStore.Save(Progress);return;}
+                ApplyHint(target);
+            });
         }
+        int FindHint()
+        {
+            if(Arrows!=null)
+            {for(int i=0;i<Arrows.Active.Length;i++)if(!blockedFlights.ContainsKey(i)&&Arrows.CanExit(i))return i;return -1;}
+            if(Octa!=null)return Octa.Hint();
+            if(OneLine!=null)return OneLine.NextHint();
+            if(Schulte!=null)return Array.IndexOf(Schulte.Numbers,Schulte.Next);
+            return -1;
+        }
+        void ApplyHint(int target)
+        {Progress.hintsUsed++;SaveStore.Save(Progress);hint=target;hintUntil=Time.unscaledTime+4;Play("arrow_tap");}
         void PlayUiClick()=>Play("common_click_soft",.42f);
         void OnDestroy(){if(Ink.Clicked==PlayUiClick)Ink.Clicked=null;}
         void Play(string name,float volume=.55f)

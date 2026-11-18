@@ -1,0 +1,18 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.unity.external-dependency-manager/Editor/UI/EDMEditorWindows.uss"/>
+    <Style src="project://database/Packages/com.unity.external-dependency-manager/Editor/UI/AndroidLibrariesWindow.uss"/>
+    <ui:HelpBox name="platformWarning" message-type="Warning" text="Android platform is not selected. The displayed dependencies may be outdated." style="display: none; margin-top: 4px; margin-bottom: 4px; margin-left: 8px; margin-right: 8px;"/>
+    <ui:ScrollView name="scrollView" class="scroll-view">
+        <ui:TextField name="content" class="content" multiline="true" readonly="true" focusable="true"/>
+    </ui:ScrollView>
+    <ui:VisualElement name="emptyState" class="empty-state">
+        <ui:Image name="emptyIcon" class="empty-state-icon"/>
+        <ui:Label text="No resolved dependencies were found." class="empty-state-title"/>
+        <ui:Label text="Android dependencies are declared in *Dependencies.xml files inside Editor folders in your project." class="empty-state-description"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="separator2" class="separator"/>
+    <ui:VisualElement name="bottomContainer" class="bottom-container">
+        <ui:VisualElement style="flex-grow: 1;"/>
+        <ui:Button text="Close" name="closeButton"/>
+    </ui:VisualElement>
+</ui:UXML>

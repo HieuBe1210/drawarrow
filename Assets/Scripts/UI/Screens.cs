@@ -26,9 +26,9 @@ namespace DrawArrow
             GUI.enabled=!LevelToolsOpen;
             if(page==Page.Game)DrawGame();else if(page==Page.Home)DrawHome();else
             {if(page==Page.Settings)DrawSettings();else{DrawHeader();if(page==Page.Journey)DrawJourney();if(page==Page.Collection)DrawCollection();}}
-            if(Time.unscaledTime<toastUntil&&!failed){OriginalArt.Draw("Toast_bg",new Rect(105,1520,870,130),Ink.WithAlpha(Color.black,.85f),false,true);Ink.TextAt(new Rect(135,1530,810,110),toast,31,Color.white,TextAnchor.MiddleCenter);}
-            if(modalHelp)DrawHelp();
-            GUI.enabled=true;DrawLevelTestTools();
+            if(Time.unscaledTime<toastUntil&&!failed&&!won){OriginalArt.Draw("Toast_bg",new Rect(105,1520,870,130),Ink.WithAlpha(Color.black,.85f),false,true);Ink.TextAt(new Rect(135,1530,810,110),toast,31,Color.white,TextAnchor.MiddleCenter);}
+            if(modalHelp&&!won)DrawHelp();
+            GUI.enabled=true;if(page!=Page.Game||!won)DrawLevelTestTools();
         }
         void DrawHeader()
         {
@@ -205,6 +205,9 @@ namespace DrawArrow
         }
         void DrawGame()
         {
+            if(won){DrawModal();return;}
+            var mainHintRect=new Rect(940,160,94,94);
+            bool showInstructions=Mode!=GameMode.Classic||LevelIndex<10;
             DrawGameBackground();GUI.BeginGroup(new Rect(0,gameViewport.yMin,Width,340));
             if(OriginalArt.IconButton(new Rect(48,58,94,94),"CommonIconBack"))
             {ReturnHome();GUI.EndGroup();return;}
@@ -213,30 +216,40 @@ namespace DrawArrow
             if(Mode==GameMode.Classic)
             {
                 GUI.enabled=CanInteract;
-                if(OriginalArt.IconButton(new Rect(940,160,94,94),"CommonIconHint"))Hint();
+                DrawHintButton(mainHintRect);
                 GUI.enabled=true;
             }
             if(Modes.IsTimed(Mode)||Schulte!=null||Octa!=null)Ink.TextAt(new Rect(160,249,760,70),Modes.IsTimed(Mode)?Mathf.CeilToInt(timeLeft)+"s":Schulte!=null?"Find "+Schulte.Next:Octa.MovesLeft+" moves",39,FG,TextAnchor.MiddleCenter,true);
             GUI.EndGroup();
-            float top=gameViewport.yMin+(Modes.IsTimed(Mode)||Schulte!=null||Octa!=null?330:265);
-            float bottom=gameViewport.yMax-(Mode==GameMode.Classic?220:Mode==GameMode.ArrowClash?590:455);
+            // Main-board bottom: 87.5% of the physical device height. Its
+            // footer controls occupy the reserved strip below that boundary.
+            float footerBottom=(Screen.height*.875f-screenOffset.y)/scale;
+            float footerY=Mathf.Min(gameViewport.yMax-Height,footerBottom-1905);
+            float footerLift=gameViewport.yMax-Height-footerY;
+            float top=Mode==GameMode.Classic?gameViewport.yMin+mainHintRect.yMax+30/scale
+                :gameViewport.yMin+(Modes.IsTimed(Mode)||Schulte!=null||Octa!=null?330:265);
+            float bottom=Mode==GameMode.Classic?Mathf.Min(footerBottom,gameViewport.yMax)
+                :gameViewport.yMax-footerLift-(Mode==GameMode.ArrowClash?590:455);
             var boardRect=new Rect(gameViewport.xMin+32,top,gameViewport.width-64,Mathf.Max(100,bottom-top));
             GUI.BeginGroup(boardRect);DrawBoard(new Rect(0,0,boardRect.width,boardRect.height));GUI.EndGroup();
-            if(Mode==GameMode.ArrowClash){GUI.BeginGroup(new Rect(0,gameViewport.yMax-Height,Width,Height));DrawTray();GUI.EndGroup();}
-            GUI.BeginGroup(new Rect(0,gameViewport.yMax-Height,Width,Height));
-            if(Mode==GameMode.Battle){Ink.TextAt(new Rect(78,1470,930,40),"Local opponent",27,FG);OriginalArt.Draw("BarBg",new Rect(78,1520,924,18),Ink.Hex("CCBDA3"),false,true);Ink.Rect(new Rect(78,1520,924*botProgress,18),Ink.Red);}else Ink.TextAt(new Rect(78,Mode==GameMode.Classic?1720:1480,924,70),BoardInstruction(),27,FG,TextAnchor.MiddleCenter);
+            if(won){DrawModal();return;}
+            if(Mode==GameMode.ArrowClash){GUI.BeginGroup(new Rect(0,footerY,Width,Height));DrawTray();GUI.EndGroup();}
+            GUI.BeginGroup(new Rect(0,footerY,Width,Height));
+            if(Mode==GameMode.Battle){Ink.TextAt(new Rect(78,1470,930,40),"Local opponent",27,FG);OriginalArt.Draw("BarBg",new Rect(78,1520,924,18),Ink.Hex("CCBDA3"),false,true);Ink.Rect(new Rect(78,1520,924*botProgress,18),Ink.Red);}else if(showInstructions)Ink.TextAt(new Rect(78,Mode==GameMode.Classic?footerBottom-footerY+8:1480,924,70),BoardInstruction(),27,FG,TextAnchor.MiddleCenter);
             GUI.enabled=CanInteract;
             if(Mode!=GameMode.Classic)
             {
                 if(OriginalArt.IconButton(new Rect(170,1630,154,154),"CommonIconBack","Undo"))Undo();
-                if(OriginalArt.IconButton(new Rect(463,1630,154,154),"CommonIconHint","Hint · 15"))Hint();
+                DrawHintButton(new Rect(463,1630,154,154));
                 if(OriginalArt.IconButton(new Rect(756,1630,154,154),"restart","Restart"))StartGame(Mode,LevelIndex);
             }
-            if(Arrows!=null){if(Ink.HitButton(new Rect(70,1840,190,65),GUIContent.none,GUIStyle.none))zoom=Mathf.Max(.6f,zoom-.25f);Ink.TextAt(new Rect(70,1840,190,65),"−",44,FG,TextAnchor.MiddleCenter);if(Ink.HitButton(new Rect(360,1840,360,65),GUIContent.none,GUIStyle.none)){zoom=1;pan=Vector2.zero;}Ink.TextAt(new Rect(360,1840,360,65),Arrows.Cube?"Rotate / Zoom":"Fit board",28,FG,TextAnchor.MiddleCenter);if(Ink.HitButton(new Rect(820,1840,190,65),GUIContent.none,GUIStyle.none))zoom=Mathf.Min(4,zoom+.25f);Ink.TextAt(new Rect(820,1840,190,65),"+",44,FG,TextAnchor.MiddleCenter);}
+            float zoomY=Mode==GameMode.Classic?Mathf.Min(footerBottom-footerY+(showInstructions?100:20),gameViewport.yMax-footerY-73):1840;
+            if(Arrows!=null){if(Ink.HitButton(new Rect(70,zoomY,190,65),GUIContent.none,GUIStyle.none))zoom=Mathf.Max(.6f,zoom-.25f);Ink.TextAt(new Rect(70,zoomY,190,65),"−",44,FG,TextAnchor.MiddleCenter);if(Ink.HitButton(new Rect(360,zoomY,360,65),GUIContent.none,GUIStyle.none)){zoom=1;pan=Vector2.zero;}Ink.TextAt(new Rect(360,zoomY,360,65),Arrows.Cube?"Rotate / Zoom":"Fit board",28,FG,TextAnchor.MiddleCenter);if(Ink.HitButton(new Rect(820,zoomY,190,65),GUIContent.none,GUIStyle.none))zoom=Mathf.Min(4,zoom+.25f);Ink.TextAt(new Rect(820,zoomY,190,65),"+",44,FG,TextAnchor.MiddleCenter);}
             GUI.EndGroup();
             GUI.enabled=true;
             if(CanInteract&&Arrows!=null&&!Arrows.Cube)DrawHeldArrowRoute(boardRect.position);
-            if(paused||won||failed)DrawModal();
+            if(hintAdPending)Ink.TextAt(new Rect(180,gameViewport.center.y-45,720,90),"Loading ad…",38,FG,TextAnchor.MiddleCenter,true);
+            if(!hintAdPending&&(paused||won||failed))DrawModal();
         }
         void DrawGameBackground(){string background=Mode==GameMode.SharkRush?"Sea_BG":Mode==GameMode.ArrowClash?"clash_level_bg_1":Mode==GameMode.Schulte?"green_wallpaper_1":null;if(background!=null)OriginalArt.Draw(background,gameViewport);}
         string BoardStatus()=>Arrows!=null?Arrows.Remaining+" / "+Arrows.TargetCount+" arrows":Octa!=null?Octa.Remaining+" arrows":OneLine!=null?OneLine.Trail.Count+" steps":Links!=null?ConnectedCount()+" / "+Links.Connected.Length+" pairs":Mathf.FloorToInt(elapsed)+"s";
@@ -246,6 +259,7 @@ namespace DrawArrow
         void DrawModal()
         {
             int state=won?1:failed?2:3;if(state!=modalArtState){modalArtState=state;modalArtEntered=Time.unscaledTime;}
+            if(won){DrawWinPopup();return;}
             if(paused&&!won&&!failed){DrawPauseArtwork();return;}
             string layout=won?(Mode==GameMode.Arrows3D?"Arrow3DSuccessUI":"SuccessResultUI"):("FailResultUI");
             var binding=new ArtBinding
@@ -267,11 +281,74 @@ namespace DrawArrow
             OriginalArt.Layout(layout,new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
             var primary=OriginalArt.NodeRect(layout,won?"/Button/NextBtn":"/RestartBtnContainer/RestartBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
             if(primary.width<100)primary=new Rect(140,1400,800,150);
-            if(Ink.HitButton(primary,GUIContent.none,GUIStyle.none)){if(won)StartGame(Mode,Mode==GameMode.Daily?LevelIndex:LevelIndex+1);else StartGame(Mode,LevelIndex);}
+            if(Ink.HitButton(primary,GUIContent.none,GUIStyle.none))
+            {
+                RequestResultContinue();
+                return;
+            }
             var home=OriginalArt.NodeRect(layout,"/Button/HomeBtn",new Rect(0,0,Width,Height),new Vector2(Width,Height),binding);
-            if(home.width>100){if(Ink.HitButton(home,GUIContent.none,GUIStyle.none)){page=Page.Home;paused=false;scroll=Vector2.zero;}}
-            else if(OriginalArt.Button(new Rect(250,1650,580,110),"Home",OriginalArt.Accent,40)){page=Page.Home;paused=false;scroll=Vector2.zero;}
-            if(won)DrawCelebration();
+            if(home.width>100){if(Ink.HitButton(home,GUIContent.none,GUIStyle.none)){ReturnHome();return;}}
+            else if(OriginalArt.Button(new Rect(250,1650,580,110),"Home",OriginalArt.Accent,40)){ReturnHome();return;}
+        }
+        void RequestResultContinue()
+        {
+            resultTransition.Request();CancelArrowPress();GUIUtility.hotControl=0;
+            if(Event.current.type!=EventType.Used)Event.current.Use();
+        }
+        void DrawWinPopup()
+        {
+            // Fully cover gameplay, including the frame in which the last arrow
+            // was cleared. No board, HUD or gameplay buttons are drawn behind it.
+            GUI.enabled=!resultTransition.Pending;
+            Ink.Rect(gameViewport,OriginalArt.Background);
+            DrawCelebration();
+            float height=winHintReward>0?1380:1220;
+            var panel=new Rect(gameViewport.center.x-450,gameViewport.center.y-height*.5f,900,height);
+            Ink.Card(new Rect(panel.x,panel.y+12,panel.width,panel.height),Ink.WithAlpha(Color.black,.07f),40);
+            Ink.Card(panel,Color.Lerp(OriginalArt.Background,Color.white,OriginalArt.Theme==2?.07f:.5f),40);
+            int lostHearts=Mathf.Max(0,(Mode==GameMode.OneLife?1:3)-hearts);
+            int earnedStars=Mathf.Clamp(3-lostHearts,0,3);
+            for(int i=0;i<3;i++)
+            {
+                float size=i==1?154:106;
+                var center=new Vector2(panel.center.x+(i-1)*150,panel.y+(i==1?146:166));
+                var starColor=i<earnedStars?Ink.Gold:Ink.WithAlpha(FG,.16f);
+                OriginalArt.Draw("RiBtnStar",new Rect(center-Vector2.one*size*.5f,Vector2.one*size),starColor,true);
+            }
+            Ink.TextAt(new Rect(panel.x+60,panel.y+268,780,108),"Well Done!",76,FG,TextAnchor.MiddleCenter,true);
+            Ink.TextAt(new Rect(panel.x+60,panel.y+380,780,64),"Level "+(LevelIndex+1)+" Completed!",34,FG,TextAnchor.MiddleCenter);
+            var stats=new Rect(panel.x+70,panel.y+490,760,170);
+            Ink.Card(stats,Ink.WithAlpha(OriginalArt.Accent,.09f),24);
+            Ink.Rect(new Rect(stats.center.x,stats.y+32,2,106),Ink.WithAlpha(OriginalArt.Accent,.2f));
+            Ink.TextAt(new Rect(stats.x,stats.y+25,380,40),"Time",27,FG,TextAnchor.MiddleCenter);
+            Ink.TextAt(new Rect(stats.center.x,stats.y+25,380,40),"Moves",27,FG,TextAnchor.MiddleCenter);
+            string time=Mathf.FloorToInt(elapsed/60).ToString("00")+":"+Mathf.FloorToInt(elapsed%60).ToString("00");
+            Ink.TextAt(new Rect(stats.x,stats.y+70,380,70),time,48,FG,TextAnchor.MiddleCenter,true);
+            Ink.TextAt(new Rect(stats.center.x,stats.y+70,380,70),moves.ToString(),48,FG,TextAnchor.MiddleCenter,true);
+            if(winHintReward>0)
+            {
+                var reward=new Rect(panel.x+190,panel.y+710,520,108);
+                Ink.Card(reward,Ink.WithAlpha(OriginalArt.Accent,.12f),24);
+                OriginalArt.Draw("CommonIconHint",new Rect(reward.x+100,reward.y+21,66,66),OriginalArt.Accent,true);
+                Ink.TextAt(new Rect(reward.x+182,reward.y,250,108),"+"+winHintReward+" Hint",42,FG,TextAnchor.MiddleLeft,true);
+            }
+            float nextY=panel.y+(winHintReward>0?870:710);
+            if(OriginalArt.Button(new Rect(panel.x+70,nextY,760,280),"Next Level",OriginalArt.Accent,64))
+            {RequestResultContinue();GUI.enabled=true;return;}
+            var home=new Rect(panel.x+220,nextY+315,460,90);
+            Ink.Card(home,Ink.WithAlpha(OriginalArt.Accent,.08f),22);
+            Ink.TextAt(home,"Home",34,FG,TextAnchor.MiddleCenter,true);
+            if(Ink.HitButton(home,GUIContent.none,GUIStyle.none))ReturnHome();
+            GUI.enabled=true;
+        }
+        void DrawHintButton(Rect rect)
+        {
+            if(OriginalArt.IconButton(rect,"CommonIconHint"))Hint();
+            bool unlimited=HintEconomy.Unlimited(Mode,LevelIndex);
+            string text=unlimited?"∞":Progress.freeHints>0?Progress.freeHints.ToString():"AD";
+            float size=rect.width*.4f;
+            Ink.TextAt(new Rect(rect.xMax-size,rect.yMax-size,size+8,size+8),text,
+                Mathf.RoundToInt(rect.width*.33f),Ink.Red,TextAnchor.MiddleCenter,true);
         }
         void DrawPauseArtwork()
         {

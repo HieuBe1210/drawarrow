@@ -1,0 +1,21 @@
+{
+  "applied": true,
+  "changedMainLevels": 915,
+  "changedMilestones": 239,
+  "unchangedMainMappings": 21628,
+  "originalPacksUnchanged": 415,
+  "supersededInteriorVariants": 676,
+  "candidateSha256": "5af7f63c80169404458a4eb8c2af562ff4cfefb18a66e54e0c2daab2e3ec201f",
+  "level600": {
+    "level": 600,
+    "milestone": true,
+    "before": 57,
+    "after": 83,
+    "added": 26,
+    "largestEmptyRectangleBefore": 75,
+    "largestEmptyRectangleAfter": 10,
+    "coverageBefore": 0.6078947368421053,
+    "coverageAfter": 0.9118421052631579,
+    "eligibleCells": 760
+  }
+}

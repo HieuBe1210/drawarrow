@@ -1,0 +1,16 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Packages/com.unity.external-dependency-manager/Editor/UI/EDMEditorWindows.uss"/>
+    <Style src="project://database/Packages/com.unity.external-dependency-manager/Editor/UI/AndroidResolutionResultWindow.uss"/>
+    <ui:VisualElement name="separator" class="separator"/>
+    <ui:VisualElement name="topContainer" class="top-container">
+        <ui:VisualElement name="titleRow" class="title-row">
+            <ui:Label name="message" class="message"/>
+            <ui:VisualElement name="icon" class="icon"/>
+        </ui:VisualElement>
+        <ui:Label name="description" class="description"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="bottomContainer" class="bottom-container">
+        <ui:VisualElement name="spacer" style="flex-grow: 1;"/>
+        <ui:Button text="OK" name="okButton"/>
+    </ui:VisualElement>
+</ui:UXML>

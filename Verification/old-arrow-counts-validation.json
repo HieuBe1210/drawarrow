@@ -1,0 +1,77 @@
+{
+  "passed": true,
+  "levels": 1574,
+  "checks": 2491472,
+  "totalAdded": 0,
+  "candidateSha256": "b74f1de8f916ef47b2aceabc43b6aa44d8449250eccc38457b99dc30c0fcba4a",
+  "actualRuntimeSolver": true,
+  "solutionsReplayed": true,
+  "noOverlap": true,
+  "noInitialSelfPointing": true,
+  "minimumCellPixelsAt540Wide": 5.174242,
+  "playModeVerified": false,
+  "boundsPreservedWithinEachGeneratedBoard": true,
+  "exactCountsCheckedAgainstArchivedOldCampaign": true,
+  "scaledBoards": [
+    {
+      "level": 5,
+      "scale": 2
+    },
+    {
+      "level": 7,
+      "scale": 2
+    },
+    {
+      "level": 8,
+      "scale": 2
+    },
+    {
+      "level": 10,
+      "scale": 2
+    },
+    {
+      "level": 12,
+      "scale": 2
+    },
+    {
+      "level": 13,
+      "scale": 2
+    },
+    {
+      "level": 14,
+      "scale": 2
+    },
+    {
+      "level": 21,
+      "scale": 4
+    },
+    {
+      "level": 22,
+      "scale": 2
+    },
+    {
+      "level": 23,
+      "scale": 2
+    },
+    {
+      "level": 25,
+      "scale": 2
+    },
+    {
+      "level": 26,
+      "scale": 2
+    },
+    {
+      "level": 36,
+      "scale": 2
+    },
+    {
+      "level": 38,
+      "scale": 2
+    },
+    {
+      "level": 39,
+      "scale": 2
+    }
+  ]
+}
