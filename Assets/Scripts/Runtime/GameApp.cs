@@ -9,7 +9,14 @@ namespace DrawArrow
     public sealed partial class GameApp : MonoBehaviour
     {
         public const float Width=1080,Height=1920;
-        public ProgressData Progress;public LevelRepository Repository;public GameMode Mode;public int LevelIndex;
+        public ProgressData Progress;public GameMode Mode;public int LevelIndex;
+        bool SelectedGeneratedSet => Progress.SelectedLevelSet == ClassicLevelSet.Generated;
+        bool SelectedFiniteSet => Progress.SelectedLevelSet != ClassicLevelSet.Original;
+        int ActiveMainLevel => SelectedFiniteSet
+            ? Mathf.Clamp(Progress.SelectedClassicIndex, 0, ActiveMainLevelCount - 1)
+            : Progress.SelectedClassicIndex;
+        int ActiveMainLevelCount => CircuitLevels.Count(Progress.SelectedLevelSet);
+        bool FinishedLevelSet => Mode == GameMode.Classic && SelectedFiniteSet && won && LevelIndex == ActiveMainLevelCount - 1;
         public ArrowBoard Arrows;public OctaBoard Octa;public OneLineBoard OneLine;public LinkBoard Links;public SchulteBoard Schulte;public LevelData Level;
         MatchTray tray=new MatchTray();readonly Stack<UndoState> history=new Stack<UndoState>();
         sealed class UndoState {public int arrow;public List<int> colors;public int hearts;public int moves;public int urgent,deadline;}
@@ -39,7 +46,7 @@ namespace DrawArrow
         static void Bootstrap(){if(FindFirstObjectByType<GameApp>()==null)new GameObject("Draw Arrow").AddComponent<GameApp>();}
         void Awake()
         {
-            Application.targetFrameRate=60;Screen.sleepTimeout=SleepTimeout.NeverSleep;Progress=SaveStore.Load();Repository=new LevelRepository();
+            Application.targetFrameRate=60;Screen.sleepTimeout=SleepTimeout.NeverSleep;Progress=SaveStore.Load();
             audioSource=gameObject.AddComponent<AudioSource>();audioSource.playOnAwake=false;audioSource.spatialBlend=0;
             Ink.Clicked=PlayUiClick;
             var camera = Camera.main;if(!camera){camera=new GameObject("Main Camera").AddComponent<Camera>();camera.tag="MainCamera";}if(FindFirstObjectByType<AudioListener>()==null)camera.gameObject.AddComponent<AudioListener>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Ink.Paper;
@@ -48,7 +55,7 @@ namespace DrawArrow
             {
                 if(args[i]=="--mode"&&i+1<args.Length&&Enum.TryParse(args[i+1],out GameMode m))StartGame(m);
                 if(args[i]=="--capture"&&i+1<args.Length)capturePath=args[i+1];
-                if(args[i]=="--art-theme"&&i+1<args.Length&&int.TryParse(args[i+1],out int theme))OriginalArt.Theme=theme;
+                if(args[i]=="--art-theme"&&i+1<args.Length&&int.TryParse(args[i+1],out int theme))CircuitStyle.Theme=theme;
                 if(args[i]=="--smoke-dir"&&i+1<args.Length)StartCoroutine(SmokeAll(args[i+1]));
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
                 if(args[i]=="--interaction-smoke-dir"&&i+1<args.Length)StartCoroutine(InteractionSmoke(args[i+1]));
@@ -65,7 +72,12 @@ namespace DrawArrow
         void Update()
         {
             if(resultTransition.Take(out var nextMode,out int nextIndex))
-            {StartGame(nextMode,nextIndex);return;}
+            {
+                if(nextMode==GameMode.Classic&&SelectedFiniteSet&&nextIndex>=ActiveMainLevelCount)
+                    ReturnHome();
+                else StartGame(nextMode,nextIndex);
+                return;
+            }
             if(page==Page.Game&&CanInteract)arrowPress.Tick(Time.unscaledTime);
             if(page==Page.Game&&!paused&&!modalHelp&&!LevelToolsOpen)
                 foreach(var arrow in flying)arrow.elapsed+=Time.unscaledDeltaTime;
@@ -121,11 +133,11 @@ namespace DrawArrow
             page=Page.Collection;for(int part=0;part<5;part++){scroll=new Vector2(0,part*1320);for(int f=0;f<3;f++)yield return null;ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Games-"+part+".png"));yield return null;}
             foreach(int theme in new[]{0,1,2})
             {
-                OriginalArt.Theme=theme;page=Page.Home;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Theme-"+theme+"-Home.png"));yield return null;
+                CircuitStyle.Theme=theme;page=Page.Home;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Theme-"+theme+"-Home.png"));yield return null;
                 page=Page.Settings;for(int f=0;f<3;f++)yield return null;ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Theme-"+theme+"-Settings.png"));yield return null;
                 StartGame(GameMode.Classic,0);paused=true;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Theme-"+theme+"-Pause.png"));yield return null;paused=false;
             }
-            OriginalArt.Theme=0;StartGame(GameMode.Classic,0);paused=true;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Modal-Pause.png"));yield return null;
+            CircuitStyle.Theme=0;StartGame(GameMode.Classic,0);paused=true;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Modal-Pause.png"));yield return null;
             paused=false;foreach(int i in Arrows.Solve())Arrows.Remove(i);won=true;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Modal-Win.png"));yield return null;
             won=false;failed=true;toast="No hearts left.";yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Modal-Fail.png"));yield return null;
             File.WriteAllText(Path.Combine(directory,"smoke.json"),"{\"passed\":true,\"modes\":"+checkedModes+",\"artThemes\":3}");yield return new WaitForSeconds(1);Application.Quit();
@@ -138,22 +150,21 @@ namespace DrawArrow
             hintRequestVersion++;winHintReward=0;
             resultTransition.Clear();
             CancelArrowPress();
-            Mode=mode;LevelIndex=index<0?Progress.levels[(int)mode]:index;
-            if(mode==GameMode.Daily){int.TryParse(DateTime.Now.ToString("yyyyMMdd"),out int day);LevelIndex=day%Repository.Count(mode);}
+            Mode=mode;LevelIndex=index<0?(mode==GameMode.Classic?ActiveMainLevel:Progress.levels[(int)mode]):index;
+            if(mode==GameMode.Classic&&SelectedFiniteSet)LevelIndex=Mathf.Clamp(LevelIndex,0,ActiveMainLevelCount-1);
+            if(mode==GameMode.Daily){int.TryParse(DateTime.Now.ToString("yyyyMMdd"),out int day);LevelIndex=day%CircuitLevels.CampaignCount;}
             Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();blockedFlights.Clear();collidedArrows.Clear();motionPaths.Clear();tray.Colors.Clear();
             won=failed=paused=false;hearts=mode==GameMode.OneLife?1:3;moves=0;elapsed=0;timeLeft=mode==GameMode.SharkRush?22:mode==GameMode.Battle?150:90;botProgress=0;hint=-1;zoom=1;pan=Vector2.zero;
             if(mode==GameMode.Schulte){Schulte=new SchulteBoard(3+Mathf.Min(LevelIndex/3,3),137+LevelIndex);Level=null;}
             else
             {
-                Level=Repository.Load(mode,LevelIndex);
+                Level=CircuitLevels.Load(mode,LevelIndex,Progress.SelectedLevelSet);
                 if(mode==GameMode.OctaArrows)Octa=new OctaBoard(Level);
                 else if(mode==GameMode.LinkDots)Links=new LinkBoard(Level);
                 else if(mode==GameMode.OneLine)OneLine=new OneLineBoard(Level);
                 else
                 {
-                    bool baseCampaign=mode==GameMode.Classic&&LevelIndex%Repository.Count(mode)<1574;
-                    Arrows=new ArrowBoard(Level,mode==GameMode.Arrows3D,fitInitialGaps:true,
-                        compactLayout:baseCampaign,preserveSourceLengths:baseCampaign);
+                    Arrows=new ArrowBoard(Level,mode==GameMode.Arrows3D,fitInitialGaps:true);
                 }
                 if(mode==GameMode.Arrows3D){var view=Level.initialView;yaw=view!=null&&view.Length>=3?view[1]:-45;pitch=view!=null&&view.Length>=3?-view[0]:18;roll=view!=null&&view.Length>=3?view[2]:18;}
             }
@@ -197,8 +208,12 @@ namespace DrawArrow
             {
                 string today=DateTime.Now.ToString("yyyy-MM-dd");if(!Progress.dailyWins.Contains(today))Progress.dailyWins.Add(today);Progress.lastDaily=today;
             }
+            else if(Mode==GameMode.Classic)
+            {
+                Progress.SelectedClassicIndex=Mathf.Max(Progress.SelectedClassicIndex,LevelIndex+1);
+                FeatureUnlocks.RecordMainWin(Progress,LevelIndex+1);
+            }
             else Progress.levels[(int)Mode]=Mathf.Max(Progress.levels[(int)Mode],LevelIndex+1);
-            if(Mode==GameMode.Classic)FeatureUnlocks.RecordMainWin(Progress,LevelIndex+1);
             SaveStore.Save(Progress);Play("result_pass",.65f);
         }
         void Lose(string reason){if(failed||won)return;failed=true;resultTransition.Begin(Mode,LevelIndex,false);toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
@@ -250,7 +265,7 @@ namespace DrawArrow
         void OnDestroy(){if(Ink.Clicked==PlayUiClick)Ink.Clicked=null;}
         void Play(string name,float volume=.55f)
         {
-            if(!Progress.sound)return;if(!sounds.TryGetValue(name,out var clip)){clip=Resources.Load<AudioClip>("Recovered/Audio/"+name);sounds[name]=clip;}if(clip)audioSource.PlayOneShot(clip,volume);
+            if(!Progress.sound)return;if(!sounds.TryGetValue(name,out var clip)){clip=CircuitAudio.Create(name);sounds[name]=clip;}if(clip)audioSource.PlayOneShot(clip,volume);
         }
         void Vibrate()
         {

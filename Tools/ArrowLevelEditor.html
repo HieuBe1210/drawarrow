@@ -1,0 +1,737 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trình tạo level Arrow</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #eeedf5; color: #272343; font: 15px system-ui, sans-serif; }
+  main { max-width: 1500px; margin: auto; padding: 18px; }
+  h1 { margin: 0 0 12px; }
+  .controls { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  button, input, select { font: inherit; }
+  button, input, select { padding: 7px 10px; border: 1px solid #c1bed1; border-radius: 7px; background: #fff; color: inherit; }
+  button { cursor: pointer; }
+  button:disabled { opacity: .45; cursor: default; }
+  button.primary { background: #5340ad; color: #fff; border-color: #5340ad; }
+  .editor { display: grid; grid-template-columns: minmax(0, 1fr) 250px; gap: 12px; margin-top: 12px; }
+  section, aside { min-width: 0; background: #fff; border-radius: 10px; padding: 12px; }
+  #viewport { overflow: auto; height: min(69vh, 780px); background: #f8f7fb; border: 1px solid #d8d6e3; border-radius: 6px; }
+  canvas { display: block; cursor: crosshair; touch-action: manipulation; }
+  aside p { margin: 0 0 8px; }
+  #arrows { width: 100%; height: min(38vh, 420px); margin-bottom: 8px; }
+  #route { max-height: 115px; overflow: auto; overflow-wrap: anywhere; }
+  #status { min-height: 1.4em; margin: 10px 0 0; }
+  #coordinates { margin: 10px 0 0; font-variant-numeric: tabular-nums; }
+  #zoom { width: 100px; }
+  dialog { width: min(850px, 96vw); max-height: 94vh; border: 1px solid #c1bed1; border-radius: 12px; color: inherit; }
+  dialog::backdrop { background: #19163199; }
+  dialog h2 { margin-top: 0; }
+  #imagePreview { max-width: 100%; max-height: 49vh; margin: 12px auto; cursor: crosshair; }
+  #viewerDialog { width: min(1220px, 97vw); }
+  #viewerFrame { border: 0; width: 100%; height: 78vh; display: block; }
+  .dimension { width: 74px; }
+  @media (max-width: 850px) { .editor { grid-template-columns: minmax(0, 1fr); } #arrows { height: 125px; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Trình tạo level Arrow</h1>
+  <div class="controls">
+    <label for="levelName">Tên level</label><input id="levelName" value="level-moi" maxlength="80">
+    <button id="draw" class="primary" type="button">Vẽ mũi tên</button>
+    <button id="finish" type="button" disabled>Lưu mũi tên</button>
+    <button id="undoPoint" type="button" disabled>Lùi một điểm</button>
+    <button id="cancel" type="button" disabled>Hủy nét</button>
+    <button id="solve" type="button" disabled>Kiểm tra lời giải</button>
+    <button id="open" type="button">Mở file đã lưu</button>
+    <button id="showViewer" type="button">Trình xem</button>
+    <button id="imageOpen" type="button">Nhận dạng từ ảnh</button>
+    <input id="importFile" type="file" accept=".json,.bytes" hidden>
+    <label id="packControl" hidden>Màn trong bộ <select id="packLevel" aria-label="Màn trong bộ"></select></label>
+    <label>Định dạng <select id="exportType"><option value="json">.json</option><option value="bytes">.bytes</option></select></label>
+    <button id="export" type="button" disabled>Xuất file</button>
+    <button id="exportPack" type="button" hidden>Xuất cả bộ JSON</button>
+  </div>
+  <p id="status" role="status">Chọn ô đuôi trước, sau đó chọn các điểm rẽ. Điểm cuối sẽ là đầu mũi tên.</p>
+  <div class="editor">
+    <section aria-label="Lưới tạo màn">
+      <div class="controls">
+        <label for="zoom">Cỡ ô</label>
+        <input id="zoom" type="range" min="1" max="36" value="18" aria-label="Phóng to lưới">
+        <button id="fit" type="button">Vừa khung</button>
+        <button id="origin" type="button">Về C1/H1</button>
+      </div>
+      <p id="coordinates">140 × 140 · C1–C140 từ trái sang phải · H1–H140 từ trên xuống</p>
+      <div id="viewport"><canvas id="grid" aria-label="Lưới vẽ 140 × 140"></canvas></div>
+    </section>
+    <aside aria-label="Mũi tên đã vẽ">
+      <p id="count">0 mũi tên</p>
+      <select id="arrows" size="12" aria-label="Danh sách mũi tên"></select>
+      <p id="route"></p>
+      <div class="controls">
+        <button id="reverse" type="button" disabled>Đảo đầu</button>
+        <button id="confirmHead" type="button" disabled>Xác nhận hướng</button>
+        <button id="remove" type="button" disabled>Xóa mũi tên</button>
+        <button id="undoArrow" type="button" disabled>Hoàn tác</button>
+      </div>
+    </aside>
+  </div>
+</main>
+<dialog id="viewerDialog">
+  <button id="closeViewer" type="button">Quay lại trình tạo</button>
+  <iframe id="viewerFrame" title="Trình xem level Arrow"></iframe>
+</dialog>
+<dialog id="imageDialog">
+  <h2>Nhận dạng mũi tên từ ảnh</h2>
+  <div class="controls">
+    <input id="imageFile" type="file" accept="image/*" aria-label="Ảnh bố cục">
+    <label>Cột <input class="dimension" id="imageColumns" type="number" min="2" max="140" value="20"></label>
+    <label>Hàng <input class="dimension" id="imageRows" type="number" min="2" max="140" value="20"></label>
+    <label>Màu nét <input id="imageInk" type="color" value="#8135bc"></label>
+    <label>Độ dung sai <input id="imageTolerance" type="range" min="20" max="180" value="96"></label>
+  </div>
+  <p id="imageStatus" role="status">Chọn ảnh bố cục của bạn. Nhập số cột và hàng của vùng ảnh cần đọc.</p>
+  <canvas id="imagePreview" hidden></canvas>
+  <div class="controls">
+    <button id="imageReset" type="button">Căn lại hai góc</button>
+    <button id="imageApply" class="primary" type="button" disabled>Dò và đưa vào lưới</button>
+    <button id="imageClose" type="button">Đóng</button>
+  </div>
+</dialog>
+<script>
+'use strict';
+
+const SIZE = 140;
+const GUTTER = 37;
+const DIRECTIONS = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+const byId = id => document.getElementById(id);
+const viewport = byId('viewport');
+const canvas = byId('grid');
+const list = byId('arrows');
+const legend = byId('coordinates').textContent;
+const arrows = [];
+const history = [];
+const uncertain = new WeakSet();
+let draft = [];
+let selected = -1;
+let drawing = true;
+let cell = 18;
+let pointer = null;
+
+const same = (a, b) => a.c === b.c && a.h === b.h;
+const encode = point => (SIZE - point.h) * SIZE + point.c - 1;
+const inside = point => point.c >= 1 && point.c <= SIZE && point.h >= 1 && point.h <= SIZE;
+const label = point => 'C' + point.c + '/H' + point.h;
+const screen = point => [GUTTER + (point.c - .5) * cell, GUTTER + (point.h - .5) * cell];
+const forward = (head, neck) => ({ c: Math.sign(head.c - neck.c), h: Math.sign(head.h - neck.h) });
+const move = (point, direction) => ({ c: point.c + direction.c, h: point.h + direction.h });
+
+function say(text) { byId('status').textContent = text; }
+
+function expand(route) {
+  const cells = [route[0]];
+  for (let i = 1; i < route.length; i++) {
+    const next = route[i];
+    let cursor = route[i - 1];
+    if (same(next, cursor) || (next.c !== cursor.c && next.h !== cursor.h))
+      throw Error('Hai điểm liên tiếp phải cùng hàng hoặc cùng cột.');
+    const direction = forward(next, cursor);
+    while (!same(next, cursor)) { cursor = move(cursor, direction); cells.push(cursor); }
+  }
+  return cells;
+}
+
+function occupancy(routes) {
+  const owners = new Map();
+  routes.forEach((route, index) => {
+    for (const point of expand(route)) owners.set(encode(point), index);
+  });
+  return owners;
+}
+
+function checkRoute(route, occupied) {
+  if (route.length < 2) throw Error('Mỗi mũi tên cần ít nhất hai điểm.');
+  const cells = expand(route);
+  const own = new Set(cells.map(encode));
+  if (own.size !== cells.length) throw Error('Mũi tên đang giao với chính nó.');
+  const overlap = cells.find(point => occupied.has(encode(point)));
+  if (overlap) throw Error('Đường đi chồng lên mũi tên khác tại ' + label(overlap) + '.');
+  const head = route.at(-1);
+  const direction = forward(head, route.at(-2));
+  for (let point = move(head, direction); inside(point); point = move(point, direction))
+    if (own.has(encode(point))) throw Error('Đầu mũi tên đang hướng vào thân của chính nó.');
+}
+
+function readLevel(text) {
+  return decodeLevel(JSON.parse(text));
+}
+
+function decodeLevel(data) {
+  if (data?.width !== SIZE || data?.height !== SIZE || !Array.isArray(data.arrows))
+    throw Error('Cần JSON bàn 140 × 140 đã lưu từ trình tạo level.');
+  const occupied = new Map();
+  const routes = data.arrows.map((arrow, index) => {
+    if (!Array.isArray(arrow?.points) || arrow.points.some(point =>
+      !Number.isInteger(point) || point < 0 || point >= SIZE * SIZE))
+      throw Error('Tọa độ không hợp lệ ở mũi tên ' + (index + 1) + '.');
+    const route = arrow.points.slice().reverse().map(point =>
+      ({ c: point % SIZE + 1, h: SIZE - Math.floor(point / SIZE) }));
+    checkRoute(route, occupied);
+    for (const point of expand(route)) occupied.set(encode(point), index);
+    return route;
+  });
+  return { name: typeof data.id === 'string' ? data.id : 'level-moi', routes };
+}
+
+function solve(routes) {
+  const owners = occupancy(routes);
+  const dependents = routes.map(() => []);
+  const required = routes.map((route, index) => {
+    const head = route.at(-1);
+    const direction = forward(head, route.at(-2));
+    const blockedBy = new Set();
+    for (let point = move(head, direction); inside(point); point = move(point, direction)) {
+      const blocker = owners.get(encode(point));
+      if (blocker !== undefined && blocker !== index) blockedBy.add(blocker);
+    }
+    for (const blocker of blockedBy) dependents[blocker].push(index);
+    return blockedBy.size;
+  });
+  const order = [];
+  required.forEach((count, i) => { if (count === 0) order.push(i); });
+  for (let i = 0; i < order.length; i++)
+    for (const next of dependents[order[i]]) if (--required[next] === 0) order.push(next);
+  return order;
+}
+
+function levelData(name, routes, solution) {
+  const points = routes.flat();
+  const columns = points.map(point => point.c);
+  const rows = points.map(point => point.h);
+  return {
+    format: 'arrow-level-editor-v1', id: name, width: SIZE, height: SIZE,
+    packedFitBounds: [Math.max(...columns) - Math.min(...columns), Math.max(...rows) - Math.min(...rows)],
+    arrows: routes.map(route => {
+      const sign = forward(route.at(-1), route.at(-2));
+      return { points: route.slice().reverse().map(encode), dx: sign.c, dy: sign.h === 0 ? 0 : -sign.h };
+    }),
+    solution
+  };
+}
+
+function render() {
+  const ctx = canvas.getContext('2d');
+  const span = SIZE * cell;
+  const dimension = GUTTER + span + 24;
+  const ratio = Math.min(window.devicePixelRatio || 1, 4096 / dimension);
+  const pixels = Math.ceil(dimension * ratio);
+  if (canvas.width !== pixels || canvas.height !== pixels) {
+    canvas.width = canvas.height = pixels;
+  }
+  canvas.style.width = canvas.style.height = dimension + 'px';
+  ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  ctx.clearRect(0, 0, dimension, dimension);
+  ctx.fillStyle = '#fff9e9';
+  ctx.fillRect(GUTTER, GUTTER, span, span);
+  for (const interval of [1, 10]) {
+    ctx.beginPath();
+    for (let i = 0; i <= SIZE; i += interval) {
+      const at = GUTTER + i * cell;
+      ctx.moveTo(at, GUTTER); ctx.lineTo(at, GUTTER + span);
+      ctx.moveTo(GUTTER, at); ctx.lineTo(GUTTER + span, at);
+    }
+    ctx.strokeStyle = interval === 1 ? '#dedce4' : '#a19bb3';
+    ctx.lineWidth = interval === 1 ? .55 : 1;
+    ctx.stroke();
+  }
+  const every = Math.ceil(27 / cell);
+  ctx.font = '10px system-ui, sans-serif';
+  ctx.fillStyle = '#48415e';
+  ctx.textBaseline = 'middle';
+  for (let i = 1; i <= SIZE; i++) {
+    if (i !== 1 && i !== SIZE && i % every !== 0) continue;
+    const at = GUTTER + (i - .5) * cell;
+    ctx.textAlign = 'center'; ctx.fillText('C' + i, at, 18);
+    ctx.textAlign = 'right'; ctx.fillText('H' + i, 32, at);
+  }
+  if (pointer) {
+    const [x, y] = screen(pointer);
+    ctx.fillStyle = '#5340ad22';
+    ctx.fillRect(x - cell / 2, y - cell / 2, cell, cell);
+  }
+  arrows.forEach((route, i) => drawRoute(ctx, route, i === selected ? '#db6617' : '#7033a1'));
+  if (draft.length) drawRoute(ctx, draft, '#136e75');
+}
+
+function drawRoute(ctx, route, color) {
+  ctx.strokeStyle = ctx.fillStyle = color;
+  ctx.lineWidth = Math.max(1.1, cell * .12);
+  ctx.lineCap = ctx.lineJoin = 'round';
+  ctx.beginPath();
+  ctx.moveTo(...screen(route[0]));
+  for (const point of route.slice(1)) ctx.lineTo(...screen(point));
+  ctx.stroke();
+  const [x, y] = screen(route.at(-1));
+  ctx.beginPath();
+  if (route.length === 1) ctx.arc(x, y, Math.max(2, cell * .18), 0, 2 * Math.PI);
+  else {
+    const direction = forward(route.at(-1), route.at(-2));
+    const back = cell * .39;
+    const side = cell * .22;
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - direction.c * back - direction.h * side, y - direction.h * back + direction.c * side);
+    ctx.lineTo(x - direction.c * back + direction.h * side, y - direction.h * back - direction.c * side);
+    ctx.closePath();
+  }
+  ctx.fill();
+}
+
+function refresh() {
+  const options = document.createDocumentFragment();
+  arrows.forEach((route, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = (index + 1) + ' · ' + label(route.at(-1)) + (uncertain.has(route) ? ' · Kiểm tra đầu' : '');
+    options.append(option);
+  });
+  list.replaceChildren(options);
+  list.selectedIndex = selected;
+  byId('count').textContent = arrows.length + ' mũi tên';
+  byId('route').textContent = selected < 0 ? '' : arrows[selected].slice().reverse().map(label).join(' → ');
+  byId('finish').disabled = draft.length < 2;
+  byId('undoPoint').disabled = byId('cancel').disabled = draft.length === 0;
+  byId('reverse').disabled = byId('remove').disabled = selected < 0 || draft.length > 0;
+  byId('confirmHead').disabled = selected < 0 || draft.length > 0 || !uncertain.has(arrows[selected]);
+  byId('undoArrow').disabled = !history.length || draft.length > 0;
+  byId('solve').disabled = byId('export').disabled = !arrows.length || draft.length > 0;
+  byId('open').disabled = draft.length > 0;
+  byId('imageOpen').disabled = draft.length > 0;
+  byId('packLevel').disabled = draft.length > 0;
+  byId('exportPack').disabled = draft.length > 0;
+  byId('draw').setAttribute('aria-pressed', String(drawing));
+  render();
+}
+
+function snapshot() { history.push(arrows.slice()); }
+
+function finish() {
+  try { checkRoute(draft, occupancy(arrows)); }
+  catch (error) { say(error.message); return; }
+  snapshot();
+  arrows.push(draft);
+  selected = arrows.length - 1;
+  draft = [];
+  drawing = false;
+  say('Đã lưu mũi tên ' + arrows.length + '. Chọn Vẽ mũi tên để vẽ tiếp.');
+  refresh();
+}
+
+function cellAt(event) {
+  const point = { c: Math.floor((event.offsetX - GUTTER) / cell) + 1,
+    h: Math.floor((event.offsetY - GUTTER) / cell) + 1 };
+  return inside(point) ? point : null;
+}
+
+function addPoint(point) {
+  const last = draft.at(-1);
+  if (last && same(last, point)) return;
+  if (last && last.c !== point.c && last.h !== point.h) {
+    say('Điểm kế tiếp cần cùng hàng hoặc cùng cột với ' + label(last) + '.');
+    return;
+  }
+  draft.push(point);
+  say('Đang vẽ · ' + draft.length + ' điểm · ' + label(point));
+  refresh();
+}
+
+function reportSolution() {
+  const order = solve(arrows);
+  say(order.length === arrows.length
+    ? 'Giải được toàn bộ ' + order.length + ' mũi tên.'
+    : 'Dọn được ' + order.length + '/' + arrows.length + '. Các mũi tên còn lại đang chặn nhau.');
+  return order;
+}
+
+function traceImage(image, columns, rows, anchors, color, tolerance) {
+  const [first, last] = anchors;
+  const dx = (last.x - first.x) / (columns - 1);
+  const dy = (last.y - first.y) / (rows - 1);
+  if (dx < 3 || dy < 3) throw Error('Hai góc cần nằm theo thứ tự trên trái → dưới phải. Mỗi ô cần rộng ít nhất 3 pixel.');
+  const rgb = [1, 3, 5].map(offset => parseInt(color.slice(offset, offset + 2), 16));
+  const cutoff = tolerance * tolerance;
+  function ink(column, row) {
+    const x = Math.round(first.x + column * dx);
+    const y = Math.round(first.y + row * dy);
+    if (x < 0 || y < 0 || x >= image.width || y >= image.height) return false;
+    const i = (y * image.width + x) * 4;
+    const pixels = image.data;
+    return pixels[i + 3] >= 100 &&
+      (pixels[i] - rgb[0]) ** 2 + (pixels[i + 1] - rgb[1]) ** 2 + (pixels[i + 2] - rgb[2]) ** 2 <= cutoff;
+  }
+  const links = Array.from({ length: columns * rows }, () => []);
+  function connect(column, row, sx, sy) {
+    let hits = 0;
+    for (const t of [.13, .25, .38, .5, .63, .75, .87])
+      if ([0, -.08, .08].some(n => ink(column + sx * t - sy * n, row + sy * t + sx * n))) hits++;
+    if (hits < 6) return;
+    const from = row * columns + column;
+    const to = (row + sy) * columns + column + sx;
+    links[from].push(to);
+    links[to].push(from);
+  }
+  for (let y = 0; y < rows; y++) for (let x = 0; x < columns; x++) {
+    if (x + 1 < columns) connect(x, y, 1, 0);
+    if (y + 1 < rows) connect(x, y, 0, 1);
+  }
+
+  const asCell = index => ({ c: index % columns + 1, h: Math.floor(index / columns) + 1 });
+  function headScore(endpoint, neighbor) {
+    const point = asCell(endpoint);
+    const direction = forward(asCell(neighbor), point);
+    const centerX = point.c - 1, centerY = point.h - 1;
+    let score = 0;
+    for (const side of [-1, 1]) {
+      for (const t of [.24, .34, .44]) {
+        if ([.17, .23, .30].some(offset =>
+          ink(centerX + direction.c * t - direction.h * offset * side,
+            centerY + direction.h * t + direction.c * offset * side))) score++;
+      }
+    }
+    return score;
+  }
+
+  const visited = new Set();
+  const occupied = new Map();
+  const routes = [];
+  const review = [];
+  let skipped = 0;
+  links.forEach((neighbors, start) => {
+    if (!neighbors.length || visited.has(start)) return;
+    const component = [start];
+    visited.add(start);
+    for (let i = 0; i < component.length; i++)
+      for (const next of links[component[i]]) if (!visited.has(next)) {
+        visited.add(next); component.push(next);
+      }
+    const endpoints = component.filter(point => links[point].length === 1);
+    if (endpoints.length !== 2 || component.some(point => links[point].length > 2)) { skipped++; return; }
+
+    const path = [endpoints[0]];
+    while (path.at(-1) !== endpoints[1])
+      path.push(links[path.at(-1)].find(next => next !== path.at(-2)));
+    const aScore = headScore(path[0], path[1]);
+    const bScore = headScore(path.at(-1), path.at(-2));
+    if (aScore > bScore) path.reverse();
+    const turns = path.map(asCell).filter((point, i, cells) => {
+      if (i === 0 || i === cells.length - 1) return true;
+      const before = cells[i - 1], after = cells[i + 1];
+      return before.c !== after.c && before.h !== after.h;
+    });
+    let flagged = Math.abs(aScore - bScore) < 2;
+    try { checkRoute(turns, occupied); }
+    catch {
+      turns.reverse();
+      try { checkRoute(turns, occupied); }
+      catch { skipped++; return; }
+      flagged = true;
+    }
+    for (const point of expand(turns)) occupied.set(encode(point), routes.length);
+    routes.push(turns);
+    if (flagged) review.push(turns);
+  });
+  return { routes, review, skipped };
+}
+
+const imageDialog = byId('imageDialog');
+const imagePreview = byId('imagePreview');
+let sourcePixels;
+let imageAnchors = [];
+let imageRequest = 0;
+
+function showImage() {
+  imagePreview.hidden = !sourcePixels;
+  byId('imageApply').disabled = !sourcePixels || imageAnchors.length !== 2;
+  if (!sourcePixels) return;
+  const ctx = imagePreview.getContext('2d');
+  ctx.putImageData(sourcePixels, 0, 0);
+  imageAnchors.forEach((point, index) => {
+    const radius = Math.max(4, imagePreview.width / 115);
+    ctx.beginPath();
+    ctx.arc(point.x, point.y, radius, 0, Math.PI * 2);
+    ctx.lineWidth = radius * .48;
+    ctx.strokeStyle = index ? '#00bfc0' : '#ff7843';
+    ctx.stroke();
+  });
+}
+
+byId('imageOpen').onclick = () => imageDialog.showModal();
+byId('imageClose').onclick = () => imageDialog.close();
+byId('imageFile').onchange = async event => {
+  const request = ++imageRequest;
+  const picker = event.target;
+  const file = picker.files[0];
+  picker.value = '';
+  if (!file) return;
+  sourcePixels = undefined;
+  imageAnchors = [];
+  showImage();
+  try {
+    const bitmap = await createImageBitmap(file);
+    if (request !== imageRequest) { bitmap.close(); return; }
+    const factor = Math.min(1, 2600 / Math.max(bitmap.width, bitmap.height));
+    imagePreview.width = Math.max(1, Math.round(bitmap.width * factor));
+    imagePreview.height = Math.max(1, Math.round(bitmap.height * factor));
+    const ctx = imagePreview.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(bitmap, 0, 0, imagePreview.width, imagePreview.height);
+    bitmap.close();
+    sourcePixels = ctx.getImageData(0, 0, imagePreview.width, imagePreview.height);
+    byId('imageStatus').textContent = 'Bấm vào tâm ô trên cùng bên trái của vùng lưới trong ảnh.';
+    showImage();
+  } catch { byId('imageStatus').textContent = 'Không đọc được ảnh. Thử ảnh PNG, JPG hoặc WebP.'; }
+};
+byId('imageReset').onclick = () => {
+  imageAnchors = [];
+  byId('imageStatus').textContent = 'Bấm lại vào tâm ô trên trái, rồi tâm ô dưới phải.';
+  showImage();
+};
+imagePreview.onclick = event => {
+  if (!sourcePixels) return;
+  const rect = imagePreview.getBoundingClientRect();
+  if (imageAnchors.length === 2) imageAnchors = [];
+  imageAnchors.push({
+    x: (event.clientX - rect.left) * imagePreview.width / rect.width,
+    y: (event.clientY - rect.top) * imagePreview.height / rect.height
+  });
+  byId('imageStatus').textContent = imageAnchors.length === 1
+    ? 'Bấm vào tâm ô dưới cùng bên phải của vùng lưới.'
+    : 'Kiểm tra lại số hàng, cột và màu nét, rồi bấm Dò và đưa vào lưới.';
+  showImage();
+};
+byId('imageApply').onclick = () => {
+  const columns = Number(byId('imageColumns').value);
+  const rows = Number(byId('imageRows').value);
+  if (![columns, rows].every(n => Number.isInteger(n) && n >= 2 && n <= SIZE)) {
+    byId('imageStatus').textContent = 'Nhập số hàng và cột trong khoảng 2–140.';
+    return;
+  }
+  try {
+    const result = traceImage(sourcePixels, columns, rows, imageAnchors, byId('imageInk').value,
+      Number(byId('imageTolerance').value));
+    if (!result.routes.length) throw Error('Chưa dò được đường nào. Kiểm tra căn lưới, màu nét hoặc độ dung sai.');
+    snapshot();
+    arrows.splice(0, arrows.length, ...result.routes);
+    result.review.forEach(route => uncertain.add(route));
+    selected = -1;
+    drawing = false;
+    imageDialog.close();
+    refresh();
+    say('Dò được ' + arrows.length + ' mũi tên. ' + result.review.length + ' hướng cần kiểm tra, ' +
+      result.skipped + ' cụm nét bị bỏ qua. Có thể hoàn tác để quay về bàn trước.');
+  } catch (error) { byId('imageStatus').textContent = error.message; }
+};
+
+canvas.onclick = event => {
+  const point = cellAt(event);
+  if (!point) return;
+  if (drawing) addPoint(point);
+  else {
+    selected = occupancy(arrows).get(encode(point)) ?? -1;
+    refresh();
+  }
+};
+canvas.onmousemove = event => {
+  const next = cellAt(event);
+  if (next && pointer && same(next, pointer)) return;
+  pointer = next;
+  byId('coordinates').textContent = pointer ? label(pointer) : legend;
+  render();
+};
+canvas.onmouseleave = () => { pointer = null; byId('coordinates').textContent = legend; render(); };
+list.onchange = () => { selected = list.selectedIndex; refresh(); };
+byId('draw').onclick = () => { drawing = true; selected = -1; say('Chọn ô đuôi, rồi chọn các điểm rẽ đến ô đầu.'); refresh(); };
+byId('finish').onclick = finish;
+byId('undoPoint').onclick = () => { draft.pop(); say('Đang vẽ · ' + draft.length + ' điểm.'); refresh(); };
+byId('cancel').onclick = () => { draft = []; drawing = false; say('Đã hủy nét đang vẽ.'); refresh(); };
+byId('reverse').onclick = () => {
+  const reversed = arrows[selected].slice().reverse();
+  try { checkRoute(reversed, occupancy(arrows.filter((_, index) => index !== selected))); }
+  catch (error) { say(error.message); return; }
+  snapshot(); arrows[selected] = reversed; refresh();
+};
+byId('remove').onclick = () => { snapshot(); arrows.splice(selected, 1); selected = -1; refresh(); };
+byId('confirmHead').onclick = () => { uncertain.delete(arrows[selected]); refresh(); };
+byId('undoArrow').onclick = () => { arrows.splice(0, arrows.length, ...history.pop()); selected = -1; refresh(); };
+byId('solve').onclick = reportSolution;
+byId('open').onclick = () => byId('importFile').click();
+let levelPack = [];
+let packIndex = -1;
+let packName = '';
+
+function setLevelPack(levels, name = '') {
+  levelPack = levels;
+  packName = name;
+  packIndex = -1;
+  const options = document.createDocumentFragment();
+  levels.forEach((level, index) => {
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = 'Màn ' + (index + 1) + ' · ' + level.name;
+    options.append(option);
+  });
+  byId('packLevel').replaceChildren(options);
+  byId('packControl').hidden = levels.length === 0;
+  byId('exportPack').hidden = levels.length === 0;
+}
+
+function savePackLevel() {
+  if (packIndex >= 0) {
+    levelPack[packIndex].routes = arrows.slice();
+    levelPack[packIndex].name = byId('levelName').value;
+  }
+}
+
+function openPackLevel(index) {
+  savePackLevel();
+  packIndex = index;
+  byId('packLevel').value = String(index);
+  const { name, routes } = levelPack[index];
+  loadDraft(name, routes);
+  history.length = 0;
+  refresh();
+}
+
+byId('packLevel').onchange = event => openPackLevel(Number(event.target.value));
+
+function loadDraft(name, routes) {
+  snapshot();
+  arrows.splice(0, arrows.length, ...routes);
+  byId('levelName').value = name;
+  selected = -1;
+  drawing = false;
+  say('Đã mở ' + name + ' · ' + arrows.length + ' mũi tên.');
+  refresh();
+}
+
+function openLevelDocument(data) {
+  if (data?.format === 'arrow-level-editor-pack-v1') {
+    if (!Array.isArray(data.levels) || !data.levels.length) throw Error('Bộ level không có màn nào.');
+    setLevelPack(data.levels.map(decodeLevel), typeof data.name === 'string' ? data.name : '');
+    openPackLevel(0);
+  } else {
+    const { name, routes } = decodeLevel(data);
+    setLevelPack([]);
+    loadDraft(name, routes);
+  }
+}
+
+const viewer = byId('viewerDialog');
+const viewerFrame = byId('viewerFrame');
+let viewerReady = false;
+let pendingPreview;
+function sendPreview() {
+  if (viewerReady && pendingPreview) {
+    viewerFrame.contentWindow.postMessage({ type: 'arrow-preview-file', file: pendingPreview }, '*');
+    pendingPreview = undefined;
+  }
+}
+
+function showViewer(file) {
+  if (file) pendingPreview = file;
+  if (!viewerFrame.getAttribute('src')) {
+    viewerReady = false;
+    viewerFrame.src = 'ShardLevelViewer.html?embedded=1';
+  }
+  if (!viewer.open) viewer.showModal();
+  sendPreview();
+}
+
+viewerFrame.onload = () => { viewerReady = true; sendPreview(); };
+byId('showViewer').onclick = () => showViewer();
+byId('closeViewer').onclick = () => viewer.close();
+window.addEventListener('message', event => {
+  if (event.source !== viewerFrame.contentWindow || event.data?.type !== 'arrow-edit-document') return;
+  if (draft.length) { viewer.close(); say('Lưu hoặc hủy nét đang vẽ trước khi mở file.'); return; }
+  try {
+    const data = JSON.parse(event.data.text);
+    if (!['arrow-level-editor-v1', 'arrow-level-editor-pack-v1'].includes(data?.format)) return;
+    openLevelDocument(data);
+    viewer.close();
+  } catch (error) { viewer.close(); say(error.message); }
+});
+
+byId('importFile').onchange = async event => {
+  const picker = event.target;
+  const file = picker.files[0];
+  picker.value = '';
+  if (!file) return;
+  try {
+    const data = JSON.parse((await file.text()).replace(/^\uFEFF/, ''));
+    if (draft.length) { say('Lưu hoặc hủy nét đang vẽ trước khi mở file.'); return; }
+    if (data?.XSize && Array.isArray(data.Arrows)) {
+      showViewer(file);
+      return;
+    }
+    openLevelDocument(data);
+  } catch (error) { say(error.message); }
+};
+function downloadLevelDocument(data, name, extension) {
+  const payload = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(payload);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = name.replace(/[^a-z0-9._-]/gi, '_') + '.' + extension;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+byId('export').onclick = () => {
+  const solution = reportSolution();
+  if (solution.length !== arrows.length) return;
+  const name = byId('levelName').value.trim() || 'level-moi';
+  downloadLevelDocument(levelData(name, arrows, solution), name, byId('exportType').value);
+};
+byId('exportPack').onclick = () => {
+  savePackLevel();
+  const levels = [];
+  for (const [index, { name, routes }] of levelPack.entries()) {
+    const solution = solve(routes);
+    if (!routes.length || solution.length !== routes.length) {
+      say('Màn ' + (index + 1) + ' đang trống hoặc chưa có lời giải. Chỉnh màn đó rồi xuất lại bộ.');
+      return;
+    }
+    levels.push(levelData(name.trim() || 'level-' + (index + 1), routes, solution));
+  }
+  const name = packName || 'bo-level';
+  downloadLevelDocument({ format: 'arrow-level-editor-pack-v1', name, levels }, name, 'json');
+  say('Đã xuất JSON gồm ' + levels.length + ' màn.');
+};
+byId('zoom').oninput = event => { cell = Number(event.target.value); render(); };
+byId('fit').onclick = () => {
+  cell = Math.max(1, Math.floor((Math.min(viewport.clientWidth, viewport.clientHeight) - GUTTER - 24) / SIZE));
+  byId('zoom').value = cell;
+  viewport.scrollTo(0, 0);
+  render();
+};
+byId('origin').onclick = () => viewport.scrollTo(0, 0);
+document.addEventListener('keydown', event => {
+  if (/^(INPUT|SELECT|BUTTON)$/.test(event.target.tagName)) return;
+  if (event.key === 'Enter' && draft.length >= 2) { event.preventDefault(); finish(); }
+  if (event.key === 'Escape' && draft.length) byId('cancel').click();
+});
+refresh();
+const incomingDraft = window.location.hash.match(/^#draft=(.+)$/);
+if (incomingDraft) {
+  try {
+    const bytes = Uint8Array.from(atob(incomingDraft[1]), character => character.charCodeAt(0));
+    const text = new TextDecoder('utf-8', { fatal: true }).decode(bytes);
+    const data = JSON.parse(text);
+    if (!['arrow-level-editor-v1', 'arrow-level-editor-pack-v1'].includes(data?.format))
+      throw Error('File chưa được xuất từ trình tạo level.');
+    openLevelDocument(data);
+  } catch (error) { say('Không mở được thiết kế · ' + error.message); }
+}
+</script>
+</body>
+</html>

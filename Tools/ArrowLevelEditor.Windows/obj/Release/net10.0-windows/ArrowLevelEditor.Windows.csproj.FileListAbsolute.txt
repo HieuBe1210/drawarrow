@@ -1,0 +1,5 @@
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\ArrowLevelEditor.Windows.GeneratedMSBuildEditorConfig.editorconfig
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\ArrowLevelEditor.Windows.AssemblyInfoInputs.cache
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\ArrowLevelEditor.Windows.AssemblyInfo.cs
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\ArrowLevelEditor.Windows.csproj.CoreCompileInputs.cache
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\ArrowLevelEditor.Windows.sourcelink.json

@@ -20,6 +20,7 @@ namespace DrawArrow
         public readonly Rect ContentBounds;
         public readonly Rect? ReferenceBounds;
         readonly Vector3[] flatDirections;
+        readonly List<(int arrow, float distance)>[] diagonalBlockers;
         readonly Vector2Int flatSize;
         readonly bool compactLayout;
         readonly bool preserveSourceLengths;
@@ -28,7 +29,9 @@ namespace DrawArrow
             bool compactLayout = false, bool preserveSourceLengths = false, bool searchHoles = false)
         {
             Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];DotPositions=new List<Vector3>[Active.Length];
-            if(!Cube&&fitInitialGaps)flatDirections=new Vector3[Active.Length];
+            if(!Cube&&level.followDiagonalPaths)
+                diagonalBlockers=new List<(int arrow, float distance)>[Active.Length];
+            else if(!Cube&&fitInitialGaps)flatDirections=new Vector3[Active.Length];
             for(int i=0;i<Active.Length;i++)
             {
                 Active[i]=true;Paths[i]=Expand(level.arrows[i].points);
@@ -43,7 +46,7 @@ namespace DrawArrow
                     var center=Paths[i][0];var direction=Direction(i);
                     Paths[i][0]=center-direction*.3f;Paths[i].Add(center+direction*.3f);
                 }
-                if(!Cube)TrimSelfPointingTail(Paths[i],Direction(i));
+                if(!Cube&&diagonalBlockers==null)TrimSelfPointingTail(Paths[i],Direction(i));
             }
             flatSize=new Vector2Int(level.width,level.height);
             if(flatDirections!=null&&level.packedFitBounds!=null&&level.packedFitBounds.Length==2)
@@ -51,7 +54,7 @@ namespace DrawArrow
                 // The packed routes were already checked for clearance and solvability.
                 ReferenceBounds=new Rect(0,0,level.packedFitBounds[0],level.packedFitBounds[1]);
                 int widthSteps=level.width-1>FlatGridSteps?ExtendedGridSteps:FlatGridSteps;
-                flatSize=new Vector2Int(widthSteps+1,FlatGridSteps+1);
+                flatSize=new Vector2Int(Mathf.Max(level.width,widthSteps+1),Mathf.Max(level.height,FlatGridSteps+1));
             }
             else if(flatDirections!=null)
             {
@@ -105,7 +108,7 @@ namespace DrawArrow
             for(int i=points.Length-1;i>=0;i--)
             {
                 var p=Decode(points[i]);
-                if(result.Count>0)
+                if(result.Count>0&&diagonalBlockers==null)
                 {
                     var last=result[result.Count-1]; var delta=p-last;
                     if(flatDirections!=null)
@@ -139,6 +142,7 @@ namespace DrawArrow
             if(!Cube&&(data.dx!=0||data.dy!=0))return new Vector3(data.dx,data.dy,0);
             var p=Paths[i]; if(p.Count<2)return Vector3.right;
             var d=p[p.Count-1]-p[p.Count-2];
+            if(diagonalBlockers!=null)return d;
             int axis=Mathf.Abs(d.x)>=Mathf.Abs(d.y)&&Mathf.Abs(d.x)>=Mathf.Abs(d.z)?0:Mathf.Abs(d.y)>=Mathf.Abs(d.z)?1:2;
             var v=Vector3.zero;v[axis]=Mathf.Sign(d[axis]);return v;
         }
@@ -248,6 +252,7 @@ namespace DrawArrow
         {
             if(i<0 || i>=Active.Length || !Active[i] || Paths[i].Count==0 || IsMechanism(i)) return false;
             if(Cube)return CubeRoute(i,false,out _)||(Level.arrows[i].special==3002&&CubeRoute(i,true,out _));
+            if(diagonalBlockers!=null)return float.IsPositiveInfinity(DiagonalBlockerDistance(i));
             var pos=Head(i);var dir=Direction(i);
             int max=flatSize.x+flatSize.y+Mathf.Max(Level.depth,1)+4;
             for(int step=FlatArrowLayout.GridStep;step<=max;step+=FlatArrowLayout.GridStep)
@@ -262,6 +267,11 @@ namespace DrawArrow
         public float BlockedTravel(int i)
         {
             if(Cube||i<0||i>=Active.Length||!Active[i]||Paths[i].Count==0)return 0;
+            if(diagonalBlockers!=null)
+            {
+                float distance=DiagonalBlockerDistance(i);
+                return float.IsPositiveInfinity(distance)?0:Mathf.Max(0,distance-.12f);
+            }
             var head=Head(i);var direction=Direction(i);
             for(int step=FlatArrowLayout.GridStep;step<=flatSize.x+flatSize.y+4;step+=FlatArrowLayout.GridStep)
             {
@@ -272,6 +282,55 @@ namespace DrawArrow
                     return Mathf.Max(0,step*direction.magnitude-.12f);
             }
             return 0;
+        }
+
+        float DiagonalBlockerDistance(int index)
+        {
+            var blockers=diagonalBlockers[index];
+            if(blockers==null)
+            {
+                blockers=diagonalBlockers[index]=new List<(int arrow, float distance)>();
+                var head=(Vector2)Head(index);
+                var direction=(Vector2)Direction(index);
+                for(int other=0;other<Paths.Length;other++)
+                {
+                    if(other==index)continue;
+                    var path=Paths[other];
+                    float distance=float.PositiveInfinity;
+                    for(int i=1;i<path.Count;i++)
+                        distance=Mathf.Min(distance,RaySegmentDistance(head,direction,path[i-1],path[i]));
+                    if(!float.IsPositiveInfinity(distance))blockers.Add((other,distance*direction.magnitude));
+                }
+            }
+
+            float nearest=float.PositiveInfinity;
+            foreach(var blocker in blockers)
+                if(Active[blocker.arrow])nearest=Mathf.Min(nearest,blocker.distance);
+            return nearest;
+        }
+
+        static float Cross(Vector2 a,Vector2 b)=>a.x*b.y-a.y*b.x;
+
+        // Return distance in multiples of direction. A contact at the head
+        // only blocks if the other shaft extends forward along the exit ray.
+        static float RaySegmentDistance(Vector2 head,Vector2 direction,Vector2 start,Vector2 end)
+        {
+            var offset=start-head;
+            var segment=end-start;
+            float cross=Cross(direction,segment);
+            if(cross!=0)
+            {
+                float t=Cross(offset,segment)/cross;
+                float u=Cross(offset,direction)/cross;
+                return t>0&&u>=0&&u<=1?t:float.PositiveInfinity;
+            }
+            if(Cross(offset,direction)!=0)return float.PositiveInfinity;
+
+            float first=Vector2.Dot(offset,direction);
+            float last=Vector2.Dot(end-head,direction);
+            return Mathf.Max(first,last)>0
+                ? Mathf.Max(0,Mathf.Min(first,last))/direction.sqrMagnitude
+                : float.PositiveInfinity;
         }
         bool CubeRoute(int i,bool reverse,out int receiver)
         {

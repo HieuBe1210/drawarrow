@@ -37,7 +37,7 @@ namespace DrawArrow.Editor
                 Check(FeatureUnlocks.DailyUnlocked(SaveStore.Load())&&!FeatureUnlocks.MoreGamesUnlocked(SaveStore.Load()),"Existing level-11 save keeps its earned unlock");
                 legacy.levels[0]=15;oldJson=JsonUtility.ToJson(legacy).Replace(",\"mainLevelsCompleted\":0","");PlayerPrefs.SetString(key,oldJson);
                 Check(FeatureUnlocks.MoreGamesUnlocked(SaveStore.Load()),"Existing level-16 save keeps More Games");
-                var app=host.AddComponent<GameApp>();app.Repository=new LevelRepository();app.Progress=new ProgressData{sound=false};
+                var app=host.AddComponent<GameApp>();app.Progress=new ProgressData{sound=false};
                 var win=typeof(GameApp).GetMethod("Win",BindingFlags.Instance|BindingFlags.NonPublic);
                 var more=typeof(GameApp).GetMethod("TryOpenMoreGames",BindingFlags.Instance|BindingFlags.NonPublic);
                 app.StartGame(GameMode.Classic,9);

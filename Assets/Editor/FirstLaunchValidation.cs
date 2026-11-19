@@ -17,7 +17,7 @@ namespace DrawArrow.Editor
             try
             {
                 PlayerPrefs.DeleteKey(key);
-                var app=host.AddComponent<GameApp>();app.Repository=new LevelRepository();app.Progress=SaveStore.Load();
+                var app=host.AddComponent<GameApp>();app.Progress=SaveStore.Load();
                 var open=typeof(GameApp).GetMethod("OpenInitialPage",BindingFlags.NonPublic|BindingFlags.Instance);
                 var page=typeof(GameApp).GetField("page",BindingFlags.NonPublic|BindingFlags.Instance);
                 Check(!app.Progress.hasStartedGame,"Fresh install is marked as a first launch");

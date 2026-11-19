@@ -12,8 +12,13 @@ namespace DrawArrow
         readonly List<Vector3> motionPoints=new List<Vector3>();
         readonly ArrowPressGesture arrowPress=new ArrowPressGesture();
         int PreviewArrow=>arrowPress.Held?arrowPress.Arrow:-1;
-        Color HeldArrowColor=>OriginalArt.Theme==2?Ink.Hex("58E6FF"):Ink.Hex("00728F");
+        Color HeldArrowColor=>CircuitStyle.Theme==2?Ink.Hex("58E6FF"):Ink.Hex("00728F");
         float ArrowVisualCell=>Arrows.Cube?boardCell*Mathf.Max(1,Level.arrowVisualScale):boardCell;
+        bool UsesMazeStyle => Mode == GameMode.Classic && Progress.SelectedLevelSet == ClassicLevelSet.Current;
+        float ArrowStrokeWidth => UsesMazeStyle
+            ? Mathf.Min(ArrowVisualCell * .19f, Mathf.Clamp(ArrowVisualCell * .115f, 1.1f / scale, 7f / scale))
+            : Mathf.Min(Arrows.Cube ? float.PositiveInfinity : ArrowVisualCell * .25f,
+                Mathf.Clamp(ArrowVisualCell * .20f, 1.8f / scale, 12f / scale));
         void CancelArrowPress(){arrowPress.Cancel();draggingBoard=false;pointerMoved=false;}
         void OnApplicationFocus(bool focused){if(!focused)CancelArrowPress();}
         ArrowMotionPath MotionPath(int i)
@@ -48,7 +53,17 @@ namespace DrawArrow
             if(!CanInteract||Input.touchCount>1||(Input.touchCount==1&&Input.GetTouch(0).phase==TouchPhase.Canceled))CancelArrowPress();
             arrowPress.Tick(Time.unscaledTime);
             if(Arrows.Cube){if(!cubeArtwork)cubeArtwork=gameObject.AddComponent<CubeArtRenderer>();cubeArtwork.Draw(r,Arrows,yaw,pitch,roll,zoom,hint,hintUntil);}
-            else DrawClearedArrowDots(r);
+            else
+            {
+                if (UsesMazeStyle)
+                {
+                    var bounds = BoardLayout.OrientedBounds(Arrows.ContentBounds);
+                    var size = (bounds.size + Vector2.one) * boardCell;
+                    Ink.Card(new Rect(projectedCenter - size * .5f, size),
+                        CircuitStyle.Theme == 2 ? Ink.Hex("25243E") : Ink.Hex("FFF8EB"), 18);
+                }
+                DrawClearedArrowDots(r);
+            }
             var order=new List<int>();for(int i=0;i<Arrows.Active.Length;i++)if(Arrows.Active[i])order.Add(i);
             if(Arrows.Cube)order.Sort((a,b)=>RotatePoint(Arrows.Head(a)).z.CompareTo(RotatePoint(Arrows.Head(b)).z));
             if(!Arrows.Cube)
@@ -119,7 +134,7 @@ namespace DrawArrow
                 for(float offset=2*pixelScale;offset<distance;offset+=dash+gap)
                 {
                     var start=head+direction*offset;var end=head+direction*Mathf.Min(distance,offset+dash);
-                    Ink.Line(start,end,width+4*pixelScale,OriginalArt.Background);
+                    Ink.Line(start,end,width+4*pixelScale,CircuitStyle.Background);
                     Ink.Line(start,end,width,HeldArrowColor);
                 }
             }
@@ -139,13 +154,14 @@ namespace DrawArrow
             if(Mode==GameMode.CatEscape||Mode==GameMode.Zoo)return Color.Lerp(Ink.Palette[i%7],Ink.Hex("101D35"),.12f);
             if(Mode==GameMode.Countdown&&i==UrgentArrow())return Ink.Red;
             if(Arrows.Cube)return Ink.Palette[Mathf.Abs(Level.arrows[i].points[0]%6)%7];
-            return OriginalArt.ArrowInk;
+            if(UsesMazeStyle)return CircuitStyle.Theme==2?Ink.Hex("D4B9FF"):Ink.Hex("8135BC");
+            return CircuitStyle.ArrowInk;
         }
         void DrawArrowPath(int i,float flight=-1)
         {
             // Keep a readable stroke in screen pixels even on dense boards and
             // downscaled tablet/phone canvases; grow proportionally when zooming.
-            var path=Arrows.Paths[i];var color=ArrowColor(i);float width=Mathf.Clamp(ArrowVisualCell*.20f,1.8f/scale,12f/scale);
+            var path=Arrows.Paths[i];var color=ArrowColor(i);float width=ArrowStrokeWidth;
             if(i==PreviewArrow)width*=1.25f;
             if(!Arrows.Cube)width=Mathf.Min(width,ArrowVisualCell*.25f);
             if(Arrows.IsMechanism(i)&&path.Count>0){var at=Project(path[0]);Ink.Card(new Rect(at.x-boardCell*.23f,at.y-boardCell*.23f,boardCell*.46f,boardCell*.46f),Ink.Hex("C5CFC1"),6);Ink.TextAt(new Rect(at.x-20,at.y-20,40,40),Level.arrows[i].special==3004?"↻":"×",20,Ink.Text,TextAnchor.MiddleCenter,true);return;}
@@ -159,6 +175,8 @@ namespace DrawArrow
                 // Accelerate gently, then let the entire tail clear the board.
                 float travel=route.Length+Mathf.Max(Mathf.Max(Level.width,Level.height),
                     Mathf.Max(Arrows.ContentBounds.width,Arrows.ContentBounds.height))+3;
+                if(Level.followDiagonalPaths)
+                    travel=route.Length+new Vector2(Level.width,Level.height).magnitude+3;
                 distance=travel*t*t*(2-t);
                 color.a*=1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(.82f,1,t));
             }
@@ -170,13 +188,7 @@ namespace DrawArrow
             // End the shaft inside the head so a rounded cap cannot extend past its tip.
             route.Slice(distance,motionPoints,arrowSize*.75f/boardCell);var points=motionPoints;
             for(int k=1;k<points.Count;k++)Ink.Line(Project(points[k-1]),Project(points[k]),width,color);
-            int angle=((Mathf.RoundToInt((Mathf.Atan2(dir.y,dir.x)*Mathf.Rad2Deg+90)/45)*45)%360+360)%360;
-            bool horizontal=Mathf.Abs(dir.x)>.5f;var center=head-dir*arrowSize*.5f;var headSize=horizontal?new Vector2(arrowSize,arrowSize*.8f):new Vector2(arrowSize*.8f,arrowSize);
-            OriginalArt.Draw("ArrowHead_"+angle,new Rect(center-headSize*.5f,headSize),color);
-            if(Mode==GameMode.CatEscape&&flight<0)
-            {
-                float size=Mathf.Max(10,boardCell*.72f);OriginalArt.Draw("cat"+(i%10+1),new Rect(head-new Vector2(size,size)*.5f,new Vector2(size,size)),null,true);
-            }
+            CircuitStyle.ArrowHead(head,dir,arrowSize,width,color);
             if(i==hint&&Time.unscaledTime<hintUntil)Ink.Circle(head,boardCell*.34f,Ink.WithAlpha(Ink.Gold,.25f));
             if(Mode==GameMode.Countdown&&i==UrgentArrow()&&flight<0)Ink.TextAt(new Rect(head.x-30,head.y-65,60,44),Mathf.Max(0,countdownDeadline-moves).ToString(),25,Ink.Red,TextAnchor.MiddleCenter,true);
         }
@@ -201,7 +213,7 @@ namespace DrawArrow
             if(!Arrows.Cube&&path.Count>1)
             {
                 var head=Project(Arrows.Head(i));var direction=(Project(Arrows.Head(i)+Arrows.Direction(i))-head).normalized;
-                float width=Mathf.Clamp(ArrowVisualCell*.20f,1.8f/scale,12f/scale);
+                float width=ArrowStrokeWidth;
                 distance=Mathf.Min(distance,BoardLayout.ArrowHeadDistance(p,head,direction,Mathf.Min(ArrowVisualCell*.58f,width*3.8f)));
             }
             return distance;

@@ -22,7 +22,7 @@ namespace DrawArrow
                 var cameraPoint=view.transform.InverseTransformPoint(root.transform.position+local);
                 extentX=Mathf.Max(extentX,Mathf.Abs(cameraPoint.x));extentY=Mathf.Max(extentY,Mathf.Abs(cameraPoint.y));
             }
-            view.orthographicSize=Mathf.Max(.1f,Mathf.Max(extentY,extentX/view.aspect))*1.05f/zoom;view.backgroundColor=OriginalArt.Background;
+            view.orthographicSize=Mathf.Max(.1f,Mathf.Max(extentY,extentX/view.aspect))*1.05f/zoom;view.backgroundColor=CircuitStyle.Background;
             for(int i=0;i<lines.Count;i++)
             {
                 bool active=source.Active[i]&&!source.IsMechanism(i);lines[i].enabled=active;heads[i].enabled=active;
@@ -42,8 +42,15 @@ namespace DrawArrow
         void Build(ArrowBoard source)
         {
             board=source;if(root)Destroy(root);lines.Clear();heads.Clear();
-            if(!surface){surface=new Material(Resources.Load<Shader>("OriginalArt/ArtSurface")){color=Ink.Hex("FCF3DF")};brown=new Material(Resources.Load<Shader>("OriginalArt/ArtInk")){color=Ink.Hex("735133")};blue=new Material(Resources.Load<Shader>("OriginalArt/ArtInk")){color=Ink.Hex("44C8EE")};}
-            root=new GameObject("Recovered 3D surface");root.layer=Layer;root.transform.position=new Vector3(5000,0,0);
+            if (!surface)
+            {
+                var shader = Resources.Load<Shader>("Circuit/BoardMaterial");
+                surface = new Material(shader) { color = Ink.Hex("E7E0FF") };
+                surface.SetFloat("_Shade", 1);
+                brown = new Material(shader) { color = Ink.Hex("392D79") };
+                blue = new Material(shader) { color = Ink.Hex("00A991") };
+            }
+            root=new GameObject("Circuit 3D surface");root.layer=Layer;root.transform.position=new Vector3(5000,0,0);
             center=new Vector3((source.Level.width-1)*.5f,(source.Level.height-1)*.5f,(source.Level.depth-1)*.5f);
             var shell=new GameObject("Beveled shell");shell.layer=Layer;shell.transform.SetParent(root.transform,false);shell.AddComponent<MeshFilter>().sharedMesh=RoundedBox(center+Vector3.one*.025f,.15f);shell.AddComponent<MeshRenderer>().sharedMaterial=surface;
             for(int i=0;i<source.Paths.Length;i++)

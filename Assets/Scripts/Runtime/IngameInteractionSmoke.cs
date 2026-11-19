@@ -13,7 +13,7 @@ namespace DrawArrow
             Application.runInBackground=true;Directory.CreateDirectory(directory);
             while(!UnityEngine.Rendering.SplashScreen.isFinished)yield return null;
             yield return new WaitForSecondsRealtime(1);
-            Progress=new ProgressData{sound=false};OriginalArt.Theme=0;
+            Progress=new ProgressData{sound=false};CircuitStyle.Theme=0;
             StartGame(GameMode.Classic,14);
             int count=0;
             for(int i=0;i<Arrows.Active.Length;i++)
@@ -36,7 +36,7 @@ namespace DrawArrow
             Directory.CreateDirectory(directory);
             while(!UnityEngine.Rendering.SplashScreen.isFinished)yield return null;
             yield return new WaitForSecondsRealtime(1);
-            Progress=new ProgressData{sound=false};OriginalArt.Theme=0;
+            Progress=new ProgressData{sound=false};CircuitStyle.Theme=0;
             StartGame(GameMode.Classic,0);
             for(int selectedArrow=0;selectedArrow<Arrows.Active.Length;selectedArrow++)
             {

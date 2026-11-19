@@ -21,7 +21,7 @@ namespace DrawArrow
         public static void Init()
         {
             if(white)return;
-            white=Texture2D.whiteTexture; font=Resources.Load<Font>("OriginalArt/font_Inter_28pt_Medium");boldFont=Resources.Load<Font>("OriginalArt/font_Inter_28pt_Bold");if(!font)font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");if(!boldFont)boldFont=font;
+            white=Texture2D.whiteTexture; font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");boldFont=font;
             circle=new Texture2D(128,128,TextureFormat.RGBA32,false);circle.filterMode=FilterMode.Bilinear;
             round=new Texture2D(128,128,TextureFormat.RGBA32,false);round.filterMode=FilterMode.Bilinear;
             heart=new Texture2D(128,128,TextureFormat.RGBA32,false);heart.filterMode=FilterMode.Bilinear;heart.wrapMode=TextureWrapMode.Clamp;

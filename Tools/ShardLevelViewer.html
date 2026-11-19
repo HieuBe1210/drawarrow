@@ -1,0 +1,493 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trình xem level Arrow</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #edf0f5; color: #202536; font: 15px system-ui, sans-serif; }
+  main { max-width: 1280px; margin: auto; padding: 22px; }
+  h1 { margin: 0 0 14px; font-size: 25px; }
+  button, input { font: inherit; }
+  button { border: 1px solid #cbd2df; background: white; color: inherit; border-radius: 7px; padding: 8px 12px; cursor: pointer; }
+  button:hover:not(:disabled) { border-color: #7757d6; }
+  button:disabled { opacity: .45; cursor: default; }
+  #drop { padding: 16px; border: 2px dashed #9ca7bb; border-radius: 10px; background: #f8f9fc; }
+  #drop.active { background: #ede7ff; border-color: #7757d6; }
+  #status { margin: 0 0 10px; }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .workspace { display: grid; grid-template-columns: minmax(185px, 260px) minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+  aside, section { min-width: 0; background: white; border-radius: 10px; padding: 12px; }
+  #search { width: 100%; padding: 9px; border: 1px solid #cbd2df; border-radius: 7px; }
+  #list { width: 100%; padding: 4px; margin-top: 8px; height: min(68vh, 650px); border: 1px solid #cbd2df; border-radius: 7px; font: 14px ui-monospace, monospace; }
+  #list option { padding: 5px; }
+  #info { margin: 10px 0; overflow-wrap: anywhere; min-height: 1.4em; color: #505a70; }
+  #coordinates { margin: 8px 0; min-height: 1.4em; color: #505a70; font-variant-numeric: tabular-nums; }
+  #route { width: 100%; min-height: 68px; padding: 8px; border: 1px solid #cbd2df; border-radius: 7px; resize: vertical; }
+  #arrow { max-width: 100%; padding: 6px; }
+  #viewport { height: min(68vh, 650px); overflow: auto; display: grid; align-items: safe center; justify-items: safe center; border-radius: 8px; background: #fff6e3; }
+  canvas { display: block; }
+  @media (max-width: 640px) { main { padding: 12px; } .workspace { grid-template-columns: 1fr; } #list { height: 110px; } }
+</style>
+</head>
+<body>
+<main id="page">
+  <h1>Trình xem level Arrow</h1>
+  <div id="drop">
+    <p id="status" role="status">Thả file .bytes hoặc thư mục shard vào đây.</p>
+    <div class="controls">
+      <button id="chooseFiles" type="button">Chọn file</button>
+      <button id="chooseFolder" type="button">Chọn thư mục</button>
+      <button id="clear" type="button" disabled>Xóa danh sách</button>
+      <input id="files" type="file" accept=".bytes,.json" multiple hidden>
+      <input id="folder" type="file" webkitdirectory multiple hidden>
+    </div>
+  </div>
+  <div class="workspace">
+    <aside>
+      <input id="search" type="search" placeholder="Tìm theo ID hoặc tên file" aria-label="Tìm level">
+      <select id="list" size="18" aria-label="Danh sách file"></select>
+    </aside>
+    <section aria-label="Xem bàn">
+      <div class="controls">
+        <button id="previous" type="button" disabled>‹ Trước</button>
+        <button id="next" type="button" disabled>Sau ›</button>
+        <button id="smaller" type="button" aria-label="Thu nhỏ">−</button>
+        <button id="fit" type="button">Vừa khung</button>
+        <button id="larger" type="button" aria-label="Phóng to">+</button>
+        <label><input id="fixedGrid" type="checkbox" checked> Lưới 140 × 140</label>
+        <button id="editDraft" type="button" disabled title="Dành cho file thiết kế xuất từ Trình tạo level">Mở trong Trình tạo</button>
+      </div>
+      <p id="info" aria-live="polite">Chưa chọn level.</p>
+      <div id="viewport"><canvas id="board" role="img" aria-label="Hình bàn level" hidden></canvas></div>
+      <p id="coordinates">C1–C140 từ trái sang phải · H1–H140 từ trên xuống dưới</p>
+      <div class="controls">
+        <label for="arrow">Mũi tên</label>
+        <select id="arrow" disabled><option value="">Chọn mũi tên</option></select>
+      </div>
+      <p id="routeInfo"></p>
+      <textarea id="route" readonly hidden aria-label="Tọa độ từ đầu đến đuôi"></textarea>
+    </section>
+  </div>
+</main>
+<script>
+'use strict';
+const byId = id => document.getElementById(id);
+const list = byId('list');
+const search = byId('search');
+const info = byId('info');
+const status = byId('status');
+const drop = byId('drop');
+const viewport = byId('viewport');
+const canvas = byId('board');
+const fixedGrid = byId('fixedGrid');
+const arrowPicker = byId('arrow');
+const GRID_SIZE = 140;
+const embedded = new URLSearchParams(window.location.search).get('embedded') === '1' && window.parent !== window;
+const coordinateLegend = byId('coordinates').textContent;
+const files = new Map();
+let visible = [];
+let selected = '';
+let board;
+let draftText;
+let draftPackText;
+let combinedDraftText;
+let draftScan = 0;
+let view;
+let selectedArrow = -1;
+let zoom = 1;
+let request = 0;
+
+function parseBoard(text) {
+  const data = JSON.parse(text.replace(/^\uFEFF/, ''));
+  const width = data?.XSize ?? data?.width;
+  const height = data?.YSize ?? data?.height;
+  const sourceArrows = data?.Arrows ?? data?.arrows;
+  if (!Number.isSafeInteger(width) || !Number.isSafeInteger(height) ||
+      width <= 0 || height <= 0 || !Number.isSafeInteger(width * height) ||
+      !Array.isArray(sourceArrows) || !sourceArrows.length) throw Error('File không có dữ liệu bàn mũi tên.');
+  if (width > GRID_SIZE || height > GRID_SIZE) throw Error('Kích thước bàn vượt quá 140 × 140.');
+  const arrows = sourceArrows.map((arrow, index) => {
+    const points = arrow?.Points ?? arrow?.points;
+    if (!Array.isArray(points) || !points.length ||
+        points.some(point => !Number.isSafeInteger(point) || point < 0 || point >= width * height))
+      throw Error('Tọa độ không hợp lệ ở mũi tên ' + (index + 1) + '.');
+    return points;
+  });
+  return { width, height, arrows };
+}
+
+function gridPoint(point) {
+  return { column: point % board.width + 1, row: board.height - Math.floor(point / board.width) };
+}
+
+function position(column, row) {
+  return {
+    x: view.left + (column - view.firstColumn + .5) * view.cell,
+    y: view.top + (row - view.firstRow + .5) * view.cell
+  };
+}
+
+function drawGrid(ctx, columns, rows) {
+  const { left, top, cell, firstColumn, firstRow } = view;
+  const right = left + columns * cell;
+  const bottom = top + rows * cell;
+  ctx.fillStyle = '#faf8f0';
+  ctx.fillRect(left, top, columns * cell, rows * cell);
+  ctx.fillStyle = '#fff1d4';
+  ctx.fillRect(left, top, Math.min(columns, board.width) * cell, Math.min(rows, board.height) * cell);
+  for (const interval of [1, 10]) {
+    ctx.beginPath();
+    for (let x = 0; x <= columns; x++) {
+      if (interval === 10 && (firstColumn + x - 1) % interval !== 0 && x !== columns) continue;
+      ctx.moveTo(left + x * cell, top); ctx.lineTo(left + x * cell, bottom);
+    }
+    for (let y = 0; y <= rows; y++) {
+      if (interval === 10 && (firstRow + y - 1) % interval !== 0 && y !== rows) continue;
+      ctx.moveTo(left, top + y * cell); ctx.lineTo(right, top + y * cell);
+    }
+    ctx.strokeStyle = interval === 1 ? '#dfdfdf' : '#aaa8b8';
+    ctx.lineWidth = interval === 1 ? .45 : .85;
+    ctx.stroke();
+  }
+  const labelEvery = Math.ceil(32 / cell);
+  ctx.font = '10px system-ui, sans-serif';
+  ctx.fillStyle = '#505468';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  for (let i = 0; i < columns; i++) {
+    const column = firstColumn + i;
+    if (labelEvery === 1 || i === 0 || i === columns - 1 || (column % labelEvery === 0 && i > 1 && i < columns - 2))
+      ctx.fillText('C' + column, left + (i + .5) * cell, top - 12);
+  }
+  ctx.textAlign = 'right';
+  for (let i = 0; i < rows; i++) {
+    const row = firstRow + i;
+    if (labelEvery === 1 || i === 0 || i === rows - 1 || (row % labelEvery === 0 && i > 1 && i < rows - 2))
+      ctx.fillText('H' + row, left - 5, top + (i + .5) * cell);
+  }
+}
+
+function render() {
+  if (!board) { canvas.hidden = true; view = undefined; return; }
+  const { width, height, arrows } = board;
+  let lowX = width, lowY = height, highX = 0, highY = 0;
+  for (const points of arrows) for (const point of points) {
+    const x = point % width;
+    const y = Math.floor(point / width);
+    lowX = Math.min(lowX, x); highX = Math.max(highX, x);
+    lowY = Math.min(lowY, y); highY = Math.max(highY, y);
+  }
+  const columns = fixedGrid.checked ? GRID_SIZE : highX - lowX + 1;
+  const rows = fixedGrid.checked ? GRID_SIZE : highY - lowY + 1;
+  const left = 43, top = 28, padding = 20;
+  const cell = Math.min(64, Math.max(1, Math.min((viewport.clientWidth - left - padding) / columns,
+    (viewport.clientHeight - top - padding) / rows)) * zoom);
+  const cssWidth = Math.ceil(columns * cell + left + padding);
+  const cssHeight = Math.ceil(rows * cell + top + padding);
+  view = { left, top, cell, columns, rows, firstColumn: fixedGrid.checked ? 1 : lowX + 1,
+    firstRow: fixedGrid.checked ? 1 : height - highY };
+  const pixelRatio = Math.min(window.devicePixelRatio || 1, 4096 / Math.max(cssWidth, cssHeight));
+  canvas.width = Math.ceil(cssWidth * pixelRatio);
+  canvas.height = Math.ceil(cssHeight * pixelRatio);
+  canvas.style.width = cssWidth + 'px';
+  canvas.style.height = cssHeight + 'px';
+  canvas.hidden = false;
+
+  const ctx = canvas.getContext('2d');
+  ctx.scale(pixelRatio, pixelRatio);
+  drawGrid(ctx, columns, rows);
+  ctx.lineCap = ctx.lineJoin = 'round';
+  const at = point => { const { column, row } = gridPoint(point); return position(column, row); };
+  for (let index = 0; index < arrows.length; index++) {
+    if (index !== selectedArrow) drawArrow(arrows[index], false);
+  }
+  if (selectedArrow >= 0) drawArrow(arrows[selectedArrow], true);
+
+  function drawArrow(points, highlighted) {
+    ctx.strokeStyle = ctx.fillStyle = highlighted ? '#dc6510' : selectedArrow < 0 ? '#8135bc' : '#ac9abb';
+    ctx.lineWidth = Math.max(.75, cell * .12) * (highlighted ? 1.7 : 1);
+    const head = points[0];
+    const { x, y } = at(head);
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    for (let i = 1; i < points.length; i++) { const next = at(points[i]); ctx.lineTo(next.x, next.y); }
+    ctx.stroke();
+
+    const neck = points.find(point => point !== head);
+    if (neck === undefined) {
+      ctx.beginPath();
+      ctx.arc(x, y, ctx.lineWidth, 0, 2 * Math.PI);
+      ctx.fill();
+      return;
+    }
+    const next = at(neck);
+    const dx = x - next.x, dy = y - next.y, length = Math.hypot(dx, dy);
+    const ux = dx / length, uy = dy / length;
+    const tip = Math.max(1.5, cell * .28);
+    ctx.beginPath();
+    ctx.moveTo(x + ux * tip * .3, y + uy * tip * .3);
+    ctx.lineTo(x - ux * tip - uy * tip * .55, y - uy * tip + ux * tip * .55);
+    ctx.lineTo(x - ux * tip + uy * tip * .55, y - uy * tip - ux * tip * .55);
+    ctx.closePath();
+    ctx.fill();
+  }
+}
+
+function selectArrow(index) {
+  selectedArrow = index;
+  arrowPicker.value = index < 0 ? '' : String(index);
+  const route = byId('route');
+  const routeInfo = byId('routeInfo');
+  route.hidden = index < 0;
+  route.value = '';
+  routeInfo.textContent = '';
+  if (index >= 0) {
+    const points = board.arrows[index].map(gridPoint);
+    let steps = 0;
+    for (let i = 1; i < points.length; i++)
+      steps += Math.abs(points[i].column - points[i - 1].column) + Math.abs(points[i].row - points[i - 1].row);
+    routeInfo.textContent = 'Đầu → đuôi · ' + steps + ' bước trên lưới';
+    route.value = points.map(point => 'C' + point.column + '/H' + point.row).join(' → ');
+  }
+  render();
+}
+
+function refreshArrows() {
+  const options = document.createDocumentFragment();
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Chọn mũi tên';
+  options.append(placeholder);
+  if (board) board.arrows.forEach((points, index) => {
+    const head = gridPoint(points[0]);
+    const option = document.createElement('option');
+    option.value = index;
+    option.textContent = (index + 1) + ' · C' + head.column + '/H' + head.row;
+    options.append(option);
+  });
+  arrowPicker.replaceChildren(options);
+  arrowPicker.disabled = !board;
+  selectArrow(-1);
+}
+
+function cellAt(event) {
+  if (!view) return null;
+  const x = (event.offsetX - view.left) / view.cell;
+  const y = (event.offsetY - view.top) / view.cell;
+  if (x < 0 || y < 0 || x >= view.columns || y >= view.rows) return null;
+  return { column: Math.floor(x) + view.firstColumn, row: Math.floor(y) + view.firstRow };
+}
+
+async function select(key) {
+  const token = ++request;
+  selected = key;
+  list.value = key;
+  const index = visible.indexOf(key);
+  byId('previous').disabled = index <= 0;
+  byId('next').disabled = index < 0 || index >= visible.length - 1;
+  board = undefined;
+  draftText = undefined;
+  draftPackText = undefined;
+  updateEditorButton();
+  zoom = 1;
+  refreshArrows();
+  const file = files.get(key);
+  if (!file) { info.textContent = 'Chưa chọn level.'; return; }
+  info.textContent = 'Đang đọc ' + file.name + '…';
+  try {
+    const text = (await file.text()).replace(/^\uFEFF/, '');
+    if (token !== request) return;
+    const json = JSON.parse(text);
+    if (json?.format === 'arrow-level-editor-pack-v1') {
+      if (!Array.isArray(json.levels) || !json.levels.length) throw Error('Bộ level không có màn nào.');
+      const entries = json.levels.map((level, index) => {
+        if (level?.format !== 'arrow-level-editor-v1') throw Error('JSON không hợp lệ ở màn ' + (index + 1) + '.');
+        const name = String(index + 1).padStart(3, '0') + ' · ' + (level.id || 'Level') + '.json';
+        const text = JSON.stringify(level);
+        return { path: key + '/' + name, file: { name, text: async () => text } };
+      });
+      files.delete(key);
+      for (const entry of entries) {
+        entry.file.packText = text;
+        files.set(entry.path, entry.file);
+      }
+      selected = entries[0].path;
+      search.value = '';
+      refresh();
+      return;
+    }
+    const parsed = parseBoard(text);
+    board = parsed;
+    if (json?.format === 'arrow-level-editor-v1') {
+      draftText = text;
+      draftPackText = file.packText;
+      updateEditorButton();
+      if (/\.bytes$/i.test(file.name)) scanDrafts(true);
+    }
+    info.textContent = file.name + ' · ' + board.width + ' × ' + board.height + ' · ' + board.arrows.length + ' mũi tên';
+    viewport.scrollTo(0, 0);
+    refreshArrows();
+  } catch (error) {
+    if (token === request) info.textContent = 'Không đọc được ' + file.name + ' · ' + error.message;
+  }
+}
+
+function refresh() {
+  const query = search.value.trim().toLowerCase();
+  visible = [...files.keys()].filter(key => key.toLowerCase().includes(query))
+    .sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
+  const options = document.createDocumentFragment();
+  for (const key of visible) {
+    const option = document.createElement('option');
+    option.value = key;
+    option.textContent = files.get(key).name.replace(/\.(bytes|json)$/i, '');
+    option.title = key;
+    options.append(option);
+  }
+  list.replaceChildren(options);
+  byId('clear').disabled = files.size === 0;
+  status.textContent = files.size
+    ? visible.length + ' / ' + files.size + ' file · danh sách theo tên file'
+    : 'Thả file .bytes hoặc thư mục shard vào đây.';
+  select(visible.includes(selected) ? selected : visible[0] || '');
+}
+
+function updateEditorButton() {
+  const button = byId('editDraft');
+  button.disabled = !draftText;
+  button.title = draftPackText || combinedDraftText
+    ? 'Mở cả bộ trong Trình tạo'
+    : 'Mở thiết kế đang xem trong Trình tạo';
+}
+
+async function scanDrafts(includeBytes = false) {
+  const token = ++draftScan;
+  combinedDraftText = undefined;
+  updateEditorButton();
+  const candidates = [...files.entries()]
+    .sort(([a], [b]) => a.localeCompare(b, undefined, { numeric: true }))
+    .filter(([, file]) => /\.json$/i.test(file.name) || (includeBytes && /\.bytes$/i.test(file.name)));
+  const groups = await Promise.all(candidates.map(async ([, file]) => {
+    try {
+      const data = JSON.parse((await file.text()).replace(/^\uFEFF/, ''));
+      if (data?.format === 'arrow-level-editor-v1') return [data];
+      if (data?.format === 'arrow-level-editor-pack-v1' && Array.isArray(data.levels))
+        return data.levels.filter(level => level?.format === 'arrow-level-editor-v1');
+    } catch { /* An unreadable file stays in the viewer list with its own error. */ }
+    return [];
+  }));
+  if (token !== draftScan) return;
+  const levels = groups.flat();
+  if (levels.length > 1)
+    combinedDraftText = JSON.stringify({ format: 'arrow-level-editor-pack-v1', levels });
+  updateEditorButton();
+}
+
+function add(entries) {
+  let accepted = 0;
+  for (const { file, path } of entries) {
+    if (!/\.(bytes|json)$/i.test(file.name)) continue;
+    files.set(path, file);
+    accepted++;
+  }
+  if (accepted) { refresh(); scanDrafts(); }
+  else status.textContent = 'Không tìm thấy file .bytes hoặc .json.';
+}
+
+async function readEntry(entry) {
+  if (entry.isFile) {
+    const file = await new Promise((resolve, reject) => entry.file(resolve, reject));
+    return [{ file, path: entry.fullPath.replace(/^\//, '') }];
+  }
+  if (!entry.isDirectory) return [];
+  const reader = entry.createReader();
+  const children = [];
+  for (;;) {
+    const batch = await new Promise((resolve, reject) => reader.readEntries(resolve, reject));
+    if (!batch.length) break;
+    children.push(...batch);
+  }
+  return (await Promise.all(children.map(readEntry))).flat();
+}
+
+async function handleDrop(event) {
+  event.preventDefault();
+  drop.classList.remove('active');
+  const transfer = event.dataTransfer;
+  const direct = [...transfer.files].map(file => ({ file, path: file.name }));
+  const entries = [...transfer.items].map(item => item.webkitGetAsEntry?.()).filter(Boolean);
+  status.textContent = 'Đang đọc danh sách file…';
+  try {
+    add(entries.length ? (await Promise.all(entries.map(readEntry))).flat() : direct);
+  } catch (error) {
+    status.textContent = 'Không đọc được thư mục đã thả. Hãy thử nút Chọn thư mục.';
+  }
+}
+
+const page = byId('page');
+page.addEventListener('dragover', event => { event.preventDefault(); drop.classList.add('active'); });
+page.addEventListener('dragleave', event => {
+  if (!page.contains(event.relatedTarget)) drop.classList.remove('active');
+});
+page.addEventListener('drop', handleDrop);
+for (const [button, input] of [['chooseFiles', 'files'], ['chooseFolder', 'folder']]) {
+  const picker = byId(input);
+  byId(button).onclick = () => picker.click();
+  picker.onchange = () => {
+    if (picker.files.length) add([...picker.files].map(file => ({ file, path: file.webkitRelativePath || file.name })));
+    picker.value = '';
+  };
+}
+byId('clear').onclick = () => { files.clear(); search.value = ''; refresh(); scanDrafts(); };
+search.oninput = refresh;
+list.onchange = () => select(list.value);
+byId('previous').onclick = () => select(visible[visible.indexOf(selected) - 1]);
+byId('next').onclick = () => select(visible[visible.indexOf(selected) + 1]);
+byId('smaller').onclick = () => { zoom = Math.max(.5, zoom / 1.25); render(); };
+byId('larger').onclick = () => { zoom = Math.min(8, zoom * 1.25); render(); };
+byId('fit').onclick = () => { zoom = 1; render(); };
+function openInEditor(text) {
+  if (!text) return;
+  if (embedded) {
+    window.parent.postMessage({ type: 'arrow-edit-document', text }, '*');
+    return;
+  }
+  const bytes = new TextEncoder().encode(text);
+  if (bytes.length > 1200000) {
+    info.textContent = 'Bộ quá lớn để chuyển qua tab. Mở file JSON gốc trực tiếp bằng Trình tạo.';
+    return;
+  }
+  let binary = '';
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  window.open('ArrowLevelEditor.html#draft=' + btoa(binary), '_blank', 'noopener');
+}
+byId('editDraft').onclick = () => openInEditor(draftPackText || combinedDraftText || draftText);
+if (embedded) window.addEventListener('message', event => {
+  if (event.source !== window.parent || event.data?.type !== 'arrow-preview-file' || !(event.data.file instanceof File)) return;
+  const file = event.data.file;
+  search.value = '';
+  selected = file.name;
+  add([{ file, path: file.name }]);
+});
+fixedGrid.onchange = () => { zoom = 1; viewport.scrollTo(0, 0); render(); };
+arrowPicker.onchange = () => selectArrow(arrowPicker.value === '' ? -1 : Number(arrowPicker.value));
+canvas.onmousemove = event => {
+  const point = cellAt(event);
+  byId('coordinates').textContent = point ? 'C' + point.column + ' / H' + point.row : coordinateLegend;
+};
+canvas.onmouseleave = () => { byId('coordinates').textContent = coordinateLegend; };
+canvas.onclick = event => {
+  const point = cellAt(event);
+  if (!point) return;
+  const index = board.arrows.findIndex(points => {
+    const head = gridPoint(points[0]);
+    return head.column === point.column && head.row === point.row;
+  });
+  selectArrow(index);
+};
+new ResizeObserver(render).observe(viewport);
+</script>
+</body>
+</html>

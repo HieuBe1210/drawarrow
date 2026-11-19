@@ -1,0 +1,12 @@
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.GeneratedMSBuildEditorConfig.editorconfig
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.AssemblyInfoInputs.cache
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.AssemblyInfo.cs
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.csproj.CoreCompileInputs.cache
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\bin\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.exe
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\bin\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.deps.json
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\bin\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.runtimeconfig.json
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\bin\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.dll
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.dll
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\refint\ArrowLevelEditor.Windows.dll
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ArrowLevelEditor.Windows.genruntimeconfig.cache
+D:\SourceCode\arrow\Tools\ArrowLevelEditor.Windows\obj\Release\net10.0-windows\win-x64\ref\ArrowLevelEditor.Windows.dll
