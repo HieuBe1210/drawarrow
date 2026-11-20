@@ -4,26 +4,40 @@ namespace DrawArrow
 {
     public static class BoardLayout
     {
-        public static bool ShouldRotate(Rect content)=>content.width>content.height;
-        public static Rect OrientedBounds(Rect content)
-            =>ShouldRotate(content)?new Rect(0,0,content.height,content.width):content;
+        public static bool ShouldRotate(Rect content, bool keepOrientation = false)
+            => !keepOrientation && content.width > content.height;
+        public static Rect OrientedBounds(Rect content, bool keepOrientation = false)
+            =>ShouldRotate(content, keepOrientation)?new Rect(0,0,content.height,content.width):content;
         // Clockwise quarter-turn in screen space. Only board coordinates use
         // this transform; GUI matrices and the surrounding controls stay upright.
         public static Vector2 ScreenDirection(Vector2 direction,bool rotate)
             =>rotate?new Vector2(direction.y,direction.x):new Vector2(direction.x,-direction.y);
-        public static Vector2 Project(Vector2 point,Rect content,Vector2 center,float cellSize)
-            =>center+ScreenDirection(point-content.center,ShouldRotate(content))*cellSize;
+        public static Vector2 Project(Vector2 point,Rect content,Vector2 center,float cellSize,bool keepOrientation = false)
+            => ProjectOriented(point, content, center, cellSize, ShouldRotate(content, keepOrientation));
+
+        public static Vector2 ProjectOriented(Vector2 point, Rect content, Vector2 center, float cellSize, bool rotate)
+            => center + ScreenDirection(point - content.center, rotate) * cellSize;
 
         // Reserve half a cell on each side for the arrowhead and stroke caps.
         public static float FitScale(Rect viewport,Rect content)
             =>Mathf.Min(viewport.width/Mathf.Max(1,content.width+1),viewport.height/Mathf.Max(1,content.height+1));
 
-        public static float FitArrowScale(Rect viewport,ArrowBoard board)
+        public static float FitBestOrientation(Rect viewport, Rect content, out bool rotate,
+            bool keepOrientation = false, Rect? reference = null)
         {
-            float scale=FitScale(viewport,OrientedBounds(board.ContentBounds));
-            if(board.ReferenceBounds.HasValue)
-                scale=Mathf.Min(scale,FitScale(viewport,OrientedBounds(board.ReferenceBounds.Value)));
-            return scale;
+            float Fit(bool quarterTurn)
+            {
+                Rect Orient(Rect bounds) => quarterTurn ? new Rect(0, 0, bounds.height, bounds.width) : bounds;
+                float size = FitScale(viewport, Orient(content));
+                if (reference.HasValue)
+                    size = Mathf.Min(size, FitScale(viewport, Orient(reference.Value)));
+                return size;
+            }
+
+            float upright = Fit(false);
+            float turned = keepOrientation ? upright : Fit(true);
+            rotate = turned > upright + .001f;
+            return rotate ? turned : upright;
         }
 
         public static Rect Viewport(Rect safeArea,float screenHeight,Vector2 offset,float scale)

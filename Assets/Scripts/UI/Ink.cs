@@ -6,22 +6,77 @@ namespace DrawArrow
     public static class Ink
     {
         public static System.Action Clicked;
+        static int pressedButton;
+        static Vector2 pressedButtonCenter;
+        static float buttonPressedAt;
+        static float buttonReleasedAt = float.NegativeInfinity;
+
+        public static Matrix4x4 BeginButtonVisual(Rect rect)
+        {
+            var matrix = GUI.matrix;
+            if (pressedButton == 0 || Event.current.type != EventType.Repaint ||
+                (GUIUtility.GUIToScreenPoint(rect.center) - pressedButtonCenter).sqrMagnitude > .25f)
+                return matrix;
+
+            float now = Time.unscaledTime;
+            float press = Mathf.SmoothStep(0, 1, Mathf.Clamp01((now - buttonPressedAt) / .075f));
+            if (GUIUtility.hotControl != pressedButton)
+            {
+                float releasedAfter = Mathf.Max(0, buttonReleasedAt - buttonPressedAt);
+                if (float.IsNegativeInfinity(buttonReleasedAt) || now - buttonReleasedAt >= .16f)
+                    return matrix;
+                press = Mathf.Max(.28f, Mathf.SmoothStep(0, 1, Mathf.Clamp01(releasedAfter / .075f))) *
+                    (1 - Mathf.SmoothStep(0, 1, Mathf.Clamp01((now - buttonReleasedAt) / .16f)));
+            }
+
+            float scale = 1 - press * .055f;
+            GUIUtility.ScaleAroundPivot(new Vector2(scale, scale), rect.center);
+            return matrix;
+        }
+
+        public static void CancelButtonAnimation()
+        {
+            if (pressedButton != 0 && GUIUtility.hotControl == pressedButton)
+                GUIUtility.hotControl = 0;
+            pressedButton = 0;
+            buttonReleasedAt = float.NegativeInfinity;
+        }
+
         public static bool HitButton(Rect r,GUIContent content,GUIStyle style)
         {
+            var pointer = Event.current;
+            var type = pointer.type;
+            int previousControl = GUIUtility.hotControl;
+            bool possiblePress = GUI.enabled && type == EventType.MouseDown && pointer.button == 0 &&
+                r.Contains(pointer.mousePosition);
             bool pressed=GUI.Button(r,content,style);
+            if (possiblePress && GUIUtility.hotControl != 0 && GUIUtility.hotControl != previousControl)
+            {
+                pressedButton = GUIUtility.hotControl;
+                pressedButtonCenter = GUIUtility.GUIToScreenPoint(r.center);
+                buttonPressedAt = Time.unscaledTime;
+                buttonReleasedAt = float.NegativeInfinity;
+            }
+            else if (type == EventType.MouseUp && pressedButton != 0 && previousControl == pressedButton &&
+                GUIUtility.hotControl != previousControl)
+                buttonReleasedAt = Time.unscaledTime;
             if(pressed)Clicked?.Invoke();
             return pressed;
         }
         public static readonly Color Paper = Hex("F5ECDB"), Text = Hex("302F2D"), Muted = Hex("969184"), Teal = Hex("BF7737"), Gold = Hex("FFCE42"), Red = Hex("DA5245");
         public static readonly Color[] Palette = { Hex("DB473D"),Hex("4D7CE3"),Hex("63A94D"),Hex("DEB942"),Hex("9867C8"),Hex("D77BA3"),Hex("5AADD0") };
         static Texture2D circle, round, white,heart; static Font font,boldFont;static GUIStyle label;
-        static readonly Dictionary<string,Texture2D> strokes=new Dictionary<string,Texture2D>();
+        internal static Font RegularFont { get { Init(); return font; } }
+        static readonly Dictionary<(int dx, int dy, int width, bool rising), Texture2D> strokes =
+            new Dictionary<(int dx, int dy, int width, bool rising), Texture2D>();
         public static Color Hex(string s){ColorUtility.TryParseHtmlString("#"+s,out var c);return c;}
         public static Color WithAlpha(Color c,float a){c.a=a;return c;}
         public static void Init()
         {
             if(white)return;
-            white=Texture2D.whiteTexture; font=Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");boldFont=font;
+            white = Texture2D.whiteTexture;
+            font = Resources.Load<Font>("Fonts/Manrope-Regular") ?? Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+            boldFont = Resources.Load<Font>("Fonts/Manrope-ExtraBold") ?? font;
             circle=new Texture2D(128,128,TextureFormat.RGBA32,false);circle.filterMode=FilterMode.Bilinear;
             round=new Texture2D(128,128,TextureFormat.RGBA32,false);round.filterMode=FilterMode.Bilinear;
             heart=new Texture2D(128,128,TextureFormat.RGBA32,false);heart.filterMode=FilterMode.Bilinear;heart.wrapMode=TextureWrapMode.Clamp;
@@ -51,17 +106,29 @@ namespace DrawArrow
         }
         public static void Circle(Vector2 center,float radius,Color c){var old=GUI.color;GUI.color=c;GUI.DrawTexture(new Rect(center.x-radius,center.y-radius,radius*2,radius*2),circle);GUI.color=old;}
         public static void Heart(Rect rect,Color color){Init();var old=GUI.color;GUI.color=color;GUI.DrawTexture(rect,heart);GUI.color=old;}
+        public static void HeartHalf(Rect rect, bool right, Color color)
+        {
+            Init();
+            var old = GUI.color;
+            GUI.color = color;
+            GUI.DrawTextureWithTexCoords(rect, heart, new Rect(right ? .5f : 0, 0, .5f, 1));
+            GUI.color = old;
+        }
         public static void Line(Vector2 a,Vector2 b,float width,Color c,bool caps=true)
         {
+            if (Event.current.type != EventType.Repaint) return;
             var delta=b-a;if(delta.sqrMagnitude<.001f)return;
             if(Mathf.Abs(delta.x)<.01f){Rect(new Rect(a.x-width*.5f,Mathf.Min(a.y,b.y),width,Mathf.Abs(delta.y)),c);if(caps){Circle(a,width*.5f,c);Circle(b,width*.5f,c);}return;}
             if(Mathf.Abs(delta.y)<.01f){Rect(new Rect(Mathf.Min(a.x,b.x),a.y-width*.5f,Mathf.Abs(delta.x),width),c);if(caps){Circle(a,width*.5f,c);Circle(b,width*.5f,c);}return;}
             // Rasterize a white stroke inside its own axis-aligned bounds. This avoids
             // rotated GUI matrices interacting with nested clips and root scaling.
-            float dx=Mathf.Round(Mathf.Abs(delta.x)*2)*.5f,dy=Mathf.Round(Mathf.Abs(delta.y)*2)*.5f;
-            bool rising=delta.x*delta.y>0;string key=dx+":"+dy+":"+Mathf.Round(width*2)+":"+rising;
+            int widthBin = Mathf.RoundToInt(Mathf.Abs(delta.x) * 2);
+            int heightBin = Mathf.RoundToInt(Mathf.Abs(delta.y) * 2);
+            bool rising = delta.x * delta.y > 0;
+            var key = (widthBin, heightBin, Mathf.RoundToInt(width * 2), rising);
             if(!strokes.TryGetValue(key,out var texture))
             {
+                float dx = widthBin * .5f, dy = heightBin * .5f;
                 if(strokes.Count>768){foreach(var t in strokes.Values)Object.Destroy(t);strokes.Clear();}
                 float w=dx+width+2,h=dy+width+2;int tw=Mathf.Clamp(Mathf.CeilToInt(w),4,256),th=Mathf.Clamp(Mathf.CeilToInt(h),4,256);
                 texture=new Texture2D(tw,th,TextureFormat.RGBA32,false);texture.filterMode=FilterMode.Bilinear;texture.wrapMode=TextureWrapMode.Clamp;
@@ -83,8 +150,12 @@ namespace DrawArrow
         public static Vector2 Measure(string text,int size,Font face=null){Init();label.font=face?face:font;label.fontSize=size;label.fontStyle=FontStyle.Normal;return label.CalcSize(new GUIContent(text??""));}
         public static bool Button(Rect r,string text,Color fill,Color fg,int size=28)
         {
-            bool hover=r.Contains(Event.current.mousePosition);Card(r,hover?Color.Lerp(fill,Color.white,.08f):fill);
-            TextAt(r,text,size,fg,TextAnchor.MiddleCenter,true);return Ink.HitButton(r,GUIContent.none,GUIStyle.none);
+            bool hover=r.Contains(Event.current.mousePosition);
+            var matrix=BeginButtonVisual(r);
+            Card(r,hover?Color.Lerp(fill,Color.white,.08f):fill);
+            TextAt(r,text,size,fg,TextAnchor.MiddleCenter,true);
+            GUI.matrix=matrix;
+            return HitButton(r,GUIContent.none,GUIStyle.none);
         }
         public static void Curve(Vector2 a,Vector2 c,Vector2 b,float width,Color color)
         {

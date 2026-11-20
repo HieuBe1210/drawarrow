@@ -1,0 +1,285 @@
+{
+  "parameters": {
+    "ads_aoa_show": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_aoa_open_count": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_aoa_type": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_aoa_duration": {
+      "defaultValue": {
+        "value": "10"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_aoa_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/9257395921"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/5575463023"
+        }
+      }
+    },
+    "ads_aoa_id_admob": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/9257395921"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/5575463023"
+        }
+      }
+    },
+    "ads_aoa_start_level": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_aoa_resume_game_show": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_inter_shown_on_level_end": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_inter_ad_break_time": {
+      "defaultValue": {
+        "value": "60"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_inter_ad_break_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/1033173712"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/4411468910"
+        }
+      }
+    },
+    "ads_inter_ad_break_id_admob": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/1033173712"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/4411468910"
+        }
+      }
+    },
+    "ads_inter_start_level": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_inter_level_range": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_inter_type": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_inter_duration": {
+      "defaultValue": {
+        "value": "60"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_inter_first_show": {
+      "defaultValue": {
+        "value": "60"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_inter_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/1033173712"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/4411468910"
+        }
+      }
+    },
+    "ads_inter_id_admob": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/1033173712"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/4411468910"
+        }
+      }
+    },
+    "ads_banner_show": {
+      "defaultValue": {
+        "value": "true"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_banner_type": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_banner_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/9214589741"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/2435281174"
+        }
+      }
+    },
+    "ads_banner_id_admob": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/9214589741"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/2435281174"
+        }
+      }
+    },
+    "ads_banner_admob_type": {
+      "defaultValue": {
+        "value": "2"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_reward_type": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_reward_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/5224354917"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/1712485313"
+        }
+      }
+    },
+    "ads_reward_id_admob": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/5224354917"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/1712485313"
+        }
+      }
+    },
+    "ads_mrec_show": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_mrec_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/6300978111"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/2934735716"
+        }
+      }
+    },
+    "ads_native_show": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_native_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/2247696110"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/3986624511"
+        }
+      }
+    },
+    "ads_collapse_show": {
+      "defaultValue": {
+        "value": "false"
+      },
+      "valueType": "BOOLEAN"
+    },
+    "ads_collapse_duration": {
+      "defaultValue": {
+        "value": "60"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_collapse_start_level": {
+      "defaultValue": {
+        "value": "1"
+      },
+      "valueType": "NUMBER"
+    },
+    "ads_collapse_id": {
+      "defaultValue": {
+        "value": "ca-app-pub-3940256099942544/9214589741"
+      },
+      "valueType": "STRING",
+      "conditionalValues": {
+        "admob_ios_test": {
+          "value": "ca-app-pub-3940256099942544/2435281174"
+        }
+      }
+    }
+  },
+  "conditions": [
+    {
+      "name": "admob_ios_test",
+      "expression": "device.os == 'ios'"
+    }
+  ]
+}

@@ -10,21 +10,27 @@ namespace DrawArrow
     {
         public const float Width=1080,Height=1920;
         public ProgressData Progress;public GameMode Mode;public int LevelIndex;
-        bool SelectedGeneratedSet => Progress.SelectedLevelSet == ClassicLevelSet.Generated;
-        bool SelectedFiniteSet => Progress.SelectedLevelSet != ClassicLevelSet.Original;
-        int ActiveMainLevel => SelectedFiniteSet
-            ? Mathf.Clamp(Progress.SelectedClassicIndex, 0, ActiveMainLevelCount - 1)
-            : Progress.SelectedClassicIndex;
-        int ActiveMainLevelCount => CircuitLevels.Count(Progress.SelectedLevelSet);
-        bool FinishedLevelSet => Mode == GameMode.Classic && SelectedFiniteSet && won && LevelIndex == ActiveMainLevelCount - 1;
+        int ActiveMainLevel => Mathf.Clamp(Progress.SelectedClassicIndex, 0, ActiveMainLevelCount - 1);
+        int ActiveMainLevelCount => CircuitLevels.MainSetCount;
+        int AdsLevel => page == Page.Game && Mode == GameMode.Classic ? LevelIndex + 1 : ActiveMainLevel + 1;
+        bool FinishedLevelSet => Mode == GameMode.Classic && won && LevelIndex == ActiveMainLevelCount - 1;
         public ArrowBoard Arrows;public OctaBoard Octa;public OneLineBoard OneLine;public LinkBoard Links;public SchulteBoard Schulte;public LevelData Level;
         MatchTray tray=new MatchTray();readonly Stack<UndoState> history=new Stack<UndoState>();
         sealed class UndoState {public int arrow;public List<int> colors;public int hearts;public int moves;public int urgent,deadline;}
-        enum Page { Home, Game, Journey, Collection, Settings }
+        enum Page { Home, Game, Settings }
         Page page;bool paused,won,failed,modalHelp;int hearts,moves,hint=-1;float hintUntil,elapsed,timeLeft,botProgress;
-        float yaw=-35,pitch=22,roll,zoom=1;Vector2 pan,scroll,lastPointer;bool draggingBoard;string toast="";float toastUntil;int urgentIndex=-1,countdownDeadline;
+        float yaw=-35,pitch=22,roll,zoom=1;Vector2 pan,lastPointer;bool draggingBoard;string toast="";float toastUntil;int urgentIndex=-1,countdownDeadline;
         AudioSource audioSource;readonly Dictionary<string,AudioClip> sounds=new Dictionary<string,AudioClip>();
         readonly List<FlyingArrow> flying=new List<FlyingArrow>();
+        const float HeartBreakDuration = .44f;
+        readonly float[] heartBreakStarted = { float.NegativeInfinity, float.NegativeInfinity, float.NegativeInfinity };
+        float HeartBreakProgress(int index) => Mathf.Clamp01((Time.unscaledTime - heartBreakStarted[index]) / HeartBreakDuration);
+        enum VictoryPhase { None, Flight, Confetti }
+        const float VictoryConfettiDuration = .68f;
+        VictoryPhase victoryPhase;
+        int victoryFinalArrow = -1;
+        float victoryConfettiElapsed;
+        bool WinPopupVisible => won && victoryPhase == VictoryPhase.None;
         sealed class FlyingArrow{public int id;public float elapsed;}
         readonly HashSet<int> collidedArrows=new HashSet<int>();
         readonly Dictionary<int,BlockedFlight> blockedFlights=new Dictionary<int,BlockedFlight>();
@@ -33,24 +39,34 @@ namespace DrawArrow
             public float elapsed,distance;
             public float ImpactTime=>Mathf.Clamp(.14f+distance*.035f,.18f,.48f);
             public float Duration=>ImpactTime+.28f;
-            public float Offset=>elapsed<ImpactTime
-                ?distance*Mathf.SmoothStep(0,1,elapsed/ImpactTime)
-                :distance*(1-Mathf.SmoothStep(0,1,(elapsed-ImpactTime)/.28f));
+            public float Offset => OffsetAt(elapsed);
+            public float OffsetAt(float time) => time < ImpactTime
+                ? distance * Mathf.SmoothStep(0, 1, time / ImpactTime)
+                : distance * (1 - Mathf.SmoothStep(0, 1, (time - ImpactTime) / .28f));
         }
         int screenshotFrames;string capturePath;bool captureStarted;
         bool hintAdPending;int hintRequestVersion,winHintReward;
-        HintRewardedAds hintAds;
+        bool continueAdPending;
+        string continueAdError = "";
+        bool RewardAdPending => hintAdPending || continueAdPending;
+        DateTime dailyDate;
+        string DailyDateKey => dailyDate.ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+        AdsController ads;
+        public void SetNoAdsEntitlement(bool owned) => ads.SetNoAds(owned);
         readonly LevelResultTransition resultTransition=new LevelResultTransition();
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         static void Bootstrap(){if(FindFirstObjectByType<GameApp>()==null)new GameObject("Draw Arrow").AddComponent<GameApp>();}
         void Awake()
         {
-            Application.targetFrameRate=60;Screen.sleepTimeout=SleepTimeout.NeverSleep;Progress=SaveStore.Load();
+            ApplyFrameRateTarget();
+            Screen.sleepTimeout=SleepTimeout.NeverSleep;Progress=SaveStore.Load();
             audioSource=gameObject.AddComponent<AudioSource>();audioSource.playOnAwake=false;audioSource.spatialBlend=0;
             Ink.Clicked=PlayUiClick;
             var camera = Camera.main;if(!camera){camera=new GameObject("Main Camera").AddComponent<Camera>();camera.tag="MainCamera";}if(FindFirstObjectByType<AudioListener>()==null)camera.gameObject.AddComponent<AudioListener>();camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Ink.Paper;
             OpenInitialPage();
+            ads = gameObject.AddComponent<AdsController>();
+            ads.Begin(AdsLevel, page == Page.Game);
             var args=Environment.GetCommandLineArgs();for(int i=0;i<args.Length;i++)
             {
                 if(args[i]=="--mode"&&i+1<args.Length&&Enum.TryParse(args[i+1],out GameMode m))StartGame(m);
@@ -62,6 +78,17 @@ namespace DrawArrow
 #endif
             }
         }
+
+        static void ApplyFrameRateTarget()
+        {
+            const int baseline = 60;
+            int refresh = Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.value);
+            // Mobile presents on refresh boundaries. On a 90 Hz display a
+            // target of 60 can drop to 45; use 90 there, and 60 on 120 Hz.
+            Application.targetFrameRate = Application.isMobilePlatform && refresh > 0
+                ? Mathf.CeilToInt((float)refresh / Mathf.Max(1, refresh / baseline))
+                : baseline;
+        }
         void OpenInitialPage()
         {
             page=Page.Home;
@@ -71,17 +98,44 @@ namespace DrawArrow
         }
         void Update()
         {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            SampleGameplayFps();
+#endif
+            bool playing = page == Page.Game && CanInteract;
+            ads.Tick(AdsLevel, playing, paused || failed || WinPopupVisible || modalHelp || profileOpen);
+            if (ads.Blocking) return;
             if(resultTransition.Take(out var nextMode,out int nextIndex))
             {
-                if(nextMode==GameMode.Classic&&SelectedFiniteSet&&nextIndex>=ActiveMainLevelCount)
-                    ReturnHome();
-                else StartGame(nextMode,nextIndex);
+                void Advance()
+                {
+                    if(nextMode==GameMode.Classic&&nextIndex>=ActiveMainLevelCount)
+                        ReturnHome();
+                    else StartGame(nextMode,nextIndex);
+                }
+                if (!won || !ads.TryLevelEnd(AdsLevel, Advance)) Advance();
                 return;
             }
             if(page==Page.Game&&CanInteract)arrowPress.Tick(Time.unscaledTime);
             if(page==Page.Game&&!paused&&!modalHelp&&!LevelToolsOpen)
                 foreach(var arrow in flying)arrow.elapsed+=Time.unscaledDeltaTime;
-            flying.RemoveAll(a=>a.elapsed>=FlightDuration(a.id));
+            for (int i = flying.Count - 1; i >= 0; i--)
+            {
+                var arrow = flying[i];
+                if (arrow.elapsed < FlightDuration(arrow.id)) continue;
+                CompleteArrowGridTrace(arrow.id);
+                flying.RemoveAt(i);
+            }
+            if (page == Page.Game && !paused)
+            {
+                if (victoryPhase == VictoryPhase.Flight && flying.Count == 0)
+                    BeginVictoryConfetti();
+                else if (victoryPhase == VictoryPhase.Confetti)
+                {
+                    victoryConfettiElapsed += Time.unscaledDeltaTime;
+                    if (victoryConfettiElapsed >= VictoryConfettiDuration)
+                        victoryPhase = VictoryPhase.None;
+                }
+            }
             if(page==Page.Game&&!paused&&!modalHelp&&!LevelToolsOpen&&blockedFlights.Count>0)
             {
                 var finished=new List<int>();
@@ -100,12 +154,12 @@ namespace DrawArrow
                 if(Modes.IsTimed(Mode))
                 {
                     timeLeft-=Time.unscaledDeltaTime;
-                    if(Mode==GameMode.Battle){botProgress=Mathf.Clamp01(elapsed/Mathf.Max(30,Arrows.Active.Length*2.8f));if(botProgress>=1)Lose("The local opponent finished first.");}
+                    if(Mode==GameMode.Battle){botProgress=Mathf.Clamp01(botProgress+Time.unscaledDeltaTime/Mathf.Max(30,Arrows.Active.Length*2.8f));if(botProgress>=1)Lose("The local opponent finished first.");}
                     if(timeLeft<=0)Lose(Mode==GameMode.SharkRush?"The shark caught up. Try again!":"Time is up. Try a different route.");
                 }
             }
             if(!string.IsNullOrEmpty(capturePath)&&!captureStarted&&++screenshotFrames>35){captureStarted=true;StartCoroutine(Capture());}
-            if(Input.GetKeyDown(KeyCode.Escape)){if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
+            if(Input.GetKeyDown(KeyCode.Escape)){if(renameOpen)CloseProfileRename();else if(profileOpen)CloseHomeProfile();else if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
         }
         void ReturnHome()
         {
@@ -113,7 +167,9 @@ namespace DrawArrow
             hintRequestVersion++;
             CloseLevelTestTools();
             CancelArrowPress();paused=won=failed=modalHelp=false;
-            page=Page.Home;scroll=Vector2.zero;SaveStore.Save(Progress);
+            victoryPhase = VictoryPhase.None;
+            victoryFinalArrow = -1;
+            page=Page.Home;SaveStore.Save(Progress);
         }
         IEnumerator Capture(){yield return null;ScreenCapture.CaptureScreenshot(capturePath);yield return new WaitForSeconds(1);Application.Quit();}
         IEnumerator SmokeAll(string directory)
@@ -123,6 +179,7 @@ namespace DrawArrow
             int checkedModes=0;
             foreach(GameMode mode in Enum.GetValues(typeof(GameMode)))
             {
+                if (!CircuitLevels.SupportsMode(mode) || (mode == GameMode.Daily && !FeatureUnlocks.DailyUnlocked(Progress))) continue;
                 StartGame(mode,0);for(int f=0;f<4;f++)yield return null;
                 ScreenCapture.CaptureScreenshot(Path.Combine(directory,((int)mode+1).ToString("00")+"-"+mode+".png"));yield return null;
                 if(Arrows!=null){int i=Arrows.Hint();if(i>=0){int before=Arrows.Remaining;TapArrow(i);if(Arrows.Remaining!=before-1)throw new Exception("Smoke removal "+mode);Undo();if(Arrows.Remaining!=before)throw new Exception("Smoke undo "+mode);}}
@@ -130,7 +187,6 @@ namespace DrawArrow
                 if(Schulte!=null){for(int n=1;n<=Schulte.Numbers.Length;n++)if(!Schulte.Tap(Array.IndexOf(Schulte.Numbers,n)))throw new Exception("Smoke Schulte");}
                 checkedModes++;Debug.Log("DRAW_ARROW_MODE_SMOKE "+mode);
             }
-            page=Page.Collection;for(int part=0;part<5;part++){scroll=new Vector2(0,part*1320);for(int f=0;f<3;f++)yield return null;ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Games-"+part+".png"));yield return null;}
             foreach(int theme in new[]{0,1,2})
             {
                 CircuitStyle.Theme=theme;page=Page.Home;yield return new WaitForSecondsRealtime(1.6f);ScreenCapture.CaptureScreenshot(Path.Combine(directory,"Theme-"+theme+"-Home.png"));yield return null;
@@ -144,6 +200,7 @@ namespace DrawArrow
         }
         public void StartGame(GameMode mode,int index=-1)
         {
+            if (!CircuitLevels.SupportsMode(mode)) { Notify("Coming soon"); return; }
             if(mode==GameMode.Daily&&!FeatureUnlocks.DailyUnlocked(Progress))
             {Notify("Unlock at level "+FeatureUnlocks.DailyLevel);return;}
             CloseLevelTestTools();
@@ -151,14 +208,25 @@ namespace DrawArrow
             resultTransition.Clear();
             CancelArrowPress();
             Mode=mode;LevelIndex=index<0?(mode==GameMode.Classic?ActiveMainLevel:Progress.levels[(int)mode]):index;
-            if(mode==GameMode.Classic&&SelectedFiniteSet)LevelIndex=Mathf.Clamp(LevelIndex,0,ActiveMainLevelCount-1);
-            if(mode==GameMode.Daily){int.TryParse(DateTime.Now.ToString("yyyyMMdd"),out int day);LevelIndex=day%CircuitLevels.CampaignCount;}
+            if(mode==GameMode.Classic)LevelIndex=Mathf.Clamp(LevelIndex,0,ActiveMainLevelCount-1);
+            if (mode == GameMode.Daily)
+            {
+                dailyDate = DateTime.Today;
+                LevelIndex = CircuitLevels.DailyLevelIndex(dailyDate);
+            }
             Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();blockedFlights.Clear();collidedArrows.Clear();motionPaths.Clear();tray.Colors.Clear();
+            projectedArrows.Clear();
+            dotGlowEnd.Clear();
+            tracedGridDots.Clear();
             won=failed=paused=false;hearts=mode==GameMode.OneLife?1:3;moves=0;elapsed=0;timeLeft=mode==GameMode.SharkRush?22:mode==GameMode.Battle?150:90;botProgress=0;hint=-1;zoom=1;pan=Vector2.zero;
+            for (int i = 0; i < heartBreakStarted.Length; i++)
+                heartBreakStarted[i] = float.NegativeInfinity;
+            victoryPhase = VictoryPhase.None;
+            victoryFinalArrow = -1;
             if(mode==GameMode.Schulte){Schulte=new SchulteBoard(3+Mathf.Min(LevelIndex/3,3),137+LevelIndex);Level=null;}
             else
             {
-                Level=CircuitLevels.Load(mode,LevelIndex,Progress.SelectedLevelSet);
+                Level=CircuitLevels.Load(mode,LevelIndex);
                 if(mode==GameMode.OctaArrows)Octa=new OctaBoard(Level);
                 else if(mode==GameMode.LinkDots)Links=new LinkBoard(Level);
                 else if(mode==GameMode.OneLine)OneLine=new OneLineBoard(Level);
@@ -168,7 +236,9 @@ namespace DrawArrow
                 }
                 if(mode==GameMode.Arrows3D){var view=Level.initialView;yaw=view!=null&&view.Length>=3?view[1]:-45;pitch=view!=null&&view.Length>=3?-view[0]:18;roll=view!=null&&view.Length>=3?view[2]:18;}
             }
-            urgentIndex=Arrows!=null?Arrows.Hint():-1;countdownDeadline=8;page=Page.Game;scroll=Vector2.zero;
+            urgentIndex=Arrows!=null?Arrows.Hint():-1;countdownDeadline=8;page=Page.Game;
+            gameScreenVersion++;
+            if (ads) ads.LevelChanged(AdsLevel);
         }
         void TapArrow(int i)
         {
@@ -195,34 +265,94 @@ namespace DrawArrow
             else
             {
                 if(!Arrows.Cube)blockedFlights[i]=new BlockedFlight{distance=Arrows.BlockedTravel(i)};
-                hearts--;Play("arrow_back");Notify("This arrow is blocked. Clear its path first.");Vibrate();if(hearts<=0)Lose("No hearts left. Every puzzle has another way.");
+                hearts--;
+                heartBreakStarted[hearts] = Time.unscaledTime;
+                Play("arrow_back");Notify("This arrow is blocked. Clear its path first.");Vibrate();if(hearts<=0)Lose("No hearts left. Every puzzle has another way.");
             }
         }
         int UrgentArrow()=>urgentIndex;
         void Win()
         {
-            if(won)return;won=true;Progress.wins++;Progress.streak++;Progress.bestStreak=Mathf.Max(Progress.streak,Progress.bestStreak);Progress.coins+=50+hearts*10;
+            if (won) return;
+            won = true;
             resultTransition.Begin(Mode,LevelIndex,true);
-            winHintReward=HintEconomy.RewardWin(Progress,Mode,LevelIndex+1);
-            if(Mode==GameMode.Daily)
+            bool firstDailyWin = Mode == GameMode.Daily &&
+                DailyChallengeResults.RecordWin(Progress, DailyDateKey, Mathf.Max(1, Mathf.RoundToInt(elapsed * 1000)));
+            winHintReward = Mode == GameMode.Daily ? (firstDailyWin ? 1 : 0)
+                : HintEconomy.RewardWin(Progress, Mode, LevelIndex + 1);
+            if (Mode != GameMode.Daily || firstDailyWin)
             {
-                string today=DateTime.Now.ToString("yyyy-MM-dd");if(!Progress.dailyWins.Contains(today))Progress.dailyWins.Add(today);Progress.lastDaily=today;
+                Progress.wins++;
+                Progress.streak++;
+                Progress.bestStreak = Mathf.Max(Progress.streak, Progress.bestStreak);
+                Progress.coins += 50 + hearts * 10;
             }
-            else if(Mode==GameMode.Classic)
+            if(Mode==GameMode.Classic)
             {
                 Progress.SelectedClassicIndex=Mathf.Max(Progress.SelectedClassicIndex,LevelIndex+1);
                 FeatureUnlocks.RecordMainWin(Progress,LevelIndex+1);
             }
-            else Progress.levels[(int)Mode]=Mathf.Max(Progress.levels[(int)Mode],LevelIndex+1);
-            SaveStore.Save(Progress);Play("result_pass",.65f);
+            else if (Mode != GameMode.Daily)
+                Progress.levels[(int)Mode]=Mathf.Max(Progress.levels[(int)Mode],LevelIndex+1);
+            SaveStore.Save(Progress);
+            if (Arrows != null && !Arrows.Cube && flying.Count > 0)
+            {
+                victoryFinalArrow = flying[flying.Count - 1].id;
+                victoryPhase = VictoryPhase.Flight;
+            }
+            else BeginVictoryConfetti();
         }
-        void Lose(string reason){if(failed||won)return;failed=true;resultTransition.Begin(Mode,LevelIndex,false);toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
+
+        void BeginVictoryConfetti()
+        {
+            victoryPhase = VictoryPhase.Confetti;
+            victoryConfettiElapsed = 0;
+            Play("result_pass", .65f);
+        }
+        void Lose(string reason){if(failed||won)return;failed=true;continueAdError="";resultTransition.Begin(Mode,LevelIndex,false);toast=reason;Progress.streak=0;SaveStore.Save(Progress);Play("result_fail",.6f);}
+
+        void RequestRewardedContinue()
+        {
+            if (!failed || RewardAdPending || resultTransition.Pending) return;
+
+            int version = gameScreenVersion;
+            continueAdPending = true;
+            continueAdError = "";
+            CancelArrowPress();
+            ads.Show(rewarded =>
+            {
+                if (!this) return;
+                continueAdPending = false;
+                if (version != gameScreenVersion || page != Page.Game || !failed) return;
+                if (rewarded) ResumeAfterRewardedContinue();
+                else continueAdError = "Ad unavailable or not completed. Try again.";
+            });
+        }
+
+        void ResumeAfterRewardedContinue()
+        {
+            failed = paused = false;
+            resultTransition.Clear();
+            toastUntil = 0;
+            hearts = 1;
+            if (Modes.IsTimed(Mode)) timeLeft = Mathf.Max(timeLeft, 15);
+            if (Mode == GameMode.Battle && botProgress >= 1) botProgress = .75f;
+            if (Mode == GameMode.Countdown) countdownDeadline = moves + 8;
+            if (Octa != null && Octa.MovesLeft <= 0) Octa.MovesLeft = 5;
+            if (Mode == GameMode.ArrowClash && (tray.Full || Arrows.Remaining == 0))
+            {
+                tray.Colors.Clear();
+                if (Arrows.Remaining == 0) Win();
+            }
+        }
         void Notify(string text){toast=text;toastUntil=Time.unscaledTime+3;}
         void Undo()
         {
             if(OneLine!=null){OneLine.Undo();hint=-1;return;}
             if(history.Count==0){Notify("No move to undo.");return;}
             hint=-1;var state=history.Pop();Arrows.Restore(state.arrow);tray.Colors.Clear();tray.Colors.AddRange(state.colors);hearts=state.hearts;moves=state.moves;urgentIndex=state.urgent;countdownDeadline=state.deadline;failed=false;flying.Clear();blockedFlights.Clear();Play("arrow_tap");
+            dotGlowEnd.Clear();
+            tracedGridDots.Clear();
         }
         void Hint()
         {
@@ -233,10 +363,9 @@ namespace DrawArrow
             // Repeated taps on the currently highlighted target do not spend again.
             if(found==hint&&Time.unscaledTime<hintUntil)return;
             if(HintEconomy.SpendFree(Progress,Mode,LevelIndex)){ApplyHint(found);return;}
-            if(!hintAds)hintAds=gameObject.AddComponent<HintRewardedAds>();
             int request=++hintRequestVersion;
             hintAdPending=true;paused=true;CancelArrowPress();
-            hintAds.Show(rewarded=>
+            ads.Show(rewarded=>
             {
                 if(!this)return;
                 hintAdPending=false;
@@ -273,7 +402,7 @@ namespace DrawArrow
             if(Progress.vibration)Handheld.Vibrate();
 #endif
         }
-        void OnApplicationPause(bool value){if(value){CancelArrowPress();if(page==Page.Game&&!won&&!failed)paused=true;}if(Progress!=null)SaveStore.Save(Progress);}
+        void OnApplicationPause(bool value){if(value){CancelArrowPress();if(page==Page.Game&&!won&&!failed&&(!ads||!ads.OverlayOpen))paused=true;}if(Progress!=null)SaveStore.Save(Progress);}
         void OnApplicationQuit(){if(Progress!=null)SaveStore.Save(Progress);}
     }
 }

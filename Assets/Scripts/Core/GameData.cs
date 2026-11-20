@@ -5,7 +5,6 @@ using UnityEngine;
 namespace DrawArrow
 {
     public enum GameMode { Classic, ArrowClash, Arrows3D, OctaArrows, LinkDots, OneLine, Schulte, OneLife, TimeAttack, Countdown, Reasoning, CatEscape, Battle, SharkRush, Daily, Pipeline, Tarot, Zodiac, Zoo, Gallery }
-    public enum ClassicLevelSet { Original, Current, Generated }
 
     public static class Modes
     {
@@ -28,42 +27,81 @@ namespace DrawArrow
         public float[] initialView;
         public float arrowVisualScale;
         public float[] packedFitBounds;
-        public bool followDiagonalPaths;
+        public bool followDiagonalPaths, keepBoardOrientation;
         public ArrowData[] arrows; public TurnData[] turns; public PortalData[] portals;
         public PairData[] pairs; public PointData[] nodes; public EdgeData[] edges; public int[] solution;
     }
     [Serializable] public class ProgressData
     {
         public int[] levels = new int[20]; public int coins = 250, wins, streak, bestStreak, hintsUsed,mainLevelsCompleted;
-        public bool useLevelSet0, useLevelSet2;
-        public int levelSet0Progress, levelSet0Completed, levelSet2Progress, levelSet2Completed;
-        public ClassicLevelSet SelectedLevelSet
-        {
-            get => useLevelSet0 ? ClassicLevelSet.Original : useLevelSet2 ? ClassicLevelSet.Generated : ClassicLevelSet.Current;
-            set
-            {
-                useLevelSet0 = value == ClassicLevelSet.Original;
-                useLevelSet2 = value == ClassicLevelSet.Generated;
-            }
-        }
         public int SelectedClassicIndex
         {
-            get => SelectedLevelSet == ClassicLevelSet.Original ? levelSet0Progress :
-                SelectedLevelSet == ClassicLevelSet.Generated ? levelSet2Progress : levels[(int)GameMode.Classic];
-            set
-            {
-                if (SelectedLevelSet == ClassicLevelSet.Original) levelSet0Progress = value;
-                else if (SelectedLevelSet == ClassicLevelSet.Generated) levelSet2Progress = value;
-                else levels[(int)GameMode.Classic] = value;
-            }
+            get => levels[(int)GameMode.Classic];
+            set => levels[(int)GameMode.Classic] = value;
         }
         public int freeHints=3,hintEconomyVersion=2;
         public bool sound = true, vibration = true, dark,hasStartedGame; public string lastDaily = "";
         public List<string> dailyWins = new List<string>();
+        public List<DailyTime> dailyTimes = new List<DailyTime>();
+        public string playerName = "Player";
+        public int avatarIndex;
+    }
+
+    [Serializable]
+    public sealed class DailyTime
+    {
+        public string date;
+        public int milliseconds;
+    }
+
+    public static class DailyChallengeResults
+    {
+        public static bool RecordWin(ProgressData progress, string date, int milliseconds)
+        {
+            bool first = progress.lastDaily != date && !progress.dailyWins.Contains(date);
+            if (first)
+            {
+                progress.dailyWins.Add(date);
+                progress.freeHints++;
+            }
+
+            progress.lastDaily = date;
+            var best = progress.dailyTimes.Find(record => record.date == date);
+            if (best == null)
+                progress.dailyTimes.Add(new DailyTime { date = date, milliseconds = milliseconds });
+            else if (milliseconds < best.milliseconds)
+                best.milliseconds = milliseconds;
+            return first;
+        }
+
+        public static int BestTime(ProgressData progress, string date)
+            => progress.dailyTimes.Find(record => record.date == date)?.milliseconds ?? 0;
     }
     public static class SaveStore
     {
         const string Key = "drawarrow.progress.v1";
+
+        [Serializable]
+        sealed class LegacyLevelSets
+        {
+            public bool useLevelSet0, useLevelSet2;
+            public int levelSet0Progress, levelSet0Completed, levelSet2Progress, levelSet2Completed;
+        }
+
+        static void RestoreClassicProgress(string json, ProgressData progress)
+        {
+            var legacy = JsonUtility.FromJson<LegacyLevelSets>(json);
+            if (legacy.useLevelSet0 || legacy.levelSet0Progress > 0 || legacy.levelSet0Completed > 0)
+                progress.SelectedClassicIndex = legacy.levelSet0Progress;
+            else if (legacy.useLevelSet2)
+                progress.SelectedClassicIndex = legacy.levelSet2Progress;
+
+            progress.SelectedClassicIndex = Mathf.Clamp(progress.SelectedClassicIndex, 0, CircuitLevels.MainSetCount);
+            progress.mainLevelsCompleted = Mathf.Clamp(
+                Mathf.Max(progress.mainLevelsCompleted, legacy.levelSet0Completed, legacy.levelSet2Completed),
+                0, CircuitLevels.MainSetCount);
+        }
+
         public static ProgressData Load()
         {
             try
@@ -72,8 +110,10 @@ namespace DrawArrow
                 if(p!=null&&p.levels!=null&&p.levels.Length==20)
                 {
                     if(p.dailyWins==null)p.dailyWins=new List<string>();
+                    if(p.dailyTimes==null)p.dailyTimes=new List<DailyTime>();
                     // Older saves used the next main-level index as their completion marker.
                     if(!json.Contains("\"mainLevelsCompleted\""))p.mainLevelsCompleted=Mathf.Max(0,p.levels[0]);
+                    RestoreClassicProgress(json,p);
                     if(!json.Contains("\"hasStartedGame\""))p.hasStartedGame=true;
                     if(!json.Contains("\"freeHints\"")){p.freeHints=3;p.hintEconomyVersion=2;}
                     else if(!json.Contains("\"hintEconomyVersion\""))p.hintEconomyVersion=1;
@@ -125,7 +165,7 @@ namespace DrawArrow
         }
         public static int RewardWin(ProgressData progress,GameMode mode,int completedLevel)
         {
-            if(mode!=GameMode.Classic||completedLevel<5||completedLevel%5!=0)return 0;
+            if(mode!=GameMode.Classic||completedLevel<10||completedLevel%10!=0)return 0;
             progress.freeHints++;return 1;
         }
     }

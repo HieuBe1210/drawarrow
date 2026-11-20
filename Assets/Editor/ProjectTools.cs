@@ -20,7 +20,7 @@ namespace DrawArrow.Editor
             PlayerSettings.defaultScreenWidth=540;PlayerSettings.defaultScreenHeight=960;
             PlayerSettings.fullScreenMode=FullScreenMode.Windowed;PlayerSettings.resizableWindow=true;
             PlayerSettings.defaultInterfaceOrientation=UIOrientation.Portrait;
-            PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android,"com.drawarrow.circuit");
+            PlayerSettings.SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget.Android,"com.vik.arrow");
             PlayerSettings.Android.minSdkVersion=AndroidSdkVersions.AndroidApiLevel26;
             PlayerSettings.bundleVersion="1.1.0";PlayerSettings.Android.bundleVersionCode=2;
             var appIcon=AssetDatabase.LoadAssetAtPath<Texture2D>("Assets/CircuitAppIcon.png");if(appIcon)PlayerSettings.SetIconsForTargetGroup(BuildTargetGroup.Unknown,new[]{appIcon});
@@ -38,18 +38,15 @@ namespace DrawArrow.Editor
         public static void Validate()
         {
             Prepare();
-            foreach (ClassicLevelSet set in Enum.GetValues(typeof(ClassicLevelSet)))
+            for (int index = 0; index < 24; index++)
             {
-                for (int index = 0; index < 24; index++)
-                {
-                    var level = CircuitLevels.Load(GameMode.Classic, index, set);
-                    var board = new ArrowBoard(level, fitInitialGaps: true);
-                    if (board.Solve().Length != board.TargetCount)
-                        throw new Exception("Unsolvable campaign board: " + level.id);
-                }
+                var level = CircuitLevels.Load(GameMode.Classic, index);
+                var board = new ArrowBoard(level, fitInitialGaps: true);
+                if (board.Solve().Length != board.TargetCount)
+                    throw new Exception("Unsolvable campaign board: " + level.id);
             }
             foreach (GameMode mode in Enum.GetValues(typeof(GameMode)))
-                if (mode != GameMode.Schulte && CircuitLevels.Load(mode, 0) == null)
+                if (CircuitLevels.SupportsMode(mode) && CircuitLevels.Load(mode, 0) == null)
                     throw new Exception("Missing board: " + mode);
 
             CircuitBuildCheck.VerifyAssets();

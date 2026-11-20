@@ -9,7 +9,7 @@ namespace DrawArrow
             get
             {
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
-                return LevelTestToolsSettings.Enabled&&levelToolsOpen;
+                return page == Page.Home && LevelTestToolsSettings.Enabled && levelToolsOpen;
 #else
                 return false;
 #endif
@@ -27,13 +27,12 @@ namespace DrawArrow
             if(!LevelTestToolsSettings.Enabled){levelToolsOpen=false;return;}
             if(!levelToolsOpen)
             {
-                if(modalHelp||paused||won||failed||(page!=Page.Home&&page!=Page.Game))return;
-                var button=page==Page.Home?new Rect(32,1815,245,68):new Rect(48,175,245,64);
-                if(Ink.Button(button,"Test tools",Ink.Hex("346D91"),Color.white,30))
+                var button=new Rect((Width-360)*.5f,HomePlayPanelTop+HomePlayPanelHeight+28,360,76);
+                if(Ink.Button(button,"Test tools",CircuitStyle.SoftControl,CircuitStyle.ControlInk,31))
                 {CancelArrowPress();levelToolsOpen=true;levelTestInput=(ActiveMainLevel+1).ToString();levelTestError="";}
                 return;
             }
-            Ink.Rect(page==Page.Game?gameViewport:new Rect(0,0,Width,Height),new Color(0,0,0,.65f));
+            Ink.Rect(new Rect(0,0,Width,Height),new Color(0,0,0,.65f));
             Ink.Card(new Rect(80,550,920,760),CircuitStyle.Background,28);
             Ink.TextAt(new Rect(130,590,820,70),"Test level chính",48,FG,TextAnchor.MiddleCenter,true);
             Ink.TextAt(new Rect(140,690,800,55),"Level (1 – "+ActiveMainLevelCount+")",32,FG);
@@ -64,9 +63,7 @@ namespace DrawArrow
         {
             if(!LevelTestToolsSettings.Enabled)return;
             Progress.SelectedClassicIndex=0;
-            if(Progress.SelectedLevelSet==ClassicLevelSet.Original)Progress.levelSet0Completed=0;
-            else if(SelectedGeneratedSet)Progress.levelSet2Completed=0;
-            else Progress.mainLevelsCompleted=0;
+            Progress.mainLevelsCompleted=0;
             ReturnHome();
         }
 #endif

@@ -8,12 +8,22 @@ namespace DrawArrow
             set { PlayerPrefs.SetInt("drawarrow.artTheme", Mathf.Clamp(value, 0, 2)); PlayerPrefs.Save(); } }
 
         internal static Color ThemeBackground(int theme) =>
-            theme == 2 ? Ink.Hex("17182B") : theme == 1 ? Ink.Hex("E3F3EE") : Ink.Hex("F2F0FA");
+            theme == 2 ? Ink.Hex("1B2033") : theme == 1 ? Ink.Hex("EDF4F4") : Ink.Hex("F5F4F6");
         internal static Color Background => ThemeBackground(Theme);
-        internal static Color Foreground => Theme == 2 ? Ink.Hex("F4F2FF") : Ink.Hex("272343");
-        internal static Color Accent => Theme == 2 ? Ink.Hex("7664E0") : Ink.Hex("5340AD");
-        internal static Color ArrowInk => Theme == 2 ? Ink.Hex("DAD1FF") : Ink.Hex("40318B");
-        internal static Color Panel => Theme == 2 ? Ink.Hex("272943") : Color.white;
+        internal static Color Foreground => Theme == 2 ? Ink.Hex("F2F3FA") : Ink.Hex("252D42");
+        internal static Color Accent => Theme == 2 ? Ink.Hex("666ABC") : Ink.Hex("45488E");
+        internal static Color ArrowInk => Theme == 2 ? Ink.Hex("D5D8FA") : Ink.Hex("414580");
+        internal static Color Panel => Theme == 2 ? Ink.Hex("292F46") : Ink.Hex("FCFBFD");
+        internal static Color SoftControl => Theme == 2 ? Ink.Hex("363D57") : Ink.Hex("E3E4EB");
+        internal static Color ControlInk => Theme == 2 ? Ink.Hex("E1E4F6") : Ink.Hex("404861");
+        internal static Color Teal => Ink.Hex("317C83");
+
+        internal static void RaisedCard(Rect rect, Color fill, float radius)
+        {
+            Ink.Card(new Rect(rect.x, rect.y + 9, rect.width, rect.height),
+                Ink.WithAlpha(Foreground, .10f), radius);
+            Ink.Card(rect, fill, radius);
+        }
 
         internal static bool Button(Rect rect, string label, Color color, int size) =>
             Ink.Button(rect, label, color, Color.white, size);

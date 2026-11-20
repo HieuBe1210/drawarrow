@@ -29,7 +29,7 @@ namespace DrawArrow.Editor
                 bool Jump(string value)=>(bool)jump.Invoke(app,new object[]{value});
                 Check(Jump("6")&&app.LevelIndex==5&&app.Level.id==CircuitLevels.Load(GameMode.Classic,5).id,"Level input uses the actual one-based main-level number");
                 Check(SaveStore.Load().levels[0]==5,"Selected main level is saved for Home Play");
-                int max=CircuitLevels.CampaignCount;
+                int max=CircuitLevels.MainSetCount;
                 foreach(string invalid in new[]{"0","-1","text","",(max+1).ToString(),"99999999999999999999"})
                     Check(!Jump(invalid)&&app.LevelIndex==5&&app.Progress.levels[0]==5,"Invalid input cannot change current progress");
                 Check(Jump("3")&&app.Level.id==CircuitLevels.Load(GameMode.Classic,2).id,"Jump follows the active main level catalog");
