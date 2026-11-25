@@ -32,12 +32,14 @@ namespace DrawArrow
         readonly Dictionary<Vector3, float> dotGlowEnd = new Dictionary<Vector3, float>();
         const float DotGlowDuration = .19f;
         readonly ArrowPressGesture arrowPress=new ArrowPressGesture();
+        int boardFingerId = -1;
+        int boardTouchFrame = -1;
         int PreviewArrow=>arrowPress.Held?arrowPress.Arrow:-1;
         Color HeldArrowColor=>CircuitStyle.Theme==2?Ink.Hex("58E6FF"):Ink.Hex("00728F");
         float ArrowVisualCell=>Arrows.Cube?boardCell*Mathf.Max(1,Level.arrowVisualScale):boardCell;
         float ArrowStrokeWidth => Mathf.Min(Arrows.Cube ? float.PositiveInfinity : ArrowVisualCell * .25f,
                 Mathf.Clamp(ArrowVisualCell * .20f, 1.8f / scale, 12f / scale));
-        void CancelArrowPress(){arrowPress.Cancel();draggingBoard=false;pointerMoved=false;}
+        void CancelArrowPress(){arrowPress.Cancel();draggingBoard=false;pointerMoved=false;boardFingerId=-1;}
         void OnApplicationFocus(bool focused)
         {
             if (!focused) CancelArrowPress();
@@ -75,7 +77,7 @@ namespace DrawArrow
             boardCell=BoardLayout.FitBestOrientation(r, Arrows.ContentBounds, out rotateArrowBoard,
                 Arrows.Cube || Level.keepBoardOrientation, Arrows.ReferenceBounds) * zoom;
             projectedCenter=r.center+pan;
-            if(!CanInteract||Input.touchCount>1||(Input.touchCount==1&&Input.GetTouch(0).phase==TouchPhase.Canceled))CancelArrowPress();
+            if(!CanInteract)CancelArrowPress();
             arrowPress.Tick(Time.unscaledTime);
             if(Arrows.Cube){if(!cubeArtwork)cubeArtwork=gameObject.AddComponent<CubeArtRenderer>();cubeArtwork.Draw(r,Arrows,yaw,pitch,roll,zoom,hint,hintUntil);}
             else if (e.type == EventType.Repaint)
@@ -96,36 +98,117 @@ namespace DrawArrow
                 if(PreviewArrow>=0&&Arrows.Active[PreviewArrow])DrawArrowPath(PreviewArrow);
             }
             if(!CanInteract)return;
-            if(e.type==EventType.ScrollWheel&&r.Contains(e.mousePosition)){zoom=Mathf.Clamp(zoom-e.delta.y*.08f,.6f,4);e.Use();}
-            if(e.type==EventType.MouseDown&&e.button==0&&Input.touchCount<2&&r.Contains(e.mousePosition))
-            {lastPointer=pointerStart=e.mousePosition;draggingBoard=true;pointerMoved=false;arrowPress.Begin(Arrows.Cube?-1:PickArrow(e.mousePosition),e.mousePosition,Time.unscaledTime,18/scale);e.Use();}
-            if(e.type==EventType.MouseDrag&&draggingBoard)
+            if (Application.isMobilePlatform && Input.touchSupported)
             {
-                if(Vector2.Distance(pointerStart,e.mousePosition)>18/scale)pointerMoved=true;
-                bool onPressedArrow=!Arrows.Cube&&arrowPress.Arrow>=0&&ArrowHitDistance(arrowPress.Arrow,e.mousePosition)<14/scale;
-                arrowPress.Move(e.mousePosition,onPressedArrow);
-                if(pointerMoved&&!onPressedArrow){var delta=e.mousePosition-lastPointer;if(Arrows.Cube){yaw+=delta.x*.4f;pitch=Mathf.Clamp(pitch+delta.y*.3f,-80,80);}else if(zoom>1)pan+=delta;}
-                lastPointer=e.mousePosition;e.Use();
-            }
-            if(e.type==EventType.MouseUp&&e.button==0&&draggingBoard)
-            {
-                draggingBoard=false;
-                int pressed=arrowPress.Release(Time.unscaledTime);
-                if(!pointerMoved)
+                if (e.type == EventType.Repaint && boardTouchFrame != Time.frameCount)
                 {
-                    int hit=PickArrow(e.mousePosition);
-                    if(hit>=0&&(Arrows.Cube||hit==pressed))
-                    {
-                        if(Mode==GameMode.Reasoning&&elapsed>3&&hit!=revealArrow){Play("arrow_click",.48f);revealArrow=hit;revealUntil=Time.unscaledTime+2;Notify("Arrow revealed. Tap again to move it.");}
-                        else TapArrow(hit);
-                    }
+                    boardTouchFrame = Time.frameCount;
+                    if (Time.unscaledTime - screenTransitionStart >= ScreenTransitionDuration)
+                        ReadBoardTouches(r, boardOrigin);
                 }
-                e.Use();
+                return;
             }
-            if(e.type==EventType.Repaint&&Input.touchCount==2)
+            if(e.type==EventType.ScrollWheel&&r.Contains(e.mousePosition)){zoom=Mathf.Clamp(zoom-e.delta.y*.08f,.6f,4);e.Use();}
+            if(e.type==EventType.MouseDown&&e.button==0&&r.Contains(e.mousePosition))
+            {BeginBoardPress(e.mousePosition);e.Use();}
+            if(e.type==EventType.MouseDrag&&draggingBoard)
+            {MoveBoardPress(e.mousePosition);e.Use();}
+            if(e.type==EventType.MouseUp&&e.button==0&&draggingBoard)
+            {EndBoardPress(e.mousePosition,r);e.Use();}
+        }
+
+        void ReadBoardTouches(Rect viewport, Vector2 boardOrigin)
+        {
+            var screenToGui = GUI.matrix.inverse;
+            Vector2 BoardPoint(Vector2 position) =>
+                (Vector2)screenToGui.MultiplyPoint3x4(new Vector3(position.x, Screen.height - position.y)) - boardOrigin;
+
+            int activeCount = 0;
+            Touch first = default, second = default;
+            bool trackedTouchFound = false;
+            for (int index = 0; index < Input.touchCount; index++)
             {
-                var a=Input.GetTouch(0);var b=Input.GetTouch(1);if(a.phase==TouchPhase.Moved||b.phase==TouchPhase.Moved){float now=(a.position-b.position).magnitude;float before=(a.position-a.deltaPosition-b.position+b.deltaPosition).magnitude;zoom=Mathf.Clamp(zoom+(now-before)/800,.6f,4);}
+                var touch = Input.GetTouch(index);
+                if (touch.fingerId == boardFingerId)
+                {
+                    trackedTouchFound = true;
+                    if (touch.phase == TouchPhase.Ended) EndBoardPress(BoardPoint(touch.position), viewport);
+                    else if (touch.phase == TouchPhase.Canceled) CancelArrowPress();
+                }
+                if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled) continue;
+                if (activeCount == 0) first = touch;
+                else if (activeCount == 1) second = touch;
+                activeCount++;
             }
+            if (!CanInteract || (boardFingerId >= 0 && !trackedTouchFound)) CancelArrowPress();
+            if (!CanInteract || activeCount == 0) return;
+
+            var position = BoardPoint(first.position);
+            if (activeCount > 1)
+            {
+                CancelArrowPress();
+                if (activeCount == 2 && viewport.Contains(position) && viewport.Contains(BoardPoint(second.position)) &&
+                    (first.phase == TouchPhase.Moved || second.phase == TouchPhase.Moved))
+                {
+                    var separation = first.position - second.position;
+                    float previous = (separation - first.deltaPosition + second.deltaPosition).magnitude;
+                    zoom = Mathf.Clamp(zoom + (separation.magnitude - previous) / 800, .6f, 4);
+                }
+                return;
+            }
+            if (first.phase == TouchPhase.Began && viewport.Contains(position))
+            {
+                boardFingerId = first.fingerId;
+                BeginBoardPress(position);
+            }
+            else if (first.fingerId == boardFingerId && first.phase == TouchPhase.Moved)
+                MoveBoardPress(position);
+        }
+
+        void BeginBoardPress(Vector2 position)
+        {
+            lastPointer = pointerStart = position;
+            draggingBoard = true;
+            pointerMoved = false;
+            arrowPress.Begin(Arrows.Cube ? -1 : PickArrow(position), position, Time.unscaledTime, 18 / scale);
+        }
+
+        void MoveBoardPress(Vector2 position)
+        {
+            if (Vector2.Distance(pointerStart, position) > 18 / scale) pointerMoved = true;
+            bool onPressedArrow = !Arrows.Cube && arrowPress.Arrow >= 0 &&
+                ArrowHitDistance(arrowPress.Arrow, position) < 14 / scale;
+            arrowPress.Move(position, onPressedArrow);
+            if (pointerMoved && !onPressedArrow)
+            {
+                var delta = position - lastPointer;
+                if (Arrows.Cube)
+                {
+                    yaw += delta.x * .4f;
+                    pitch = Mathf.Clamp(pitch + delta.y * .3f, -80, 80);
+                }
+                else if (zoom > 1) pan += delta;
+            }
+            lastPointer = position;
+        }
+
+        void EndBoardPress(Vector2 position, Rect viewport)
+        {
+            draggingBoard = false;
+            boardFingerId = -1;
+            int pressed = arrowPress.Release(Time.unscaledTime);
+            if (pointerMoved || (position - pointerStart).sqrMagnitude > (18 / scale) * (18 / scale) ||
+                !viewport.Contains(position)) return;
+            int hit = PickArrow(position);
+            if (hit < 0 || (!Arrows.Cube && hit != pressed)) return;
+            if (Mode == GameMode.Reasoning && elapsed > 3 && hit != revealArrow)
+            {
+                Play("arrow_click", .48f);
+                revealArrow = hit;
+                revealUntil = Time.unscaledTime + 2;
+                Notify("Arrow revealed. Tap again to move it.");
+            }
+            else TapArrow(hit);
         }
         void DrawClearedArrowDots(Rect viewport, Vector2 boardOrigin)
         {

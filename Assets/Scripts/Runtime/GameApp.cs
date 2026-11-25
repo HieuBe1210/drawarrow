@@ -81,13 +81,7 @@ namespace DrawArrow
 
         static void ApplyFrameRateTarget()
         {
-            const int baseline = 60;
-            int refresh = Mathf.RoundToInt((float)Screen.currentResolution.refreshRateRatio.value);
-            // Mobile presents on refresh boundaries. On a 90 Hz display a
-            // target of 60 can drop to 45; use 90 there, and 60 on 120 Hz.
-            Application.targetFrameRate = Application.isMobilePlatform && refresh > 0
-                ? Mathf.CeilToInt((float)refresh / Mathf.Max(1, refresh / baseline))
-                : baseline;
+            Application.targetFrameRate = 60;
         }
         void OpenInitialPage()
         {

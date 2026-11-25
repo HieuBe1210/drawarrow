@@ -470,6 +470,7 @@ namespace DrawArrow
             int levelNumber = LevelIndex + 1;
             bool showInstructions = Mode == GameMode.Classic && levelNumber >= 1 && levelNumber <= 10;
             bool showZoomControls = Mode == GameMode.Classic && Arrows != null;
+            bool teachZoom = showZoomControls && levelNumber == 5;
             bool showModeStatus = Modes.IsTimed(Mode) || Schulte != null || Octa != null;
             GUI.BeginGroup(new Rect(0,gameViewport.yMin,Width,340));
             GUI.enabled = GUI.enabled && !won && !RewardAdPending && !(failed && HeartBreakProgress(0) < 1);
@@ -520,9 +521,14 @@ namespace DrawArrow
             if(Mode==GameMode.ArrowClash){GUI.BeginGroup(new Rect(0,footerY,Width,Height));DrawTray();GUI.EndGroup();}
             if(Mode==GameMode.Battle){Ink.TextAt(new Rect(78,footerY+1470,930,40),"Local opponent",27,FG);CircuitStyle.Draw("BarBg",new Rect(78,footerY+1520,924,18),Ink.Hex("CCBDA3"),false,true);Ink.Rect(new Rect(78,footerY+1520,924*botProgress,18),Ink.Red);}
             else if (showInstructions)
-                Ink.TextAt(new Rect(78, instructionTop, 924, instructionHeight), BoardInstruction(), 27, FG, TextAnchor.MiddleCenter);
+            {
+                string instruction = teachZoom
+                    ? (Application.isMobilePlatform ? "Spread two fingers or tap + to zoom in." : "Scroll up or click + to zoom in.")
+                    : BoardInstruction();
+                Ink.TextAt(new Rect(78, instructionTop, 924, instructionHeight), instruction, 27, FG, TextAnchor.MiddleCenter);
+            }
             GUI.enabled=CanInteract;
-            if (showZoomControls) DrawBoardZoomControls(zoomTop, zoomHeight);
+            if (showZoomControls) DrawBoardZoomControls(zoomTop, zoomHeight, teachZoom && zoom <= 1);
             GUI.enabled=true;
             if(CanInteract&&Arrows!=null&&!Arrows.Cube)DrawHeldArrowRoute(boardRect.position);
             if(RewardAdPending)Ink.TextAt(new Rect(180,gameViewport.center.y-45,720,90),"Loading ad…",38,FG,TextAnchor.MiddleCenter,true);
@@ -530,17 +536,18 @@ namespace DrawArrow
             if(!RewardAdPending&&!lastHeartBreaking&&(paused||won||failed))DrawModal();
         }
 
-        void DrawBoardZoomControls(float top, float height)
+        void DrawBoardZoomControls(float top, float height, bool highlightPlus)
         {
             var minus = new Rect(70, top, 190, height);
             var reset = new Rect(360, top, 360, height);
             var plus = new Rect(820, top, 190, height);
+            if (highlightPlus) Ink.Card(plus, CircuitStyle.Accent, 18);
             if (Ink.HitButton(minus, GUIContent.none, GUIStyle.none)) zoom = Mathf.Max(.6f, zoom - .25f);
             if (Ink.HitButton(reset, GUIContent.none, GUIStyle.none)) { zoom = 1; pan = Vector2.zero; }
             if (Ink.HitButton(plus, GUIContent.none, GUIStyle.none)) zoom = Mathf.Min(4, zoom + .25f);
             Ink.TextAt(minus, "−", 44, FG, TextAnchor.MiddleCenter);
             Ink.TextAt(reset, Arrows.Cube ? "Rotate / Zoom" : "Fit board", 28, FG, TextAnchor.MiddleCenter);
-            Ink.TextAt(plus, "+", 44, FG, TextAnchor.MiddleCenter);
+            Ink.TextAt(plus, "+", 44, highlightPlus ? Color.white : FG, TextAnchor.MiddleCenter);
         }
 
         void DrawGameHeart(Rect rect, int index)

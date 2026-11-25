@@ -201,13 +201,23 @@ namespace DrawArrow
 
         void CloseProfileRename()
         {
-            if (profileKeyboard != null) profileKeyboard.active = false;
-            profileKeyboard = null;
+            CloseProfileKeyboard();
             renameOpen = focusProfileName = false;
+        }
+
+        void CloseProfileKeyboard()
+        {
+            if (profileKeyboard == null) return;
+            profileKeyboard.active = false;
+            profileKeyboard = null;
         }
 
         void DrawProfileRename()
         {
+            var e = Event.current;
+            bool submit = e.type == EventType.KeyDown && GUI.GetNameOfFocusedControl() == ProfileNameControl &&
+                (e.keyCode == KeyCode.Return || e.keyCode == KeyCode.KeypadEnter);
+            if (submit) e.Use();
             Ink.Rect(new Rect(0, 0, Width, Height), new Color(0, 0, 0, .40f));
             Ink.Card(new Rect(150, 335, 780, 440), CircuitStyle.Panel, 36);
             Ink.TextAt(new Rect(188, 369, 704, 76), "Change name", 50, FG, TextAnchor.MiddleCenter, true);
@@ -220,7 +230,13 @@ namespace DrawArrow
                 {
                     var status = profileKeyboard.status;
                     if (status != TouchScreenKeyboard.Status.Canceled) renameInput = profileKeyboard.text;
-                    if (status != TouchScreenKeyboard.Status.Visible) profileKeyboard = null;
+                    if (status == TouchScreenKeyboard.Status.Done)
+                    {
+                        ApplyProfileRename();
+                        if (!renameOpen) return;
+                    }
+                    else if (status != TouchScreenKeyboard.Status.Visible)
+                        CloseProfileKeyboard();
                 }
                 Ink.TextAt(input, NormalizeProfileName(renameInput), 38, FG, TextAnchor.MiddleLeft);
                 if (Ink.HitButton(field, new GUIContent(string.Empty, "Enter a new name"), GUIStyle.none) &&
@@ -252,7 +268,13 @@ namespace DrawArrow
                 CloseProfileRename();
                 return;
             }
-            if (!Ink.Button(new Rect(474, 635, 401, 84), "Apply", CircuitStyle.Accent, Color.white, 36)) return;
+            if (Ink.Button(new Rect(474, 635, 401, 84), "Apply", CircuitStyle.Accent, Color.white, 36) || submit)
+                ApplyProfileRename();
+        }
+
+        void ApplyProfileRename()
+        {
+            CloseProfileKeyboard();
             string name = NormalizeProfileName(renameInput);
             if (name.Length == 0)
             {
@@ -261,6 +283,7 @@ namespace DrawArrow
             }
             draftProfileName = name;
             profileError = "";
+            if (GUI.GetNameOfFocusedControl() == ProfileNameControl) GUI.FocusControl(null);
             CloseProfileRename();
         }
 
