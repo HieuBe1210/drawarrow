@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ArrowLevelEditor.Windows")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f29942fc13754f50fbe33621e145c990f7eaf6a5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0d94136342cebe96dbd81064faa5e31317115e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ArrowLevelEditor.Windows")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ArrowLevelEditor.Windows")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
