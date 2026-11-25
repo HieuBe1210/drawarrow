@@ -12,7 +12,7 @@ namespace DrawArrow
     {
         [Serializable] sealed class RewardSettings
         {
-            public bool useTestAds = true;
+            public bool useTestAds;
             public string androidRewardedAdUnitId = "", iosRewardedAdUnitId = "";
         }
 
@@ -20,6 +20,8 @@ namespace DrawArrow
         readonly ConcurrentQueue<Action> callbacks = new ConcurrentQueue<Action>();
         const string OpenCountKey = "ads_app_open_count";
         const string LastOpenKey = "ads_last_app_open_utc";
+        const float StartupMinimumTime = 2f;
+        const float StartupConfigTimeout = 8f;
         int openCount, level, adRequest;
         bool sdkReady, sdkInitializing, consentOpen, startup, foreground = true, resumePending;
         bool configReady, fullScreen, presenting, adShown;
@@ -37,19 +39,33 @@ namespace DrawArrow
         float retryRewardAt;
 #endif
         bool Online => Application.internetReachability != NetworkReachability.NotReachable;
-        bool Automatic => Online && !NoAds;
+        bool Automatic => Online && !NoAds && !StoreOpen;
         static bool AdsRuntime => Application.isEditor || Application.isMobilePlatform;
         static float Now => Time.realtimeSinceStartup;
         public bool NoAds { get; private set; }
+        public bool StoreOpen { get; set; }
         public bool Blocking => startup || fullScreen || consentOpen;
-        public string LoadingMessage => startup && !configReady ? "Loading Firebase config…" : "Loading…";
+        public bool StartupLoading => startup;
+        float startupAdPhaseAt = -1;
+        public float StartupProgress
+        {
+            get
+            {
+                float elapsed = Now - sessionStart;
+                float phaseProgress = startupAdPhaseAt < 0
+                    ? Mathf.Lerp(.08f, .72f, Mathf.Clamp01(elapsed / StartupConfigTimeout))
+                    : Mathf.Lerp(.72f, .97f, Mathf.Clamp01((Now - startupAdPhaseAt) / StartupConfigTimeout));
+                return Mathf.Min(phaseProgress, Mathf.Lerp(.08f, 1f, Mathf.Clamp01(elapsed / StartupMinimumTime)));
+            }
+        }
         public bool OverlayOpen => presenting || consentOpen;
-        // A purchase integration can supply the verified entitlement through this method.
         public void SetNoAds(bool owned)
         {
+            if (NoAds == owned) return;
             NoAds = owned;
             PlayerPrefs.SetInt("ads_no_ads_owned", owned ? 1 : 0);
             PlayerPrefs.Save();
+            if (owned) ResetPlacements();
         }
 
         public void Begin(int currentLevel, bool alreadyPlaying)
@@ -66,7 +82,7 @@ namespace DrawArrow
             PlayerPrefs.Save();
             config.Changed += ResetPlacements;
             StartCoroutine(ReadRemote());
-            if (Online) StartCoroutine(OpenGame(alreadyPlaying));
+            StartCoroutine(OpenGame(alreadyPlaying));
 #else
             if (alreadyPlaying) gameplayStart = Now;
 #endif
@@ -128,8 +144,9 @@ namespace DrawArrow
         IEnumerator OpenGame(bool alreadyPlaying)
         {
             startup = true;
-            float deadline = Now + 8;
-            while (Online && !configReady && Now < deadline) yield return null;
+            float deadline = Now + StartupConfigTimeout;
+            while (Automatic && !configReady && Now < deadline) yield return null;
+            startupAdPhaseAt = Now;
 
             if (CanOpen(false))
             {
@@ -142,6 +159,7 @@ namespace DrawArrow
                 while (Automatic && !PanelVisible && Now < deadline) yield return null;
                 if (PanelVisible) yield return new WaitForSecondsRealtime(2);
             }
+            while (Now - sessionStart < StartupMinimumTime) yield return null;
             startup = false;
             if (alreadyPlaying) MarkGameplayStarted();
         }
@@ -245,6 +263,9 @@ namespace DrawArrow
             var settings = asset ? JsonUtility.FromJson<RewardSettings>(asset.text) : new RewardSettings();
 #if UNITY_IOS
             return fallbackRewardUnit = settings.useTestAds ? "ca-app-pub-3940256099942544/1712485313" : settings.iosRewardedAdUnitId;
+#elif UNITY_ANDROID && !UNITY_EDITOR && !DEVELOPMENT_BUILD
+            string unit = settings.androidRewardedAdUnitId?.Trim() ?? "";
+            return fallbackRewardUnit = AdsConfig.IsDemoUnit(unit) ? "" : unit;
 #else
             return fallbackRewardUnit = settings.useTestAds ? "ca-app-pub-3940256099942544/5224354917" : settings.androidRewardedAdUnitId;
 #endif

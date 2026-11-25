@@ -13,10 +13,10 @@ namespace DrawArrow
         int ActiveMainLevel => Mathf.Clamp(Progress.SelectedClassicIndex, 0, ActiveMainLevelCount - 1);
         int ActiveMainLevelCount => CircuitLevels.MainSetCount;
         int AdsLevel => page == Page.Game && Mode == GameMode.Classic ? LevelIndex + 1 : ActiveMainLevel + 1;
-        bool FinishedLevelSet => Mode == GameMode.Classic && won && LevelIndex == ActiveMainLevelCount - 1;
+        bool FinishedLevelSet => Mode != GameMode.Daily && won && LevelIndex == CircuitLevels.LevelCount(Mode) - 1;
         public ArrowBoard Arrows;public OctaBoard Octa;public OneLineBoard OneLine;public LinkBoard Links;public SchulteBoard Schulte;public LevelData Level;
         MatchTray tray=new MatchTray();readonly Stack<UndoState> history=new Stack<UndoState>();
-        sealed class UndoState {public int arrow;public List<int> colors;public int hearts;public int moves;public int urgent,deadline;}
+        sealed class UndoState {public int arrow;public bool rotation;public List<int> colors;public int hearts;public int moves;public int urgent,deadline;}
         enum Page { Home, Game, Settings }
         Page page;bool paused,won,failed,modalHelp;int hearts,moves,hint=-1;float hintUntil,elapsed,timeLeft,botProgress;
         float yaw=-35,pitch=22,roll,zoom=1;Vector2 pan,lastPointer;bool draggingBoard;string toast="";float toastUntil;int urgentIndex=-1,countdownDeadline;
@@ -31,6 +31,8 @@ namespace DrawArrow
         int victoryFinalArrow = -1;
         float victoryConfettiElapsed;
         bool WinPopupVisible => won && victoryPhase == VictoryPhase.None;
+        const string RateUsShownKey = "arrow_tidy_rate_us_shown";
+        bool rateUsPending;
         sealed class FlyingArrow{public int id;public float elapsed;}
         readonly HashSet<int> collidedArrows=new HashSet<int>();
         readonly Dictionary<int,BlockedFlight> blockedFlights=new Dictionary<int,BlockedFlight>();
@@ -67,6 +69,7 @@ namespace DrawArrow
             OpenInitialPage();
             ads = gameObject.AddComponent<AdsController>();
             ads.Begin(AdsLevel, page == Page.Game);
+            LoadNoAdsOffer();
             var args=Environment.GetCommandLineArgs();for(int i=0;i<args.Length;i++)
             {
                 if(args[i]=="--mode"&&i+1<args.Length&&Enum.TryParse(args[i+1],out GameMode m))StartGame(m);
@@ -92,17 +95,15 @@ namespace DrawArrow
         }
         void Update()
         {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-            SampleGameplayFps();
-#endif
             bool playing = page == Page.Game && CanInteract;
             ads.Tick(AdsLevel, playing, paused || failed || WinPopupVisible || modalHelp || profileOpen);
             if (ads.Blocking) return;
+            LaunchPendingMoreGame();
             if(resultTransition.Take(out var nextMode,out int nextIndex))
             {
                 void Advance()
                 {
-                    if(nextMode==GameMode.Classic&&nextIndex>=ActiveMainLevelCount)
+                    if(nextMode!=GameMode.Daily&&nextIndex>=CircuitLevels.LevelCount(nextMode))
                         ReturnHome();
                     else StartGame(nextMode,nextIndex);
                 }
@@ -119,6 +120,7 @@ namespace DrawArrow
                 CompleteArrowGridTrace(arrow.id);
                 flying.RemoveAt(i);
             }
+            UpdateArrowSwitchTutorial();
             if (page == Page.Game && !paused)
             {
                 if (victoryPhase == VictoryPhase.Flight && flying.Count == 0)
@@ -153,7 +155,7 @@ namespace DrawArrow
                 }
             }
             if(!string.IsNullOrEmpty(capturePath)&&!captureStarted&&++screenshotFrames>35){captureStarted=true;StartCoroutine(Capture());}
-            if(Input.GetKeyDown(KeyCode.Escape)){if(renameOpen)CloseProfileRename();else if(profileOpen)CloseHomeProfile();else if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
+            if(Input.GetKeyDown(KeyCode.Escape)){if(rateUsPending && WinPopupVisible)rateUsPending=false;else if(moreGamesOpen)moreGamesOpen=false;else if(noAdsOfferOpen)CloseNoAdsOffer();else if(renameOpen)CloseProfileRename();else if(profileOpen)CloseHomeProfile();else if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
         }
         void ReturnHome()
         {
@@ -174,6 +176,7 @@ namespace DrawArrow
             foreach(GameMode mode in Enum.GetValues(typeof(GameMode)))
             {
                 if (!CircuitLevels.SupportsMode(mode) || (mode == GameMode.Daily && !FeatureUnlocks.DailyUnlocked(Progress))) continue;
+                if (mode != GameMode.Classic && mode != GameMode.Daily && !FeatureUnlocks.MoreGamesUnlocked(Progress)) continue;
                 StartGame(mode,0);for(int f=0;f<4;f++)yield return null;
                 ScreenCapture.CaptureScreenshot(Path.Combine(directory,((int)mode+1).ToString("00")+"-"+mode+".png"));yield return null;
                 if(Arrows!=null){int i=Arrows.Hint();if(i>=0){int before=Arrows.Remaining;TapArrow(i);if(Arrows.Remaining!=before-1)throw new Exception("Smoke removal "+mode);Undo();if(Arrows.Remaining!=before)throw new Exception("Smoke undo "+mode);}}
@@ -197,12 +200,16 @@ namespace DrawArrow
             if (!CircuitLevels.SupportsMode(mode)) { Notify("Coming soon"); return; }
             if(mode==GameMode.Daily&&!FeatureUnlocks.DailyUnlocked(Progress))
             {Notify("Unlock at level "+FeatureUnlocks.DailyLevel);return;}
+            if(mode!=GameMode.Classic&&mode!=GameMode.Daily&&!FeatureUnlocks.MoreGamesUnlocked(Progress))
+            {Notify("Unlock at level "+FeatureUnlocks.MoreGamesLevel);return;}
+            zoomTutorialComplete = false;
+            rateUsPending = false;
             CloseLevelTestTools();
             hintRequestVersion++;winHintReward=0;
             resultTransition.Clear();
             CancelArrowPress();
             Mode=mode;LevelIndex=index<0?(mode==GameMode.Classic?ActiveMainLevel:Progress.levels[(int)mode]):index;
-            if(mode==GameMode.Classic)LevelIndex=Mathf.Clamp(LevelIndex,0,ActiveMainLevelCount-1);
+            if(mode!=GameMode.Daily)LevelIndex=Mathf.Clamp(LevelIndex,0,CircuitLevels.LevelCount(mode)-1);
             if (mode == GameMode.Daily)
             {
                 dailyDate = DateTime.Today;
@@ -231,6 +238,11 @@ namespace DrawArrow
                 if(mode==GameMode.Arrows3D){var view=Level.initialView;yaw=view!=null&&view.Length>=3?view[1]:-45;pitch=view!=null&&view.Length>=3?-view[0]:18;roll=view!=null&&view.Length>=3?view[2]:18;}
             }
             urgentIndex=Arrows!=null?Arrows.Hint():-1;countdownDeadline=8;page=Page.Game;
+            switchTutorial = mode == GameMode.ArrowSwitch && LevelIndex == 0
+                ? SwitchTutorialStep.OpenGate : SwitchTutorialStep.Complete;
+            workshopTutorial = mode == GameMode.ArrowWorkshop && LevelIndex == 0
+                ? WorkshopTutorialStep.ChooseTool : WorkshopTutorialStep.Complete;
+            workshopRotateSelected = false;
             gameScreenVersion++;
             if (ads) ads.LevelChanged(AdsLevel);
         }
@@ -238,11 +250,19 @@ namespace DrawArrow
         {
             if(paused||won||failed)return;
             if(i<0||i>=Arrows.Active.Length||!Arrows.Active[i]||blockedFlights.ContainsKey(i))return;
+            if (Mode == GameMode.ArrowWorkshop && workshopRotateSelected)
+            {
+                TurnWorkshopArrow(i);
+                return;
+            }
             Play("arrow_click",.48f);
             if(Arrows.CanExit(i))
             {
-                history.Push(new UndoState{arrow=i,colors=new List<int>(tray.Colors),hearts=hearts,moves=moves,urgent=urgentIndex,deadline=countdownDeadline});
+                RecordArrowUndo(i);
                 Arrows.Remove(i);moves++;hint=-1;flying.Add(new FlyingArrow{id=i,elapsed=0});Play("arrow_out_soft",.55f);
+                AdvanceArrowSwitchAfterTap(i);
+                if (TeachingWorkshop && workshopTutorial == WorkshopTutorialStep.ClearArrow && i == WorkshopTutorialArrow)
+                    workshopTutorial = WorkshopTutorialStep.Complete;
                 if(Mode==GameMode.ArrowClash){if(tray.Add(Level.arrows[i].color))Play("arrow_collect");if(tray.Full){Lose("The seven slots are full. Match three of a color.");return;}}
                 if(Mode==GameMode.SharkRush)timeLeft=Mathf.Min(35,timeLeft+2.5f);
                 if(Mode==GameMode.Countdown&&i==urgentIndex){urgentIndex=Arrows.Hint();countdownDeadline=moves+8;}
@@ -269,6 +289,10 @@ namespace DrawArrow
         {
             if (won) return;
             won = true;
+#if UNITY_ANDROID && !UNITY_EDITOR
+            rateUsPending = Mode == GameMode.Classic && LevelIndex == 5 &&
+                PlayerPrefs.GetInt(RateUsShownKey, 0) == 0;
+#endif
             resultTransition.Begin(Mode,LevelIndex,true);
             bool firstDailyWin = Mode == GameMode.Daily &&
                 DailyChallengeResults.RecordWin(Progress, DailyDateKey, Mathf.Max(1, Mathf.RoundToInt(elapsed * 1000)));
@@ -340,11 +364,50 @@ namespace DrawArrow
             }
         }
         void Notify(string text){toast=text;toastUntil=Time.unscaledTime+3;}
+        void RecordArrowUndo(int arrow, bool rotation = false)
+        {
+            history.Push(new UndoState{arrow=arrow,rotation=rotation,colors=new List<int>(tray.Colors),
+                hearts=hearts,moves=moves,urgent=urgentIndex,deadline=countdownDeadline});
+        }
+
+        void TurnWorkshopArrow(int arrow)
+        {
+            if (!Arrows.RotateWorkshopArrow(arrow))
+            {
+                Notify(Arrows.WorkshopTurnsRemaining > 0 ? "This arrow needs more room to turn." : "No turns left. Undo a move to try again.");
+                return;
+            }
+            RecordArrowUndo(arrow, rotation: true);
+            InvalidateWorkshopPath(arrow);
+            workshopRotateSelected = false;
+            moves++;
+            hint = -1;
+            if (TeachingWorkshop && workshopTutorial == WorkshopTutorialStep.TurnArrow)
+                workshopTutorial = WorkshopTutorialStep.ClearArrow;
+            Play("arrow_tap");
+        }
+
+        void InvalidateWorkshopPath(int arrow)
+        {
+            motionPaths.Remove(arrow);
+            projectedArrows.Remove(arrow);
+            collidedArrows.Remove(arrow);
+        }
+
         void Undo()
         {
             if(OneLine!=null){OneLine.Undo();hint=-1;return;}
             if(history.Count==0){Notify("No move to undo.");return;}
-            hint=-1;var state=history.Pop();Arrows.Restore(state.arrow);tray.Colors.Clear();tray.Colors.AddRange(state.colors);hearts=state.hearts;moves=state.moves;urgentIndex=state.urgent;countdownDeadline=state.deadline;failed=false;flying.Clear();blockedFlights.Clear();Play("arrow_tap");
+            var state=history.Peek();
+            if (state.rotation)
+            {
+                if (!Arrows.RotateWorkshopArrow(state.arrow, undo: true)) return;
+                InvalidateWorkshopPath(state.arrow);
+                workshopRotateSelected = false;
+            }
+            else Arrows.Restore(state.arrow);
+            history.Pop();
+            hint=-1;tray.Colors.Clear();tray.Colors.AddRange(state.colors);hearts=state.hearts;moves=state.moves;urgentIndex=state.urgent;countdownDeadline=state.deadline;failed=false;flying.Clear();blockedFlights.Clear();Play("arrow_tap");
             dotGlowEnd.Clear();
             tracedGridDots.Clear();
         }
@@ -353,7 +416,12 @@ namespace DrawArrow
             if(!CanInteract)return;
             if(Links!=null){Notify("Connect two matching dots. Draw around the other paths.");return;}
             int found=FindHint();
-            if(found<0){Notify("No simple hint on this board. Undo a move or restart.");return;}
+            if(found<0)
+            {
+                Notify(Mode == GameMode.ArrowWorkshop && Arrows.WorkshopTurnsRemaining > 0
+                    ? "Try Rotate to open a new path." : "No simple hint on this board. Undo a move or restart.");
+                return;
+            }
             // Repeated taps on the currently highlighted target do not spend again.
             if(found==hint&&Time.unscaledTime<hintUntil)return;
             if(HintEconomy.SpendFree(Progress,Mode,LevelIndex)){ApplyHint(found);return;}
@@ -385,7 +453,7 @@ namespace DrawArrow
         void ApplyHint(int target)
         {Progress.hintsUsed++;SaveStore.Save(Progress);hint=target;hintUntil=Time.unscaledTime+4;Play("arrow_tap");}
         void PlayUiClick()=>Play("common_click_soft",.42f);
-        void OnDestroy(){if(Ink.Clicked==PlayUiClick)Ink.Clicked=null;}
+        void OnDestroy(){DetachNoAdsStore();if(Ink.Clicked==PlayUiClick)Ink.Clicked=null;}
         void Play(string name,float volume=.55f)
         {
             if(!Progress.sound)return;if(!sounds.TryGetValue(name,out var clip)){clip=CircuitAudio.Create(name);sounds[name]=clip;}if(clip)audioSource.PlayOneShot(clip,volume);

@@ -1,0 +1,69 @@
+{
+  "id": "arrow-workshop-1",
+  "sourceMainLevel": 1,
+  "width": 7,
+  "height": 6,
+  "depth": 1,
+  "keepBoardOrientation": true,
+  "rotateBudget": 1,
+  "tutorialArrow": 3,
+  "arrows": [
+    {
+      "points": [
+        15,
+        16,
+        17
+      ],
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "points": [
+        32,
+        25,
+        18,
+        11,
+        12,
+        19,
+        26,
+        33
+      ],
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "points": [
+        31,
+        24,
+        23
+      ],
+      "dx": 0,
+      "dy": 1
+    },
+    {
+      "points": [
+        29,
+        30
+      ],
+      "dx": -1,
+      "dy": 0
+    },
+    {
+      "points": [
+        10,
+        9,
+        8
+      ],
+      "dx": 1,
+      "dy": 0
+    }
+  ],
+  "solution": [
+    -4,
+    3,
+    0,
+    1,
+    2,
+    4
+  ]
+}

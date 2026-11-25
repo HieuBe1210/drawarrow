@@ -49,7 +49,17 @@ namespace DrawArrow
         public Dictionary<string, object> Defaults => new Dictionary<string, object>(defaults);
         public bool Flag(string key) => (bool)values["ads_" + key];
         public int Count(string key) => (int)values["ads_" + key];
-        public string Text(string key) => (string)values["ads_" + key];
+        public string Text(string key)
+        {
+            string value = (string)values["ads_" + key];
+#if UNITY_ANDROID && !UNITY_EDITOR && !DEVELOPMENT_BUILD
+            if (IsDemoUnit(value)) return "";
+#endif
+            return value;
+        }
+
+        internal static bool IsDemoUnit(string value) =>
+            value.TrimStart().StartsWith("ca-app-pub-3940256099942544/", StringComparison.Ordinal);
 
         public string Unit(string format)
         {

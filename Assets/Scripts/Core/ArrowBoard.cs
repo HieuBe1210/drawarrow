@@ -19,6 +19,10 @@ namespace DrawArrow
         public readonly bool Cube;
         public readonly Rect ContentBounds;
         public readonly Rect? ReferenceBounds;
+        public SwitchGateData SwitchGates { get; }
+        public bool SwitchFlipped { get; private set; }
+        public int WorkshopTurnsRemaining { get; private set; }
+        readonly Vector3[] workshopDirections;
         readonly Vector3[] flatDirections;
         readonly List<(int arrow, float distance)>[] diagonalBlockers;
         readonly Vector2Int flatSize;
@@ -29,9 +33,15 @@ namespace DrawArrow
             bool compactLayout = false, bool preserveSourceLengths = false, bool searchHoles = false)
         {
             Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];DotPositions=new List<Vector3>[Active.Length];
+            SwitchGates = cube ? null : (level as ArrowSwitchLevelData)?.switchGates;
+            if (!Cube && level is ArrowWorkshopLevelData workshop)
+            {
+                WorkshopTurnsRemaining = workshop.rotateBudget;
+                workshopDirections = new Vector3[Active.Length];
+            }
             if(!Cube&&level.followDiagonalPaths)
                 diagonalBlockers=new List<(int arrow, float distance)>[Active.Length];
-            else if(!Cube&&fitInitialGaps)flatDirections=new Vector3[Active.Length];
+            else if(!Cube&&fitInitialGaps&&SwitchGates==null&&workshopDirections==null)flatDirections=new Vector3[Active.Length];
             for(int i=0;i<Active.Length;i++)
             {
                 Active[i]=true;Paths[i]=Expand(level.arrows[i].points);
@@ -88,6 +98,11 @@ namespace DrawArrow
             }
             var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);
             foreach(var path in Paths)foreach(var p in path){min=Vector2.Min(min,new Vector2(p.x,p.y));max=Vector2.Max(max,new Vector2(p.x,p.y));}
+            if (SwitchGates != null || workshopDirections != null)
+            {
+                min = Vector2.zero;
+                max = new Vector2(level.width - 1, level.height - 1);
+            }
             ContentBounds=float.IsInfinity(min.x)?new Rect(0,0,Mathf.Max(0,level.width-1),Mathf.Max(0,level.height-1)):Rect.MinMaxRect(min.x,min.y,max.x,max.y);
             Remaining=TargetCount;
             Rebuild();
@@ -137,6 +152,7 @@ namespace DrawArrow
         public Vector3 Head(int i) => Paths[i][Paths[i].Count-1];
         public Vector3 Direction(int i)
         {
+            if (workshopDirections != null && workshopDirections[i] != Vector3.zero) return workshopDirections[i];
             if(flatDirections!=null&&flatDirections[i]!=Vector3.zero)return flatDirections[i];
             var data=Level.arrows[i];
             if(!Cube&&(data.dx!=0||data.dy!=0))return new Vector3(data.dx,data.dy,0);
@@ -252,6 +268,7 @@ namespace DrawArrow
         {
             if(i<0 || i>=Active.Length || !Active[i] || Paths[i].Count==0 || IsMechanism(i)) return false;
             if(Cube)return CubeRoute(i,false,out _)||(Level.arrows[i].special==3002&&CubeRoute(i,true,out _));
+            if (!float.IsPositiveInfinity(ClosedGateDistance(i))) return false;
             if(diagonalBlockers!=null)return float.IsPositiveInfinity(DiagonalBlockerDistance(i));
             var pos=Head(i);var dir=Direction(i);
             int max=flatSize.x+flatSize.y+Mathf.Max(Level.depth,1)+4;
@@ -273,15 +290,39 @@ namespace DrawArrow
                 return float.IsPositiveInfinity(distance)?0:Mathf.Max(0,distance-.12f);
             }
             var head=Head(i);var direction=Direction(i);
+            float gateDistance = ClosedGateDistance(i);
             for(int step=FlatArrowLayout.GridStep;step<=flatSize.x+flatSize.y+4;step+=FlatArrowLayout.GridStep)
             {
                 var point=head+direction*step;
                 if(point.x<-.4f||point.y<-.4f||point.x>flatSize.x-.6f||point.y>flatSize.y-.6f)break;
                 if(flatDirections!=null&&(point.x<ContentBounds.xMin||point.y<ContentBounds.yMin||point.x>ContentBounds.xMax||point.y>ContentBounds.yMax))break;
                 if(Occupancy.TryGetValue(Key(point),out int other)&&other!=i)
-                    return Mathf.Max(0,step*direction.magnitude-.12f);
+                    return Mathf.Max(0,Mathf.Min(step*direction.magnitude, gateDistance)-.12f);
             }
-            return 0;
+            return float.IsPositiveInfinity(gateDistance) ? 0 : Mathf.Max(0, gateDistance - .35f);
+        }
+
+        float ClosedGateDistance(int arrow)
+        {
+            var gates = SwitchGates;
+            if (gates == null) return float.PositiveInfinity;
+            var span = SwitchFlipped ? gates.initiallyOpen : gates.initiallyClosed;
+            return RaySegmentDistance(Head(arrow), Direction(arrow).normalized, Decode(span.start), Decode(span.end));
+        }
+
+        float SwitchCellDistance(int arrow, int cell)
+        {
+            var offset = Decode(cell) - Head(arrow);
+            var direction = Direction(arrow).normalized;
+            float distance = Vector3.Dot(offset, direction);
+            return distance > 0 && (offset - direction * distance).sqrMagnitude < .001f
+                ? distance : float.PositiveInfinity;
+        }
+
+        void ToggleSwitchFor(int arrow)
+        {
+            if (SwitchGates != null && !float.IsPositiveInfinity(SwitchCellDistance(arrow, SwitchGates.pad)))
+                SwitchFlipped = !SwitchFlipped;
         }
 
         float DiagonalBlockerDistance(int index)
@@ -354,9 +395,44 @@ namespace DrawArrow
         {
             if(!CanExit(i))return false;
             if(Cube){if(!CubeRoute(i,false,out int receiver))CubeRoute(i,true,out receiver);if(receiver>=0){Active[receiver]=false;parkedAt[i]=receiver;}}
+            ToggleSwitchFor(i);
             Active[i]=false;Remaining--;Rebuild();return true;
         }
-        public void Restore(int i) { if(i<0||i>=Active.Length||Active[i])return; Active[i]=true;if(parkedAt.TryGetValue(i,out int receiver)){Active[receiver]=true;parkedAt.Remove(i);}Remaining++;Rebuild(); }
+
+        public bool RotateWorkshopArrow(int index, bool undo = false)
+        {
+            if (workshopDirections == null || (uint)index >= Active.Length || !Active[index]) return false;
+            if (undo ? WorkshopTurnsRemaining >= ((ArrowWorkshopLevelData)Level).rotateBudget : WorkshopTurnsRemaining <= 0)
+                return false;
+
+            Vector3 Turn(Vector3 vector) => undo
+                ? new Vector3(-vector.y, vector.x, 0)
+                : new Vector3(vector.y, -vector.x, 0);
+            var pivot = Head(index);
+            var path = Paths[index];
+            foreach (var point in path)
+            {
+                var cell = Key(pivot + Turn(point - pivot));
+                if (cell.x < 0 || cell.y < 0 || cell.x >= Level.width || cell.y >= Level.height ||
+                    (Occupancy.TryGetValue(cell, out int owner) && owner != index))
+                    return false;
+            }
+            for (int i = 0; i < path.Count; i++) path[i] = pivot + Turn(path[i] - pivot);
+            workshopDirections[index] = Turn(Direction(index));
+            DotPositions[index] = StraightSegmentVertices(path);
+            WorkshopTurnsRemaining += undo ? 1 : -1;
+            Rebuild();
+            return true;
+        }
+        public void Restore(int i)
+        {
+            if(i<0||i>=Active.Length||Active[i])return;
+            ToggleSwitchFor(i);
+            Active[i]=true;
+            if(parkedAt.TryGetValue(i,out int receiver)){Active[receiver]=true;parkedAt.Remove(i);}
+            Remaining++;
+            Rebuild();
+        }
         public int Hint() { for(int i=0;i<Active.Length;i++)if(CanExit(i))return i;return -1; }
         public int[] Solve()
         {

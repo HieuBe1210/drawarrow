@@ -11,7 +11,9 @@ namespace DrawArrow
         static float buttonPressedAt;
         static float buttonReleasedAt = float.NegativeInfinity;
 
-        public static Matrix4x4 BeginButtonVisual(Rect rect)
+        public const float ButtonCompression = .055f;
+
+        public static Matrix4x4 BeginButtonVisual(Rect rect, float compression = ButtonCompression)
         {
             var matrix = GUI.matrix;
             if (pressedButton == 0 || Event.current.type != EventType.Repaint ||
@@ -29,7 +31,7 @@ namespace DrawArrow
                     (1 - Mathf.SmoothStep(0, 1, Mathf.Clamp01((now - buttonReleasedAt) / .16f)));
             }
 
-            float scale = 1 - press * .055f;
+            float scale = 1 - press * compression;
             GUIUtility.ScaleAroundPivot(new Vector2(scale, scale), rect.center);
             return matrix;
         }
@@ -147,7 +149,7 @@ namespace DrawArrow
         {
             label.font=face?face:bold?boldFont:font;label.fontSize=size;label.normal.textColor=c;label.alignment=align;label.fontStyle=FontStyle.Normal;GUI.Label(r,text,label);
         }
-        public static Vector2 Measure(string text,int size,Font face=null){Init();label.font=face?face:font;label.fontSize=size;label.fontStyle=FontStyle.Normal;return label.CalcSize(new GUIContent(text??""));}
+        public static Vector2 Measure(string text,int size,Font face=null,bool bold=false){Init();label.font=face?face:bold?boldFont:font;label.fontSize=size;label.fontStyle=FontStyle.Normal;return label.CalcSize(new GUIContent(text??""));}
         public static bool Button(Rect r,string text,Color fill,Color fg,int size=28)
         {
             bool hover=r.Contains(Event.current.mousePosition);

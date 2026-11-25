@@ -72,8 +72,10 @@ namespace DrawArrow
             Ink.Card(nameRect, CircuitStyle.Background, 16);
             var input = new Rect(nameRect.x + 20, nameRect.y, nameRect.width - 174, nameRect.height);
             Ink.TextAt(input, NormalizeProfileName(draftProfileName), 36, FG, TextAnchor.MiddleLeft);
-            if (Ink.Button(new Rect(nameRect.xMax - 145, nameRect.y + 12, 130, 62), "Edit",
-                CircuitStyle.Accent, Color.white, 25))
+            bool tapName = Ink.HitButton(input, new GUIContent(string.Empty, "Change name"), GUIStyle.none);
+            bool tapEdit = Ink.Button(new Rect(nameRect.xMax - 145, nameRect.y + 12, 130, 62), "Edit",
+                CircuitStyle.Accent, Color.white, 25);
+            if (tapName || tapEdit)
             {
                 OpenProfileRename();
                 GUI.enabled = false;
@@ -197,6 +199,7 @@ namespace DrawArrow
         {
             profileKeyboard = TouchScreenKeyboard.Open(renameInput, TouchScreenKeyboardType.Default,
                 false, false, false, false, "Enter a new name", ProfileNameLimit);
+            focusProfileName = profileKeyboard != null;
         }
 
         void CloseProfileRename()
@@ -230,6 +233,11 @@ namespace DrawArrow
                 {
                     var status = profileKeyboard.status;
                     if (status != TouchScreenKeyboard.Status.Canceled) renameInput = profileKeyboard.text;
+                    if (focusProfileName && status == TouchScreenKeyboard.Status.Visible && profileKeyboard.canSetSelection)
+                    {
+                        profileKeyboard.selection = new RangeInt(renameInput.Length, 0);
+                        focusProfileName = false;
+                    }
                     if (status == TouchScreenKeyboard.Status.Done)
                     {
                         ApplyProfileRename();
@@ -238,7 +246,7 @@ namespace DrawArrow
                     else if (status != TouchScreenKeyboard.Status.Visible)
                         CloseProfileKeyboard();
                 }
-                Ink.TextAt(input, NormalizeProfileName(renameInput), 38, FG, TextAnchor.MiddleLeft);
+                DrawMobileRenameText(input);
                 if (Ink.HitButton(field, new GUIContent(string.Empty, "Enter a new name"), GUIStyle.none) &&
                     profileKeyboard == null)
                     OpenProfileKeyboard();
@@ -257,6 +265,11 @@ namespace DrawArrow
                 if (focusProfileName && Event.current.type == EventType.Repaint)
                 {
                     GUI.FocusControl(ProfileNameControl);
+                    if (GUIUtility.keyboardControl != 0)
+                    {
+                        var editor = (TextEditor)GUIUtility.GetStateObject(typeof(TextEditor), GUIUtility.keyboardControl);
+                        editor.cursorIndex = editor.selectIndex = renameInput.Length;
+                    }
                     focusProfileName = false;
                 }
             }
@@ -270,6 +283,22 @@ namespace DrawArrow
             }
             if (Ink.Button(new Rect(474, 635, 401, 84), "Apply", CircuitStyle.Accent, Color.white, 36) || submit)
                 ApplyProfileRename();
+        }
+
+        void DrawMobileRenameText(Rect input)
+        {
+            bool editing = profileKeyboard != null && profileKeyboard.status == TouchScreenKeyboard.Status.Visible;
+            string value = editing ? renameInput : NormalizeProfileName(renameInput);
+            int cursor = editing && !focusProfileName && profileKeyboard.canGetSelection
+                ? Mathf.Clamp(profileKeyboard.selection.end, 0, value.Length) : value.Length;
+            float caretX = Ink.Measure(value.Substring(0, cursor), 38).x;
+            float scroll = Mathf.Max(0, caretX - input.width + 5);
+            GUI.BeginGroup(input);
+            Ink.TextAt(new Rect(-scroll, 0, Mathf.Max(input.width + scroll, Ink.Measure(value, 38).x + 8),
+                input.height), value, 38, FG, TextAnchor.MiddleLeft);
+            if (editing && Mathf.Repeat(Time.unscaledTime, 1f) < .7f)
+                Ink.Rect(new Rect(caretX - scroll, (input.height - 43) * .5f, 3, 43), FG);
+            GUI.EndGroup();
         }
 
         void ApplyProfileRename()

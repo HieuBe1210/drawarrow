@@ -1,5 +1,5 @@
 {
-  "useTestAds": true,
+  "useTestAds": false,
   "androidRewardedAdUnitId": "",
   "iosRewardedAdUnitId": ""
 }

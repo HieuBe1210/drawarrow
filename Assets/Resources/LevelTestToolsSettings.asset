@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a49750612a4d37b672a3d10930a497, type: 3}
   m_Name: LevelTestToolsSettings
   m_EditorClassIdentifier:
-  enableLevelTools: 1
+  enableLevelTools: 0

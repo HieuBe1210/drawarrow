@@ -45,6 +45,15 @@ namespace DrawArrow.Editor
                 app.StartGame(GameMode.Classic,14);win.Invoke(app,null);
                 app.StartGame(GameMode.Arrows3D,0);
                 Check(app.Mode==GameMode.Classic&&app.LevelIndex==14,"Retired modes cannot replace the current board");
+                app.StartGame(GameMode.Classic,18);win.Invoke(app,null);
+                Check(!FeatureUnlocks.MoreGamesUnlocked(app.Progress),"Winning level 19 keeps More Games locked");
+                app.StartGame(GameMode.Classic,19);
+                app.StartGame(GameMode.ArrowSwitch,0);
+                Check(app.Mode==GameMode.Classic&&app.LevelIndex==19,"Selecting level 20 does not unlock More Games");
+                win.Invoke(app,null);
+                Check(FeatureUnlocks.MoreGamesUnlocked(SaveStore.Load()),"Winning level 20 persists More Games unlock");
+                app.StartGame(GameMode.ArrowSwitch,0);
+                Check(app.Mode==GameMode.ArrowSwitch&&app.LevelIndex==0,"Arrow Switch starts after beating level 20");
             }
             finally
             {
@@ -53,7 +62,7 @@ namespace DrawArrow.Editor
                 PlayerPrefs.Save();
             }
             Directory.CreateDirectory("Verification");
-            File.WriteAllText("Verification/feature-unlocks.json","{\"passed\":true,\"checks\":"+checks+",\"dailyUnlockLevel\":11}");
+            File.WriteAllText("Verification/feature-unlocks.json","{\"passed\":true,\"checks\":"+checks+",\"dailyUnlockLevel\":11,\"moreGamesUnlockLevel\":21}");
             Debug.Log("FEATURE_UNLOCK_VALIDATION_PASSED checks="+checks);
         }
     }

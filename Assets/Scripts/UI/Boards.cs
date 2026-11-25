@@ -34,6 +34,8 @@ namespace DrawArrow
         readonly ArrowPressGesture arrowPress=new ArrowPressGesture();
         int boardFingerId = -1;
         int boardTouchFrame = -1;
+        float ArrowTapRadius => Application.isMobilePlatform ? Mathf.Clamp(62 * scale, 22, 38) / scale : 14 / scale;
+        float ArrowTapSlop => Application.isMobilePlatform ? Mathf.Clamp(56 * scale, 22, 34) / scale : 18 / scale;
         int PreviewArrow=>arrowPress.Held?arrowPress.Arrow:-1;
         Color HeldArrowColor=>CircuitStyle.Theme==2?Ink.Hex("58E6FF"):Ink.Hex("00728F");
         float ArrowVisualCell=>Arrows.Cube?boardCell*Mathf.Max(1,Level.arrowVisualScale):boardCell;
@@ -74,10 +76,12 @@ namespace DrawArrow
         void DrawArrows(Rect r, Vector2 boardOrigin)
         {
             var e = Event.current;
+            bool tutorialBlocksBoard = (TeachingArrowSwitch && SwitchTutorialArrow < 0) ||
+                (TeachingWorkshop && workshopTutorial == WorkshopTutorialStep.ChooseTool);
             boardCell=BoardLayout.FitBestOrientation(r, Arrows.ContentBounds, out rotateArrowBoard,
                 Arrows.Cube || Level.keepBoardOrientation, Arrows.ReferenceBounds) * zoom;
             projectedCenter=r.center+pan;
-            if(!CanInteract)CancelArrowPress();
+            if(!CanInteract || tutorialBlocksBoard)CancelArrowPress();
             arrowPress.Tick(Time.unscaledTime);
             if(Arrows.Cube){if(!cubeArtwork)cubeArtwork=gameObject.AddComponent<CubeArtRenderer>();cubeArtwork.Draw(r,Arrows,yaw,pitch,roll,zoom,hint,hintUntil);}
             else if (e.type == EventType.Repaint)
@@ -91,13 +95,14 @@ namespace DrawArrow
                     cachedProjectionRotation = rotateArrowBoard;
                 }
                 DrawClearedArrowDots(r, boardOrigin);
+                if (Arrows.SwitchGates != null) DrawArrowSwitchGates();
                 for (int i = 0; i < Arrows.Active.Length; i++)
                     if (Arrows.Active[i] && i != PreviewArrow) DrawArrowPath(i);
                 if (victoryPhase != VictoryPhase.Flight)
                     foreach(var f in flying)DrawArrowPath(f.id,f.elapsed);
                 if(PreviewArrow>=0&&Arrows.Active[PreviewArrow])DrawArrowPath(PreviewArrow);
             }
-            if(!CanInteract)return;
+            if(!CanInteract || tutorialBlocksBoard)return;
             if (Application.isMobilePlatform && Input.touchSupported)
             {
                 if (e.type == EventType.Repaint && boardTouchFrame != Time.frameCount)
@@ -108,13 +113,90 @@ namespace DrawArrow
                 }
                 return;
             }
-            if(e.type==EventType.ScrollWheel&&r.Contains(e.mousePosition)){zoom=Mathf.Clamp(zoom-e.delta.y*.08f,.6f,4);e.Use();}
+            if(e.type==EventType.ScrollWheel&&r.Contains(e.mousePosition))
+            {SetBoardZoom(zoom-e.delta.y*.08f);e.Use();}
             if(e.type==EventType.MouseDown&&e.button==0&&r.Contains(e.mousePosition))
             {BeginBoardPress(e.mousePosition);e.Use();}
             if(e.type==EventType.MouseDrag&&draggingBoard)
             {MoveBoardPress(e.mousePosition);e.Use();}
             if(e.type==EventType.MouseUp&&e.button==0&&draggingBoard)
             {EndBoardPress(e.mousePosition,r);e.Use();}
+        }
+
+        static readonly Color OpenGateColor = Ink.Hex("168E6C");
+        static readonly Color LockedGateColor = Ink.Hex("CE4055");
+        static readonly Color GateSwitchColor = Ink.Hex("8A65DD");
+        float ArrowSwitchMarkerSize => Mathf.Min(boardCell * .76f, 64);
+
+        void DrawArrowSwitchGates()
+        {
+            var gates = Arrows.SwitchGates;
+            float size = ArrowSwitchMarkerSize;
+            bool flipped = Arrows.SwitchFlipped && switchTutorial != SwitchTutorialStep.WatchSwitch;
+            DrawArrowSwitchPad(size, flipped);
+            DrawArrowSwitchGate(gates.initiallyOpen, size, !flipped);
+            DrawArrowSwitchGate(gates.initiallyClosed, size, flipped);
+        }
+
+        void DrawArrowSwitchPad(float size, bool flipped)
+        {
+            var pad = Project(Arrows.Decode(Arrows.SwitchGates.pad));
+            var padColor = flipped ? Ink.Hex("6755AA") : GateSwitchColor;
+            if (CanInteract && !flipped)
+            {
+                float pulse = Mathf.Repeat(Time.unscaledTime / 1.2f, 1);
+                Ink.Circle(pad, size * Mathf.Lerp(.48f, .83f, pulse), Ink.WithAlpha(GateSwitchColor, .35f * (1 - pulse)));
+            }
+            Ink.Circle(pad, size * .43f, padColor);
+            Ink.Line(pad + new Vector2(0, -size * .21f), pad - Vector2.right * size * .13f, size * .07f, Color.white);
+            Ink.Line(pad - Vector2.right * size * .13f, pad + Vector2.right * size * .13f, size * .07f, Color.white);
+            Ink.Line(pad + Vector2.right * size * .13f, pad + new Vector2(0, size * .21f), size * .07f, Color.white);
+        }
+
+        void DrawArrowSwitchGate(SwitchGateSpan span, float size, bool open)
+        {
+            var first = Project(Arrows.Decode(span.start));
+            var last = Project(Arrows.Decode(span.end));
+            var spanVector = last - first;
+            var axis = spanVector.normalized;
+            var side = new Vector2(-axis.y, axis.x);
+            var color = open ? OpenGateColor : LockedGateColor;
+            var rim = open ? Ink.Hex("0D5544") : Ink.Hex("81253D");
+            var light = open ? Ink.Hex("B7F9DA") : Ink.Hex("FFC6CF");
+            int sections = Mathf.Clamp(Mathf.RoundToInt(spanVector.magnitude / (size * .8f)), 2, 16);
+            var step = spanVector / sections;
+            if (open)
+            {
+                // The gap between the guides stays clear for arrows to pass through.
+                var edge = side * size * .17f;
+                for (int i = 0; i < sections; i++)
+                {
+                    var start = first + step * (i + .15f);
+                    var end = first + step * (i + .85f);
+                    Ink.Line(start + edge, end + edge, size * .065f, color);
+                    Ink.Line(start - edge, end - edge, size * .065f, color);
+                }
+            }
+            else
+            {
+                Ink.Line(first, last, size * .38f, rim);
+                Ink.Line(first, last, size * .26f, color);
+                var slash = (axis + side) * size * .082f;
+                for (int i = 0; i < sections; i++)
+                {
+                    var mark = first + step * (i + .5f);
+                    Ink.Line(mark - slash, mark + slash, size * .048f, light);
+                }
+            }
+            DrawGatePost(first, size, rim, color, light);
+            DrawGatePost(last, size, rim, color, light);
+        }
+
+        static void DrawGatePost(Vector2 position, float size, Color rim, Color color, Color light)
+        {
+            Ink.Circle(position, size * .28f, rim);
+            Ink.Circle(position, size * .21f, color);
+            Ink.Circle(position, size * .085f, light);
         }
 
         void ReadBoardTouches(Rect viewport, Vector2 boardOrigin)
@@ -152,14 +234,14 @@ namespace DrawArrow
                 {
                     var separation = first.position - second.position;
                     float previous = (separation - first.deltaPosition + second.deltaPosition).magnitude;
-                    zoom = Mathf.Clamp(zoom + (separation.magnitude - previous) / 800, .6f, 4);
+                    SetBoardZoom(zoom + (separation.magnitude - previous) / 800);
                 }
                 return;
             }
             if (first.phase == TouchPhase.Began && viewport.Contains(position))
             {
-                boardFingerId = first.fingerId;
                 BeginBoardPress(position);
+                if (draggingBoard) boardFingerId = first.fingerId;
             }
             else if (first.fingerId == boardFingerId && first.phase == TouchPhase.Moved)
                 MoveBoardPress(position);
@@ -167,17 +249,35 @@ namespace DrawArrow
 
         void BeginBoardPress(Vector2 position)
         {
+            if (TeachingZoom) return;
+            int arrow = Arrows.Cube ? -1 : PickBoardPressArrow(position);
+            if ((TeachingFirstTap || TeachingArrowSwitch || TeachingWorkshop) && arrow < 0) return;
             lastPointer = pointerStart = position;
             draggingBoard = true;
             pointerMoved = false;
-            arrowPress.Begin(Arrows.Cube ? -1 : PickArrow(position), position, Time.unscaledTime, 18 / scale);
+            arrowPress.Begin(arrow, position, Time.unscaledTime, ArrowTapSlop);
+        }
+
+        int PickBoardPressArrow(Vector2 position)
+        {
+            if (!TeachingFirstTap && !TeachingArrowSwitch && !TeachingWorkshop)
+                return PickArrow(position);
+            int arrow = TeachingFirstTap ? FindHint() : TeachingArrowSwitch ? SwitchTutorialArrow : WorkshopTutorialArrow;
+            return arrow >= 0 && ArrowHitDistance(arrow, position) < ArrowTapRadius ? arrow : -1;
+        }
+
+        void SetBoardZoom(float value)
+        {
+            if (TeachingFirstTap || TeachingArrowSwitch || TeachingWorkshop) return;
+            zoom = Mathf.Clamp(value, TeachingZoom ? 1 : .6f, 4);
+            if (TeachingZoom && zoom >= 1.05f) zoomTutorialComplete = true;
         }
 
         void MoveBoardPress(Vector2 position)
         {
-            if (Vector2.Distance(pointerStart, position) > 18 / scale) pointerMoved = true;
+            if (Vector2.Distance(pointerStart, position) > ArrowTapSlop) pointerMoved = true;
             bool onPressedArrow = !Arrows.Cube && arrowPress.Arrow >= 0 &&
-                ArrowHitDistance(arrowPress.Arrow, position) < 14 / scale;
+                ArrowHitDistance(arrowPress.Arrow, position) < ArrowTapRadius;
             arrowPress.Move(position, onPressedArrow);
             if (pointerMoved && !onPressedArrow)
             {
@@ -194,13 +294,15 @@ namespace DrawArrow
 
         void EndBoardPress(Vector2 position, Rect viewport)
         {
+            bool wasDragging = draggingBoard;
             draggingBoard = false;
             boardFingerId = -1;
             int pressed = arrowPress.Release(Time.unscaledTime);
-            if (pointerMoved || (position - pointerStart).sqrMagnitude > (18 / scale) * (18 / scale) ||
+            float slop = ArrowTapSlop;
+            if (!wasDragging || pointerMoved || (position - pointerStart).sqrMagnitude > slop * slop ||
                 !viewport.Contains(position)) return;
-            int hit = PickArrow(position);
-            if (hit < 0 || (!Arrows.Cube && hit != pressed)) return;
+            int hit = Arrows.Cube ? PickBoardPressArrow(position) : pressed;
+            if (hit < 0) return;
             if (Mode == GameMode.Reasoning && elapsed > 3 && hit != revealArrow)
             {
                 Play("arrow_click", .48f);
@@ -425,17 +527,18 @@ namespace DrawArrow
             if(i==hint&&Time.unscaledTime<hintUntil)return Ink.Gold;
             if(collidedArrows.Contains(i))return Arrows.CanExit(i)?Ink.Hex("32B956"):Ink.Red;
             if(i==PreviewArrow)return HeldArrowColor;
+            if(Mode==GameMode.ArrowWorkshop&&workshopRotateSelected)return CircuitStyle.Accent;
             if(Mode==GameMode.ArrowClash)return Color.Lerp(Ink.Palette[Mathf.Abs(Level.arrows[i].color)%7],Ink.Hex("101D35"),.12f);
             if(Mode==GameMode.CatEscape||Mode==GameMode.Zoo)return Color.Lerp(Ink.Palette[i%7],Ink.Hex("101D35"),.12f);
             if(Mode==GameMode.Countdown&&i==UrgentArrow())return Ink.Red;
             if(Arrows.Cube)return Ink.Palette[Mathf.Abs(Level.arrows[i].points[0]%6)%7];
             return CircuitStyle.ArrowInk;
         }
-        void DrawArrowPath(int i,float flight=-1,bool exitScreen=false)
+        void DrawArrowPath(int i,float flight=-1,bool exitScreen=false,Color? colorOverride=null)
         {
             // Keep a readable stroke in screen pixels even on dense boards and
             // downscaled tablet/phone canvases; grow proportionally when zooming.
-            var path=Arrows.Paths[i];var color=ArrowColor(i);float width=ArrowStrokeWidth;
+            var path=Arrows.Paths[i];var color=colorOverride??ArrowColor(i);float width=ArrowStrokeWidth;
             if(i==PreviewArrow)width*=1.25f;
             if(!Arrows.Cube)width=Mathf.Min(width,ArrowVisualCell*.25f);
             if(Arrows.IsMechanism(i)&&path.Count>0){var at=Project(path[0]);Ink.Card(new Rect(at.x-boardCell*.23f,at.y-boardCell*.23f,boardCell*.46f,boardCell*.46f),Ink.Hex("C5CFC1"),6);Ink.TextAt(new Rect(at.x-20,at.y-20,40,40),Level.arrows[i].special==3004?"↻":"×",20,Ink.Text,TextAnchor.MiddleCenter,true);return;}
@@ -518,7 +621,7 @@ namespace DrawArrow
         }
         int PickArrow(Vector2 p)
         {
-            int found=-1;float best=14/scale;
+            int found=-1;float best=ArrowTapRadius;
             for(int i=0;i<Arrows.Active.Length;i++)if(Arrows.Active[i]&&!blockedFlights.ContainsKey(i))
             {
                 float distance=ArrowHitDistance(i,p);

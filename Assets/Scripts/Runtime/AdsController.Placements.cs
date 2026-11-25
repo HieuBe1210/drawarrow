@@ -66,7 +66,7 @@ namespace DrawArrow
             bool collapseTrigger = collapseWanted;
             collapseWanted = false;
             if (!AdsRuntime) return;
-            if (presenting || (fullScreen && !startup) || consentOpen)
+            if (NoAds || StoreOpen || presenting || (fullScreen && !startup) || consentOpen)
             {
                 HidePlacements();
                 return;

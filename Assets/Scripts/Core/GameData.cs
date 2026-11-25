@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace DrawArrow
 {
-    public enum GameMode { Classic, ArrowClash, Arrows3D, OctaArrows, LinkDots, OneLine, Schulte, OneLife, TimeAttack, Countdown, Reasoning, CatEscape, Battle, SharkRush, Daily, Pipeline, Tarot, Zodiac, Zoo, Gallery }
+    public enum GameMode { Classic, ArrowClash, Arrows3D, OctaArrows, LinkDots, OneLine, Schulte, OneLife, TimeAttack, Countdown, Reasoning, CatEscape, Battle, SharkRush, Daily, Pipeline, Tarot, Zodiac, Zoo, Gallery, ArrowSwitch, ArrowWorkshop }
 
     public static class Modes
     {
-        public static readonly string[] Names = { "Arrow Circuit", "Arrow Clash", "Arrows 3D", "Octa Arrows", "Link Dots", "One Line", "Schulte", "One Life", "Time Attack", "Countdown", "Reasoning", "Cat Escape", "Battle", "Shark Rush", "Daily Challenge", "Pipeline", "Tarot", "Zodiac", "Zoo", "Gallery" };
-        public static readonly string[] Descriptions = { "Clear every arrow. Find the way out.", "Free arrows. Match three colors.", "Turn the shape. Discover a clear path.", "Eight directions. Portals and turn tiles.", "Connect matching dots without crossing.", "Draw every edge in one continuous line.", "Find the numbers in ascending order.", "A single mistake ends the challenge.", "Clear the board before time runs out.", "Remove marked arrows before they expire.", "Remember the paths. Reveal hidden arrows.", "Guide the little cats to freedom.", "Race a local computer opponent.", "Keep moving to escape the shark.", "A new puzzle for each calendar day.", "Untangle winding paths and clear the board.", "Clear puzzles to reveal your tarot collection.", "Discover the twelve constellations.", "Solve puzzles and collect animal badges.", "Clear shaped boards to reveal the artwork." };
+        public static readonly string[] Names = { "Arrow Tidy", "Arrow Clash", "Arrows 3D", "Octa Arrows", "Link Dots", "One Line", "Schulte", "One Life", "Time Attack", "Countdown", "Reasoning", "Cat Escape", "Battle", "Shark Rush", "Daily Challenge", "Pipeline", "Tarot", "Zodiac", "Zoo", "Gallery", "Arrow Switch", "Arrow Workshop" };
+        public static readonly string[] Descriptions = { "Clear every arrow. Find the way out.", "Free arrows. Match three colors.", "Turn the shape. Discover a clear path.", "Eight directions. Portals and turn tiles.", "Connect matching dots without crossing.", "Draw every edge in one continuous line.", "Find the numbers in ascending order.", "A single mistake ends the challenge.", "Clear the board before time runs out.", "Remove marked arrows before they expire.", "Remember the paths. Reveal hidden arrows.", "Guide the little cats to freedom.", "Race a local computer opponent.", "Keep moving to escape the shark.", "A new puzzle for each calendar day.", "Untangle winding paths and clear the board.", "Clear puzzles to reveal your tarot collection.", "Discover the twelve constellations.", "Solve puzzles and collect animal badges.", "Clear shaped boards to reveal the artwork.", "Send an arrow through the switch to swap the gates.", "Turn arrows in place to open a path with limited rotations." };
         public static string Name(GameMode m) => Names[(int)m];
         public static bool IsArrow(GameMode m) => m != GameMode.LinkDots && m != GameMode.OneLine && m != GameMode.Schulte && m != GameMode.OctaArrows;
         public static bool IsTimed(GameMode m) => m == GameMode.TimeAttack || m == GameMode.SharkRush || m == GameMode.Battle;
@@ -21,6 +21,12 @@ namespace DrawArrow
     [Serializable] public class PointData { public float x, y; public Vector2 V => new Vector2(x,y); }
     [Serializable] public class PairData { public int color; public PointData[] points; }
     [Serializable] public class EdgeData { public int a, b; public bool curved; public float cx, cy; }
+    [Serializable] public struct SwitchGateSpan { public int start, end; }
+    [Serializable] public class SwitchGateData
+    {
+        public int pad;
+        public SwitchGateSpan initiallyOpen, initiallyClosed;
+    }
     [Serializable] public class LevelData
     {
         public string id, category, source; public int width, height, depth, moveLimit;
@@ -31,15 +37,26 @@ namespace DrawArrow
         public ArrowData[] arrows; public TurnData[] turns; public PortalData[] portals;
         public PairData[] pairs; public PointData[] nodes; public EdgeData[] edges; public int[] solution;
     }
+    [Serializable] public sealed class ArrowSwitchLevelData : LevelData
+    {
+        public SwitchGateData switchGates;
+        public int sourceMainLevel;
+        public int tutorialClearArrow, tutorialSwitchArrow;
+    }
+    [Serializable] public sealed class ArrowWorkshopLevelData : LevelData
+    {
+        public int rotateBudget, tutorialArrow;
+    }
     [Serializable] public class ProgressData
     {
-        public int[] levels = new int[20]; public int coins = 250, wins, streak, bestStreak, hintsUsed,mainLevelsCompleted;
+        public int[] levels = new int[Modes.Names.Length]; public int coins = 250, wins, streak, bestStreak, hintsUsed,mainLevelsCompleted;
         public int SelectedClassicIndex
         {
             get => levels[(int)GameMode.Classic];
             set => levels[(int)GameMode.Classic] = value;
         }
         public int freeHints=3,hintEconomyVersion=2;
+        public bool noAdsBundleHintsGranted;
         public bool sound = true, vibration = true, dark,hasStartedGame; public string lastDaily = "";
         public List<string> dailyWins = new List<string>();
         public List<DailyTime> dailyTimes = new List<DailyTime>();
@@ -107,8 +124,9 @@ namespace DrawArrow
             try
             {
                 string json=PlayerPrefs.GetString(Key,"");var p=JsonUtility.FromJson<ProgressData>(json);
-                if(p!=null&&p.levels!=null&&p.levels.Length==20)
+                if(p!=null&&p.levels!=null&&p.levels.Length>=20&&p.levels.Length<=Modes.Names.Length)
                 {
+                    if(p.levels.Length!=Modes.Names.Length)Array.Resize(ref p.levels,Modes.Names.Length);
                     if(p.dailyWins==null)p.dailyWins=new List<string>();
                     if(p.dailyTimes==null)p.dailyTimes=new List<DailyTime>();
                     // Older saves used the next main-level index as their completion marker.
