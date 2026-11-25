@@ -7,20 +7,22 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:479460444508:android:5d9c177e3e14a044ee9999",
+        "mobilesdk_app_id": "1:479460444508:ios:7d275b54cd3bb4acee9999",
         "android_client_info": {
           "package_name": "com.vik.arrow"
         }
       },
-      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCmFLzjvmTkKuMHEuaLLC6wK2rAVBA6R-4"
+          "current_key": "AIzaSyCUAw2n22Upy8SlalvUcjU5bxDOYhlXx8c"
         }
       ],
       "services": {
+        "analytics_service": {
+          "status": 0
+        },
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "status": 1
         }
       }
     }

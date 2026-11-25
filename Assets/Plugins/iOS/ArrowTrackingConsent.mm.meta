@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 83c8d18ef77f4f889d3cd9e7eaef4e71
+PluginImporter:
+  serializedVersion: 2
+  platformData:
+  - first:
+      Any:
+    second:
+      enabled: 0
+      settings: {}
+  - first:
+      iPhone: iOS
+    second:
+      enabled: 1
+      settings:
+        CompileFlags: 
+        FrameworkDependencies: 

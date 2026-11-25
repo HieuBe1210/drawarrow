@@ -1,5 +1,5 @@
 using UnityEngine;
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +10,45 @@ namespace DrawArrow
 {
     public sealed partial class GameApp
     {
+#if UNITY_IOS
+        const string NoAdsProductId = "arrow_no_ads_bundle";
+#else
         const string NoAdsProductId = "no_ads_bundle";
+#endif
         bool noAdsOfferOpen;
         bool noAdsLoading, noAdsBuying, noAdsDeferred;
         string noAdsPrice = "", noAdsStoreMessage = "";
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         StoreController noAdsStore;
         Product noAdsProduct;
+        bool restoringNoAds;
+        string restoreNoAdsMessage = "";
+#if UNITY_IOS
+        const string PurchaseStoreId = AppleAppStore.Name;
+#else
+        const string PurchaseStoreId = GooglePlay.Name;
 #endif
+#endif
+        static bool SupportsPurchaseRestore => Application.isMobilePlatform && !Application.isEditor;
+
+        void DrawRestorePurchases(Rect rect)
+        {
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
+            bool enabled = GUI.enabled;
+            GUI.enabled = enabled && !noAdsLoading && !noAdsBuying;
+            if (Ink.Button(rect, restoringNoAds ? "Restoring…" : "Restore Purchases",
+                CircuitStyle.SoftControl, CircuitStyle.ControlInk, 34))
+            {
+                restoringNoAds = true;
+                restoreNoAdsMessage = "";
+                ConnectNoAdsStore();
+            }
+            GUI.enabled = enabled;
+            if (restoreNoAdsMessage.Length > 0)
+                Ink.TextAt(new Rect(rect.x, rect.yMax + 4, rect.width, 46), restoreNoAdsMessage,
+                    25, FG, TextAnchor.MiddleCenter);
+#endif
+        }
 
         bool CanBuyNoAds => !ads.NoAds && !noAdsLoading && !noAdsBuying && !noAdsDeferred && noAdsPrice.Length > 0;
 
@@ -57,13 +88,13 @@ namespace DrawArrow
             Ink.TextAt(new Rect(195, 774, 690, 48), "Rewarded ads stay available", 30, FG, TextAnchor.MiddleCenter);
             Ink.TextAt(new Rect(195, 830, 690, 68), "+3 Hints", 42, CircuitStyle.Accent, TextAnchor.MiddleCenter, true);
             string status = ads.NoAds ? "Purchased" : noAdsDeferred ? "Waiting for payment approval" :
-                noAdsBuying ? "Waiting for Google Play…" : noAdsLoading ? "Loading Google Play price…" : noAdsStoreMessage;
+                noAdsBuying ? "Waiting for the store…" : noAdsLoading ? "Loading price…" : noAdsStoreMessage;
             Ink.TextAt(new Rect(195, 903, 690, 54), status, 27, FG, TextAnchor.MiddleCenter);
             if (Ink.Button(new Rect(207, 996, 258, 82), "Close", CircuitStyle.Background, FG, 34))
                 CloseNoAdsOffer();
             else if (CanBuyNoAds && Ink.Button(new Rect(484, 996, 389, 82), noAdsPrice, CircuitStyle.Accent, Color.white, 36))
                 BuyNoAds();
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             else if (!ads.NoAds && !noAdsLoading && !noAdsBuying && !CanBuyNoAds &&
                 Ink.Button(new Rect(484, 996, 389, 82), noAdsDeferred ? "Check status" : "Retry",
                     CircuitStyle.SoftControl, FG, 34))
@@ -73,16 +104,16 @@ namespace DrawArrow
 
         void LoadNoAdsOffer()
         {
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             ConnectNoAdsStore();
 #else
-            noAdsStoreMessage = "Available on Google Play";
+            noAdsStoreMessage = "Available on mobile";
 #endif
         }
 
         void BuyNoAds()
         {
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             if (!CanBuyNoAds) return;
             noAdsBuying = true;
             noAdsStoreMessage = "";
@@ -92,7 +123,7 @@ namespace DrawArrow
 
         void DetachNoAdsStore()
         {
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
             if (noAdsStore == null) return;
             noAdsStore.OnStoreDisconnected -= OnNoAdsStoreDisconnected;
             noAdsStore.OnProductsFetched -= OnNoAdsProductsFetched;
@@ -106,7 +137,7 @@ namespace DrawArrow
 #endif
         }
 
-#if UNITY_ANDROID && !UNITY_EDITOR
+#if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
         async void ConnectNoAdsStore()
         {
             if (noAdsLoading || noAdsBuying) return;
@@ -115,7 +146,7 @@ namespace DrawArrow
             noAdsStoreMessage = "";
             if (noAdsStore == null)
             {
-                noAdsStore = UnityIAPServices.StoreController(GooglePlay.Name);
+                noAdsStore = UnityIAPServices.StoreController(PurchaseStoreId);
                 noAdsStore.ProcessPendingOrdersOnPurchasesFetched(false);
                 noAdsStore.OnStoreDisconnected += OnNoAdsStoreDisconnected;
                 noAdsStore.OnProductsFetched += OnNoAdsProductsFetched;
@@ -139,7 +170,7 @@ namespace DrawArrow
             catch (Exception error)
             {
                 if (!this) return;
-                Debug.LogWarning("Google Play Billing connection failed: " + error.Message);
+                Debug.LogWarning("Store connection failed: " + error.Message);
                 NoAdsStoreUnavailable();
             }
         }
@@ -152,7 +183,12 @@ namespace DrawArrow
         {
             noAdsLoading = noAdsBuying = false;
             noAdsPrice = "";
-            noAdsStoreMessage = "Google Play is unavailable. Please retry.";
+            noAdsStoreMessage = "The store is unavailable. Please retry.";
+            if (restoringNoAds)
+            {
+                restoringNoAds = false;
+                restoreNoAdsMessage = noAdsStoreMessage;
+            }
         }
 
         void OnNoAdsProductsFetched(List<Product> products)
@@ -163,6 +199,22 @@ namespace DrawArrow
                 NoAdsStoreUnavailable();
                 return;
             }
+#if UNITY_IOS
+            if (restoringNoAds)
+            {
+                noAdsStore.RestoreTransactions((success, error) =>
+                {
+                    if (!this || !restoringNoAds) return;
+                    if (success) noAdsStore.FetchPurchases();
+                    else
+                    {
+                        noAdsLoading = restoringNoAds = false;
+                        restoreNoAdsMessage = "Could not restore purchases. Please retry.";
+                    }
+                });
+                return;
+            }
+#endif
             noAdsStore.FetchPurchases();
         }
 
@@ -173,13 +225,18 @@ namespace DrawArrow
             bool owned = orders.ConfirmedOrders.Any(IsNoAdsOrder) || orders.PendingOrders.Any(IsNoAdsOrder);
             if (owned) GrantNoAdsBundle();
             else SetNoAdsEntitlement(false);
+            if (restoringNoAds)
+            {
+                restoringNoAds = false;
+                restoreNoAdsMessage = owned ? "Purchases restored." : "No purchases found.";
+            }
             foreach (var pending in orders.PendingOrders)
                 if (IsNoAdsOrder(pending)) noAdsStore.ConfirmPurchase(pending);
 
             if (noAdsProduct.availableToPurchase)
                 noAdsPrice = noAdsProduct.metadata.localizedPriceString ?? "";
             if (noAdsPrice.Length == 0)
-                noAdsStoreMessage = "This offer is unavailable on Google Play.";
+                noAdsStoreMessage = "This offer is unavailable in the store.";
         }
 
         static bool IsNoAdsOrder(Order order) =>
@@ -212,7 +269,7 @@ namespace DrawArrow
         void OnNoAdsPurchaseConfirmed(Order order)
         {
             if (order is FailedOrder failure)
-                Debug.LogWarning("Google Play did not acknowledge the No Ads purchase: " + failure.FailureReason);
+                Debug.LogWarning("The store did not acknowledge the No Ads purchase: " + failure.FailureReason);
         }
 
         void GrantNoAdsBundle()

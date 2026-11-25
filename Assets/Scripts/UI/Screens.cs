@@ -518,7 +518,10 @@ namespace DrawArrow
         void DrawSettings()
         {
             var text=Ink.Hex("555B63");
-            Ink.Card(new Rect(64,240,952,1050),Color.white,32);
+            bool showPrivacy = ads && ads.PrivacyOptionsRequired;
+            bool showRestore = SupportsPurchaseRestore;
+            float panelHeight = 1050 + (showPrivacy ? 120 : 0) + (showRestore ? 146 : 0);
+            Ink.Card(new Rect(64,240,952,panelHeight),Color.white,32);
             CircuitStyle.Draw("CommonIconBack",new Rect(121,307,58,58),text,true);
             if(Ink.HitButton(new Rect(105,290,90,90),GUIContent.none,GUIStyle.none)){ReturnHome();return;}
             Ink.TextAt(new Rect(230,295,620,80),"Settings",54,text,TextAnchor.MiddleCenter,true);
@@ -537,6 +540,9 @@ namespace DrawArrow
                 if(Ink.HitButton(tile,GUIContent.none,GUIStyle.none))CircuitStyle.Theme=i;
             }
             if(Ink.Button(new Rect(120,1130,840,100),"How to play",CircuitStyle.Accent,Color.white,38))modalHelp=true;
+            if(showPrivacy && Ink.Button(new Rect(120,1250,840,100),"Ad privacy options",CircuitStyle.SoftControl,FG,38))
+                ads.ShowPrivacyOptions();
+            if (showRestore) DrawRestorePurchases(new Rect(120, showPrivacy ? 1370 : 1250, 840, 88));
         }
         void DrawCompactSettingSwitch(string item,string label,Rect row)
         {
@@ -1149,7 +1155,8 @@ namespace DrawArrow
         void DrawPauseArtwork()
         {
             Ink.Rect(gameViewport, new Color(0, 0, 0, .55f));
-            var panel = new Rect(70, gameViewport.center.y - 430, 940, 860);
+            float height = SupportsPurchaseRestore ? 960 : 860;
+            var panel = new Rect(70, gameViewport.center.y - height * .5f, 940, height);
             Ink.Card(panel, CircuitStyle.Panel, 32);
             Ink.TextAt(new Rect(110, panel.y + 48, 860, 90), "Paused", 60, FG, TextAnchor.MiddleCenter, true);
             DrawCompactSettingSwitch("Sound", "Sound", new Rect(120, panel.y + 190, 840, 112));
@@ -1160,6 +1167,7 @@ namespace DrawArrow
                 StartGame(Mode, LevelIndex);
             if (CircuitStyle.Button(new Rect(560, panel.y + 614, 400, 102), "Home", CircuitStyle.Accent, 34))
                 ReturnHome();
+            if (SupportsPurchaseRestore) DrawRestorePurchases(new Rect(120, panel.y + 744, 840, 88));
         }
         void DrawCelebration(){for(int i=0;i<22;i++){float t=(Time.unscaledTime*.28f+i*.073f)%1;float x=95+(i*137%890)+Mathf.Sin(t*9+i)*30;CircuitStyle.Draw("RiBtnStar",new Rect(x,-100+t*2000,24+i%4*9,24+i%4*9),Ink.Palette[i%7],true);}}
         void DrawHelp()

@@ -24,6 +24,9 @@ namespace DrawArrow
         const float StartupConfigTimeout = 8f;
         int openCount, level, adRequest;
         bool sdkReady, sdkInitializing, consentOpen, startup, foreground = true, resumePending;
+#if UNITY_IOS && !UNITY_EDITOR
+        bool iosPrivacyPending;
+#endif
         bool configReady, fullScreen, presenting, adShown;
         volatile bool disposed;
         bool gameplay, popup, collapseWanted;
@@ -59,6 +62,25 @@ namespace DrawArrow
             }
         }
         public bool OverlayOpen => presenting || consentOpen;
+        public bool PrivacyOptionsRequired =>
+            ConsentInformation.PrivacyOptionsRequirementStatus == PrivacyOptionsRequirementStatus.Required;
+
+        public void ShowPrivacyOptions()
+        {
+            if (Blocking || !PrivacyOptionsRequired) return;
+            consentOpen = true;
+            ConsentForm.ShowPrivacyOptionsForm(error => Dispatch(() =>
+            {
+                if (disposed) return;
+                consentOpen = false;
+                if (error != null) Debug.LogWarning("Could not open ad privacy options: " + error.Message);
+                if (!ConsentInformation.CanRequestAds())
+                {
+                    sdkReady = false;
+                    ResetPlacements();
+                }
+            }));
+        }
         public void SetNoAds(bool owned)
         {
             if (NoAds == owned) return;
@@ -144,6 +166,13 @@ namespace DrawArrow
         IEnumerator OpenGame(bool alreadyPlaying)
         {
             startup = true;
+#if UNITY_IOS && !UNITY_EDITOR
+            if (Online)
+            {
+                EnsureSdk();
+                while (iosPrivacyPending) yield return null;
+            }
+#endif
             float deadline = Now + StartupConfigTimeout;
             while (Automatic && !configReady && Now < deadline) yield return null;
             startupAdPhaseAt = Now;
@@ -289,15 +318,25 @@ namespace DrawArrow
             if (Application.isEditor) { sdkReady = true; return; }
             if (!Online || sdkReady || sdkInitializing || Now < nextSdkTry) return;
             sdkInitializing = true;
+#if UNITY_IOS && !UNITY_EDITOR
+            iosPrivacyPending = true;
+#endif
             ConsentInformation.Update(new ConsentRequestParameters(), error => Dispatch(() =>
             {
                 if (disposed) return;
                 if (error != null && !ConsentInformation.CanRequestAds()) { SdkFailed(); return; }
                 consentOpen = error == null;
                 if (!consentOpen) { InitializeSdk(); return; }
-                ConsentForm.LoadAndShowConsentFormIfRequired(_ => Dispatch(() =>
+                ConsentForm.LoadAndShowConsentFormIfRequired(formError => Dispatch(() =>
                 {
                     if (disposed) return;
+#if UNITY_IOS && !UNITY_EDITOR
+                    if (formError == null && ConsentInformation.CanRequestAds())
+                    {
+                        StartCoroutine(FinishIosPrivacy());
+                        return;
+                    }
+#endif
                     consentOpen = false;
                     if (ConsentInformation.CanRequestAds()) InitializeSdk();
                     else SdkFailed();
@@ -305,8 +344,29 @@ namespace DrawArrow
             }));
         }
 
+#if UNITY_IOS && !UNITY_EDITOR
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        static extern int ArrowRequestTrackingIfActive();
+
+        [System.Runtime.InteropServices.DllImport("__Internal")]
+        static extern bool ArrowTrackingRequestPending();
+
+        IEnumerator FinishIosPrivacy()
+        {
+            float deadline = Now + 5;
+            while (ArrowRequestTrackingIfActive() == 0 && Now < deadline)
+                yield return null;
+            while (ArrowTrackingRequestPending()) yield return null;
+            consentOpen = false;
+            InitializeSdk();
+        }
+#endif
+
         void InitializeSdk()
         {
+#if UNITY_IOS && !UNITY_EDITOR
+            iosPrivacyPending = false;
+#endif
             MobileAds.Initialize(status => Dispatch(() =>
             {
                 if (disposed) return;
@@ -317,6 +377,9 @@ namespace DrawArrow
 
         void SdkFailed()
         {
+#if UNITY_IOS && !UNITY_EDITOR
+            iosPrivacyPending = false;
+#endif
             sdkInitializing = false;
             nextSdkTry = Now + 30;
         }
