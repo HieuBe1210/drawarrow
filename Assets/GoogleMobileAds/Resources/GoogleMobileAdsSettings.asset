@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GoogleMobileAdsSettings
   m_EditorClassIdentifier:
   adMobAndroidAppId: ca-app-pub-2266966365312947~8786617580
-  adMobIOSAppId: ca-app-pub-3940256099942544~1458002511
+  adMobIOSAppId: ca-app-pub-2266966365312947~2085477869
   userTrackingUsageDescription: Allow tracking so Arrow Tidy can show more relevant ads and measure ad performance.
   enableKotlinXCoroutinesPackagingOption: 1
   enableGradleBuildPreProcessor: 1
