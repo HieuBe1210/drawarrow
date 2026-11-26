@@ -1,0 +1,10 @@
+{
+  "Name": "Star Race Weekly",
+  "SortOrder": "desc",
+  "UpdateType": "keepBest",
+  "ResetConfig": {
+    "Start": "2026-11-30T00:00:00Z",
+    "Schedule": "0 0 * * 1",
+    "Archive": true
+  }
+}

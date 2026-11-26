@@ -12,10 +12,8 @@ namespace DrawArrow
         const int SetZeroShardSize = 200;
         const int ArrowSwitchShardSize = 100;
         const int ArrowWorkshopShardSize = 100;
-        const int DifficultyWindow = 10;
-        const int MinimumHardArrowIncrease = 35;
         static readonly int[] classicArrowCounts = new int[MainSetCount];
-        static readonly byte[] classicDifficulty = new byte[MainSetCount];
+        static string classicHardFlags;
         static ImportedLevelPack importedPack;
         static string loadedResource;
         static int[] dailyLevelOrder;
@@ -53,7 +51,7 @@ namespace DrawArrow
             arrowWorkshopPack = null;
             arrowWorkshopPackStart = -1;
             Array.Clear(classicArrowCounts, 0, classicArrowCounts.Length);
-            Array.Clear(classicDifficulty, 0, classicDifficulty.Length);
+            classicHardFlags = null;
         }
 
         static LevelData LoadSetZero(int index)
@@ -79,21 +77,18 @@ namespace DrawArrow
         public static bool IsHardMainLevel(int index)
         {
             if ((uint)index >= MainSetCount) return false;
-            if (classicDifficulty[index] != 0) return classicDifficulty[index] == 2;
+            if (classicHardFlags == null)
+            {
+                // Flags follow campaign order and reflect blocking chains and initial exits.
+                var asset = Resources.Load<TextAsset>("Circuit/ClassicHardFlags");
+                var flags = asset != null ? asset.text.Trim() : null;
+                if (asset != null) Resources.UnloadAsset(asset);
+                if (flags?.Length != MainSetCount)
+                    throw new InvalidOperationException("Missing or invalid Classic difficulty data.");
+                classicHardFlags = flags;
+            }
 
-            int count = ClassicArrowCount(index);
-            int first = Mathf.Max(0, index - DifficultyWindow);
-            int last = Mathf.Min(MainSetCount - 1, index + DifficultyWindow);
-            var neighbors = new int[last - first];
-            int n = 0;
-            for (int i = first; i <= last; i++)
-                if (i != index) neighbors[n++] = ClassicArrowCount(i);
-            Array.Sort(neighbors);
-            float median = (neighbors[(n - 1) / 2] + neighbors[n / 2]) * .5f;
-            // Require both a 1.8x jump and a meaningful absolute increase.
-            bool hard = count * 5 >= median * 9 && count >= median + MinimumHardArrowIncrease;
-            classicDifficulty[index] = hard ? (byte)2 : (byte)1;
-            return hard;
+            return classicHardFlags[index] == '1';
         }
 
         static int ClassicArrowCount(int index)
@@ -127,12 +122,13 @@ namespace DrawArrow
         }
 
         public static bool SupportsMode(GameMode mode) =>
-            mode is GameMode.Classic or GameMode.Daily or GameMode.ArrowSwitch or GameMode.ArrowWorkshop;
+            mode is GameMode.Classic or GameMode.Daily or GameMode.ArrowSwitch or GameMode.ArrowWorkshop or GameMode.ArrowChameleon;
 
         public static int LevelCount(GameMode mode) => mode switch
         {
             GameMode.ArrowSwitch => ArrowSwitchLevelCount,
             GameMode.ArrowWorkshop => ArrowWorkshopLevelCount,
+            GameMode.ArrowChameleon => 100,
             _ => MainSetCount
         };
 
@@ -148,8 +144,22 @@ namespace DrawArrow
             {
                 GameMode.ArrowSwitch => LoadArrowSwitch(index),
                 GameMode.ArrowWorkshop => LoadArrowWorkshop(index),
+                GameMode.ArrowChameleon => LoadArrowChameleon(index),
                 _ => LoadSetZero(index)
             };
+        }
+
+        static ArrowChameleonLevelData LoadArrowChameleon(int index)
+        {
+            string resource = index == 0 ? "Circuit/ArrowChameleon" : $"Circuit/ChameleonLevels/{index + 1:D2}";
+            var asset = Resources.Load<TextAsset>(resource);
+            if (!asset) throw new InvalidOperationException("Missing Arrow Chameleon level.");
+            var level = JsonUtility.FromJson<ArrowChameleonLevelData>(asset.text);
+            Resources.UnloadAsset(asset);
+            if (level?.arrows == null || level.gateCells?.Length != level.arrows.Length ||
+                level.gateColors?.Length != level.arrows.Length)
+                throw new InvalidOperationException("Invalid Arrow Chameleon level.");
+            return level;
         }
 
         static ArrowWorkshopLevelData LoadArrowWorkshop(int index)

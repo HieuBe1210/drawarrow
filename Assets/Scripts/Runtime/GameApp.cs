@@ -31,6 +31,7 @@ namespace DrawArrow
         int victoryFinalArrow = -1;
         float victoryConfettiElapsed;
         bool WinPopupVisible => won && victoryPhase == VictoryPhase.None;
+        int newlyUnlockedFeatureLevel;
         const string RateUsShownKey = "arrow_tidy_rate_us_shown";
         bool rateUsPending;
         sealed class FlyingArrow{public int id;public float elapsed;}
@@ -155,10 +156,11 @@ namespace DrawArrow
                 }
             }
             if(!string.IsNullOrEmpty(capturePath)&&!captureStarted&&++screenshotFrames>35){captureStarted=true;StartCoroutine(Capture());}
-            if(Input.GetKeyDown(KeyCode.Escape)){if(rateUsPending && WinPopupVisible)rateUsPending=false;else if(moreGamesOpen)moreGamesOpen=false;else if(noAdsOfferOpen)CloseNoAdsOffer();else if(renameOpen)CloseProfileRename();else if(profileOpen)CloseHomeProfile();else if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
+            if(Input.GetKeyDown(KeyCode.Escape)){if(rateUsPending && WinPopupVisible)rateUsPending=false;else if(starRaceOpen)starRaceOpen=false;else if(moreGamesOpen)moreGamesOpen=false;else if(noAdsOfferOpen)CloseNoAdsOffer();else if(renameOpen)CloseProfileRename();else if(profileOpen)CloseHomeProfile();else if(LevelToolsOpen)CloseLevelTestTools();else ReturnHome();}
         }
         void ReturnHome()
         {
+            newlyUnlockedFeatureLevel = 0;
             resultTransition.Clear();
             hintRequestVersion++;
             CloseLevelTestTools();
@@ -203,6 +205,7 @@ namespace DrawArrow
             if(mode!=GameMode.Classic&&mode!=GameMode.Daily&&!FeatureUnlocks.MoreGamesUnlocked(Progress))
             {Notify("Unlock at level "+FeatureUnlocks.MoreGamesLevel);return;}
             zoomTutorialComplete = false;
+            newlyUnlockedFeatureLevel = 0;
             rateUsPending = false;
             CloseLevelTestTools();
             hintRequestVersion++;winHintReward=0;
@@ -212,7 +215,7 @@ namespace DrawArrow
             if(mode!=GameMode.Daily)LevelIndex=Mathf.Clamp(LevelIndex,0,CircuitLevels.LevelCount(mode)-1);
             if (mode == GameMode.Daily)
             {
-                dailyDate = DateTime.Today;
+                dailyDate = DateTime.UtcNow.Date;
                 LevelIndex = CircuitLevels.DailyLevelIndex(dailyDate);
             }
             Arrows=null;Octa=null;OneLine=null;Links=null;Schulte=null;history.Clear();flying.Clear();blockedFlights.Clear();collidedArrows.Clear();motionPaths.Clear();tray.Colors.Clear();
@@ -281,11 +284,15 @@ namespace DrawArrow
                 if(!Arrows.Cube)blockedFlights[i]=new BlockedFlight{distance=Arrows.BlockedTravel(i)};
                 hearts--;
                 heartBreakStarted[hearts] = Time.unscaledTime;
-                Play("arrow_back");Notify("This arrow is blocked. Clear its path first.");Vibrate();if(hearts<=0)Lose("No hearts left. Every puzzle has another way.");
+                Play("arrow_back");Notify(Arrows.ChameleonGateLocked(i)
+                    ? "The arrow must match its gate." : "This arrow is blocked. Clear its path first.");
+                Vibrate();if(hearts<=0)Lose("No hearts left. Every puzzle has another way.");
             }
         }
         int UrgentArrow()=>urgentIndex;
-        void Win()
+        void Win() => CompleteWin(isTestWin: false);
+
+        void CompleteWin(bool isTestWin)
         {
             if (won) return;
             won = true;
@@ -307,12 +314,17 @@ namespace DrawArrow
             }
             if(Mode==GameMode.Classic)
             {
+                newlyUnlockedFeatureLevel = FeatureUnlocks.NewlyUnlockedLevel(Progress, LevelIndex + 1);
                 Progress.SelectedClassicIndex=Mathf.Max(Progress.SelectedClassicIndex,LevelIndex+1);
                 FeatureUnlocks.RecordMainWin(Progress,LevelIndex+1);
+                if (!isTestWin)
+                    winHintReward += StarRace.RecordClassicWin(Progress,LevelIndex,StarRace.StarsFromHearts(hearts),DateTime.UtcNow);
             }
             else if (Mode != GameMode.Daily)
                 Progress.levels[(int)Mode]=Mathf.Max(Progress.levels[(int)Mode],LevelIndex+1);
+            if (!isTestWin) RecordRankedWin();
             SaveStore.Save(Progress);
+            if (!isTestWin) _ = SyncRankedWinAsync(Mode);
             if (Arrows != null && !Arrows.Cube && flying.Count > 0)
             {
                 victoryFinalArrow = flying[flying.Count - 1].id;

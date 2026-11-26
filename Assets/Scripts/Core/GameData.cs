@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace DrawArrow
 {
-    public enum GameMode { Classic, ArrowClash, Arrows3D, OctaArrows, LinkDots, OneLine, Schulte, OneLife, TimeAttack, Countdown, Reasoning, CatEscape, Battle, SharkRush, Daily, Pipeline, Tarot, Zodiac, Zoo, Gallery, ArrowSwitch, ArrowWorkshop }
+    public enum GameMode { Classic, ArrowClash, Arrows3D, OctaArrows, LinkDots, OneLine, Schulte, OneLife, TimeAttack, Countdown, Reasoning, CatEscape, Battle, SharkRush, Daily, Pipeline, Tarot, Zodiac, Zoo, Gallery, ArrowSwitch, ArrowWorkshop, ArrowChameleon }
 
     public static class Modes
     {
-        public static readonly string[] Names = { "Arrow Tidy", "Arrow Clash", "Arrows 3D", "Octa Arrows", "Link Dots", "One Line", "Schulte", "One Life", "Time Attack", "Countdown", "Reasoning", "Cat Escape", "Battle", "Shark Rush", "Daily Challenge", "Pipeline", "Tarot", "Zodiac", "Zoo", "Gallery", "Arrow Switch", "Arrow Workshop" };
-        public static readonly string[] Descriptions = { "Clear every arrow. Find the way out.", "Free arrows. Match three colors.", "Turn the shape. Discover a clear path.", "Eight directions. Portals and turn tiles.", "Connect matching dots without crossing.", "Draw every edge in one continuous line.", "Find the numbers in ascending order.", "A single mistake ends the challenge.", "Clear the board before time runs out.", "Remove marked arrows before they expire.", "Remember the paths. Reveal hidden arrows.", "Guide the little cats to freedom.", "Race a local computer opponent.", "Keep moving to escape the shark.", "A new puzzle for each calendar day.", "Untangle winding paths and clear the board.", "Clear puzzles to reveal your tarot collection.", "Discover the twelve constellations.", "Solve puzzles and collect animal badges.", "Clear shaped boards to reveal the artwork.", "Send an arrow through the switch to swap the gates.", "Turn arrows in place to open a path with limited rotations." };
+        public static readonly string[] Names = { "Arrow Tidy", "Arrow Clash", "Arrows 3D", "Octa Arrows", "Link Dots", "One Line", "Schulte", "One Life", "Time Attack", "Countdown", "Reasoning", "Cat Escape", "Battle", "Shark Rush", "Daily Challenge", "Pipeline", "Tarot", "Zodiac", "Zoo", "Gallery", "Arrow Switch", "Arrow Workshop", "Arrow Chameleon" };
+        public static readonly string[] Descriptions = { "Clear every arrow. Find the way out.", "Free arrows. Match three colors.", "Turn the shape. Discover a clear path.", "Eight directions. Portals and turn tiles.", "Connect matching dots without crossing.", "Draw every edge in one continuous line.", "Find the numbers in ascending order.", "A single mistake ends the challenge.", "Clear the board before time runs out.", "Remove marked arrows before they expire.", "Remember the paths. Reveal hidden arrows.", "Guide the little cats to freedom.", "Race a local computer opponent.", "Keep moving to escape the shark.", "A new puzzle for each calendar day.", "Untangle winding paths and clear the board.", "Clear puzzles to reveal your tarot collection.", "Discover the twelve constellations.", "Solve puzzles and collect animal badges.", "Clear shaped boards to reveal the artwork.", "Send an arrow through the switch to swap the gates.", "Turn arrows in place to open a path with limited rotations.", "Clear arrows to change nearby colors. Match each exit." };
         public static string Name(GameMode m) => Names[(int)m];
         public static bool IsArrow(GameMode m) => m != GameMode.LinkDots && m != GameMode.OneLine && m != GameMode.Schulte && m != GameMode.OctaArrows;
         public static bool IsTimed(GameMode m) => m == GameMode.TimeAttack || m == GameMode.SharkRush || m == GameMode.Battle;
@@ -47,6 +47,10 @@ namespace DrawArrow
     {
         public int rotateBudget, tutorialArrow;
     }
+    [Serializable] public sealed class ArrowChameleonLevelData : LevelData
+    {
+        public int[] gateCells, gateColors;
+    }
     [Serializable] public class ProgressData
     {
         public int[] levels = new int[Modes.Names.Length]; public int coins = 250, wins, streak, bestStreak, hintsUsed,mainLevelsCompleted;
@@ -60,8 +64,50 @@ namespace DrawArrow
         public bool sound = true, vibration = true, dark,hasStartedGame; public string lastDaily = "";
         public List<string> dailyWins = new List<string>();
         public List<DailyTime> dailyTimes = new List<DailyTime>();
-        public string playerName = "Player";
+        public byte[] classicBestStars = new byte[CircuitLevels.MainSetCount];
+        public List<StarRaceWeek> starRaceWeeks = new List<StarRaceWeek>();
+        public int[] rankedLevels = new int[Modes.Names.Length];
+        public string rankedDailyDate;
+        public int rankedDailyMilliseconds;
+        public string playerName;
         public int avatarIndex;
+    }
+
+    [Serializable]
+    public sealed class StarRaceWeek
+    {
+        public string monday;
+        public int stars;
+    }
+
+    public static class StarRace
+    {
+        public static DateTime WeekStart(DateTime utc) => utc.Date.AddDays(-((int)utc.DayOfWeek + 6) % 7);
+        public static string WeekKey(DateTime utc) => WeekStart(utc).ToString("yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+        public static int StarsFromHearts(int hearts) => Mathf.Clamp(hearts, 0, 3);
+        public static readonly int[] Milestones = { 10, 25, 50 };
+
+        public static int RecordClassicWin(ProgressData progress, int index, int stars, DateTime utc)
+        {
+            int improvement = stars - progress.classicBestStars[index];
+            if (improvement <= 0) return 0;
+            progress.classicBestStars[index] = (byte)stars;
+            if (!FeatureUnlocks.StarRaceUnlocked(progress)) return 0;
+            string key = WeekKey(utc);
+            var week = progress.starRaceWeeks.Find(item => item.monday == key);
+            if (week == null)
+            {
+                week = new StarRaceWeek { monday = key };
+                progress.starRaceWeeks.Add(week);
+            }
+            int previousStars = week.stars;
+            week.stars += improvement;
+            int reward = 0;
+            foreach (int milestone in Milestones)
+                if (previousStars < milestone && week.stars >= milestone) reward++;
+            progress.freeHints += reward;
+            return reward;
+        }
     }
 
     [Serializable]
@@ -97,6 +143,16 @@ namespace DrawArrow
     public static class SaveStore
     {
         const string Key = "drawarrow.progress.v1";
+        static readonly string[] DefaultNameAdjectives = { "Swift", "Bright", "Lucky", "Quiet", "Clever", "Sunny" };
+        static readonly string[] DefaultNameAnimals = { "Fox", "Panda", "Otter", "Owl", "Gecko", "Rabbit" };
+
+        static string CreateDefaultPlayerName()
+        {
+            var random = new System.Random();
+            string adjective = DefaultNameAdjectives[random.Next(DefaultNameAdjectives.Length)];
+            string animal = DefaultNameAnimals[random.Next(DefaultNameAnimals.Length)];
+            return $"{adjective}{animal}{random.Next(1000, 10000)}";
+        }
 
         [Serializable]
         sealed class LegacyLevelSets
@@ -129,6 +185,11 @@ namespace DrawArrow
                     if(p.levels.Length!=Modes.Names.Length)Array.Resize(ref p.levels,Modes.Names.Length);
                     if(p.dailyWins==null)p.dailyWins=new List<string>();
                     if(p.dailyTimes==null)p.dailyTimes=new List<DailyTime>();
+                    if(p.classicBestStars?.Length!=CircuitLevels.MainSetCount)
+                        Array.Resize(ref p.classicBestStars,CircuitLevels.MainSetCount);
+                    if(p.starRaceWeeks==null)p.starRaceWeeks=new List<StarRaceWeek>();
+                    if(p.rankedLevels?.Length!=Modes.Names.Length)
+                        Array.Resize(ref p.rankedLevels,Modes.Names.Length);
                     // Older saves used the next main-level index as their completion marker.
                     if(!json.Contains("\"mainLevelsCompleted\""))p.mainLevelsCompleted=Mathf.Max(0,p.levels[0]);
                     RestoreClassicProgress(json,p);
@@ -137,11 +198,16 @@ namespace DrawArrow
                     else if(!json.Contains("\"hintEconomyVersion\""))p.hintEconomyVersion=1;
                     HintEconomy.UpgradeSave(p);
                     p.freeHints=Mathf.Max(0,p.freeHints);
+                    if (string.IsNullOrWhiteSpace(p.playerName))
+                    {
+                        p.playerName = CreateDefaultPlayerName();
+                        Save(p);
+                    }
                     return p;
                 }
             }
             catch(Exception) { }
-            return new ProgressData();
+            return new ProgressData { playerName = CreateDefaultPlayerName() };
         }
         public static void Save(ProgressData p) { PlayerPrefs.SetString(Key,JsonUtility.ToJson(p)); PlayerPrefs.Save(); }
     }

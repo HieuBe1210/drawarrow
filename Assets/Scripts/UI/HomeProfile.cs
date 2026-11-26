@@ -59,7 +59,7 @@ namespace DrawArrow
         {
             var homeMatrix = GUI.matrix;
             GUI.matrix = Matrix4x4.identity;
-            Ink.Rect(new Rect(0, 0, Screen.width, Screen.height), new Color(0, 0, 0, .58f));
+            Ink.Rect(new Rect(0, 0, Screen.width, Screen.height), new Color(0, 0, 0, .58f * overlayShadeOpacity));
             GUI.matrix = homeMatrix;
             var panel = new Rect(115, 425, 850, 1070);
             GUI.enabled = !renameOpen;

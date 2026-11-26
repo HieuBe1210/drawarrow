@@ -32,7 +32,7 @@ namespace DrawArrow
                 {CancelArrowPress();levelToolsOpen=true;levelTestInput=(ActiveMainLevel+1).ToString();levelTestError="";}
                 return;
             }
-            Ink.Rect(new Rect(0,0,Width,Height),new Color(0,0,0,.65f));
+            DrawOverlayShade(new Rect(0,0,Width,Height),.65f);
             Ink.Card(new Rect(80,550,920,760),CircuitStyle.Background,28);
             Ink.TextAt(new Rect(130,590,820,70),"Test level chính",48,FG,TextAnchor.MiddleCenter,true);
             Ink.TextAt(new Rect(140,690,800,55),"Level (1 – "+ActiveMainLevelCount+")",32,FG);
@@ -43,6 +43,18 @@ namespace DrawArrow
             if(Ink.Button(new Rect(140,955,800,90),"Xóa tiến trình level chính",Ink.Hex("A84E39"),Color.white,34))ResetMainLevelProgress();
             Ink.TextAt(new Rect(140,1065,800,75),"Xóa tiến trình sẽ đưa về level 1. Giữ coin, âm thanh, rung và các chế độ khác.",28,FG,TextAnchor.MiddleCenter);
             if(Ink.Button(new Rect(340,1180,400,80),"Đóng",Ink.Hex("6F767A"),Color.white,34))CloseLevelTestTools();
+#endif
+        }
+
+        void DrawAutoWinButton(Rect rect)
+        {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+            if (!LevelTestToolsSettings.Enabled || !CanInteract ||
+                !Ink.Button(rect, "Auto Win", CircuitStyle.SoftControl, CircuitStyle.ControlInk, 27))
+                return;
+
+            CancelArrowPress();
+            CompleteWin(isTestWin: true);
 #endif
         }
 #if UNITY_EDITOR || DEVELOPMENT_BUILD

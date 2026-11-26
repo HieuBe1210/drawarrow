@@ -30,6 +30,8 @@ namespace DrawArrow
         readonly HashSet<Vector3> visibleClearedDots = new HashSet<Vector3>();
         readonly HashSet<Vector3> tracedGridDots = new HashSet<Vector3>();
         readonly Dictionary<Vector3, float> dotGlowEnd = new Dictionary<Vector3, float>();
+        readonly List<(Vector3 head, Vector3 direction, float from, float to, float time)> dotRaySweeps =
+            new List<(Vector3, Vector3, float, float, float)>();
         const float DotGlowDuration = .19f;
         readonly ArrowPressGesture arrowPress=new ArrowPressGesture();
         int boardFingerId = -1;
@@ -96,6 +98,7 @@ namespace DrawArrow
                 }
                 DrawClearedArrowDots(r, boardOrigin);
                 if (Arrows.SwitchGates != null) DrawArrowSwitchGates();
+                if (Arrows.Chameleon != null) DrawChameleonGates();
                 for (int i = 0; i < Arrows.Active.Length; i++)
                     if (Arrows.Active[i] && i != PreviewArrow) DrawArrowPath(i);
                 if (victoryPhase != VictoryPhase.Flight)
@@ -124,6 +127,23 @@ namespace DrawArrow
         }
 
         static readonly Color OpenGateColor = Ink.Hex("168E6C");
+        static readonly Color[] ChameleonPalette = { Ink.Hex("C84259"), Ink.Hex("168E6C"), Ink.Hex("DA9B18") };
+
+        void DrawChameleonGates()
+        {
+            var level = Arrows.Chameleon;
+            float size = Mathf.Min(boardCell * .72f, 72);
+            for (int i = 0; i < level.gateCells.Length; i++)
+            {
+                var center = Project(Arrows.Decode(level.gateCells[i]));
+                var rect = new Rect(center - Vector2.one * size * .5f, Vector2.one * size);
+                var color = ChameleonPalette[level.gateColors[i]];
+                Ink.Card(rect, color, size * .24f);
+                if (Arrows.Active[i] && !Arrows.ChameleonGateLocked(i))
+                    Ink.Card(new Rect(rect.x + 6, rect.y + 6, rect.width - 12, rect.height - 12),
+                        CircuitStyle.Background, size * .18f);
+            }
+        }
         static readonly Color LockedGateColor = Ink.Hex("CE4055");
         static readonly Color GateSwitchColor = Ink.Hex("8A65DD");
         float ArrowSwitchMarkerSize => Mathf.Min(boardCell * .76f, 64);
@@ -356,50 +376,49 @@ namespace DrawArrow
                 }
                 visible = visibleClearedDots;
             }
-            if (tracedGridDots.Count > 0)
+            dotRaySweeps.Clear();
+            foreach (var arrow in flying)
             {
-                if (visible != visibleClearedDots)
+                var sweep = dotFlightSweeps[arrow.id];
+                AddDotRaySweep(arrow.id, sweep.previous, sweep.current, now);
+            }
+            foreach (var flight in blockedFlights)
+            {
+                var motion = flight.Value;
+                float from = motion.elapsed - DotGlowDuration;
+                float impact = motion.ImpactTime;
+                if (from < impact && motion.elapsed > impact)
                 {
-                    visibleClearedDots.Clear();
-                    visibleClearedDots.UnionWith(visible);
+                    AddDotRaySweep(flight.Key, motion.OffsetAt(from), motion.distance, now - (motion.elapsed - impact));
+                    from = impact;
                 }
-                visibleClearedDots.UnionWith(tracedGridDots);
-                visible = visibleClearedDots;
+                AddDotRaySweep(flight.Key, motion.OffsetAt(from), motion.Offset, now);
             }
             foreach (var cell in visible)
-            {
-                var point = Project(cell);
-                if (!viewport.Contains(point)) continue;
-                foreach (var arrow in flying)
-                {
-                    var sweep = dotFlightSweeps[arrow.id];
-                    PulseDotOnExitRay(cell, arrow.id, sweep.previous, sweep.current, now);
-                }
-                foreach (var flight in blockedFlights)
-                {
-                    var motion = flight.Value;
-                    float from = motion.elapsed - DotGlowDuration;
-                    if (from < motion.ImpactTime && motion.elapsed > motion.ImpactTime)
-                    {
-                        PulseDotOnExitRay(cell, flight.Key, motion.OffsetAt(from), motion.distance,
-                            now - (motion.elapsed - motion.ImpactTime));
-                        from = motion.ImpactTime;
-                    }
-                    PulseDotOnExitRay(cell, flight.Key, motion.OffsetAt(from), motion.Offset, now);
-                }
+                DrawClearedDot(cell, viewport, radius, color, now);
+            foreach (var cell in tracedGridDots)
+                if (!visible.Contains(cell)) DrawClearedDot(cell, viewport, radius, color, now);
+        }
 
-                if (dotGlowEnd.TryGetValue(cell, out float end) && end > now)
+        void DrawClearedDot(Vector3 cell, Rect viewport, float radius, Color color, float now)
+        {
+            var point = Project(cell);
+            if (!viewport.Contains(point)) return;
+            foreach (var sweep in dotRaySweeps)
+                PulseDotOnExitRay(cell, sweep.head, sweep.direction, sweep.from, sweep.to, sweep.time);
+
+            if (dotGlowEnd.TryGetValue(cell, out float end))
+            {
+                if (end > now)
                 {
                     float glow = Mathf.Clamp01((end - now) / DotGlowDuration);
                     Ink.Circle(point, radius * (1 + glow * 1.7f), Ink.WithAlpha(Ink.Gold, glow * .38f));
                     Ink.Circle(point, radius * (1 + glow * .32f), Color.Lerp(color, Ink.Hex("FFF1A5"), glow));
+                    return;
                 }
-                else
-                {
-                    dotGlowEnd.Remove(cell);
-                    Ink.Circle(point, radius, color);
-                }
+                dotGlowEnd.Remove(cell);
             }
+            Ink.Circle(point, radius, color);
         }
 
         void TraceClearedRoute(int index, float tailDistance)
@@ -460,11 +479,15 @@ namespace DrawArrow
                 dotGlowEnd[cell] = end;
         }
 
-        void PulseDotOnExitRay(Vector3 cell, int index, float previous, float current, float now)
+        void AddDotRaySweep(int index, float previous, float current, float now)
         {
             if (Mathf.Abs(current - previous) < .001f) return;
-            var direction = Arrows.Direction(index).normalized;
-            Vector3 relative = cell - Arrows.Head(index);
+            dotRaySweeps.Add((Arrows.Head(index), Arrows.Direction(index).normalized, previous, current, now));
+        }
+
+        void PulseDotOnExitRay(Vector3 cell, Vector3 head, Vector3 direction, float previous, float current, float now)
+        {
+            Vector3 relative = cell - head;
             float along = Vector3.Dot(relative, direction);
             if (along <= .001f || along < Mathf.Min(previous, current) || along > Mathf.Max(previous, current)) return;
             if ((relative - direction * along).sqrMagnitude > .04f) return;
@@ -524,6 +547,12 @@ namespace DrawArrow
         }
         Color ArrowColor(int i)
         {
+            if (Arrows.Chameleon != null)
+            {
+                var color = ChameleonPalette[Arrows.ChameleonColor(i)];
+                return i == hint && Time.unscaledTime < hintUntil
+                    ? Color.Lerp(color, Color.white, .3f + .24f * Mathf.Sin(Time.unscaledTime * 10)) : color;
+            }
             if(i==hint&&Time.unscaledTime<hintUntil)return Ink.Gold;
             if(collidedArrows.Contains(i))return Arrows.CanExit(i)?Ink.Hex("32B956"):Ink.Red;
             if(i==PreviewArrow)return HeldArrowColor;

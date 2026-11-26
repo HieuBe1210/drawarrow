@@ -1,0 +1,15 @@
+{
+  "id": "arrow-chameleon-1",
+  "width": 8,
+  "height": 6,
+  "depth": 1,
+  "keepBoardOrientation": true,
+  "gateCells": [15, 23, 31, 39],
+  "gateColors": [0, 1, 2, 0],
+  "arrows": [
+    { "points": [12, 11, 10], "dx": 1, "dy": 0, "color": 0 },
+    { "points": [20, 19, 18, 17], "dx": 1, "dy": 0, "color": 0 },
+    { "points": [28, 27, 26], "dx": 1, "dy": 0, "color": 1 },
+    { "points": [37, 36, 35, 34], "dx": 1, "dy": 0, "color": 2 }
+  ]
+}

@@ -16,6 +16,7 @@ namespace DrawArrow
         const string NoAdsProductId = "no_ads_bundle";
 #endif
         bool noAdsOfferOpen;
+        float noAdsHomeTopInset, noAdsHomeBottomInset;
         bool noAdsLoading, noAdsBuying, noAdsDeferred;
         string noAdsPrice = "", noAdsStoreMessage = "";
 #if (UNITY_ANDROID || UNITY_IOS) && !UNITY_EDITOR
@@ -54,6 +55,8 @@ namespace DrawArrow
 
         void OpenNoAdsOffer()
         {
+            noAdsHomeTopInset = ads.TopInset;
+            noAdsHomeBottomInset = ads.BottomInset;
             noAdsOfferOpen = true;
             ads.StoreOpen = true;
             if (!noAdsBuying && !noAdsDeferred) LoadNoAdsOffer();
@@ -81,7 +84,7 @@ namespace DrawArrow
 
         void DrawNoAdsOffer()
         {
-            Ink.Rect(new Rect(0, 0, Width, Height), new Color(0, 0, 0, .45f));
+            DrawOverlayShade(new Rect(0, 0, Width, Height), .45f);
             Ink.Card(new Rect(143, 574, 794, 590), CircuitStyle.Panel, 36);
             Ink.TextAt(new Rect(200, 614, 680, 90), "No Ads", 62, FG, TextAnchor.MiddleCenter, true);
             Ink.TextAt(new Rect(195, 712, 690, 56), "Remove automatic ads", 37, FG, TextAnchor.MiddleCenter);

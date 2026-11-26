@@ -1,0 +1,104 @@
+{
+  "id": "arrow-chameleon-3",
+  "width": 9,
+  "height": 8,
+  "depth": 1,
+  "keepBoardOrientation": true,
+  "gateCells": [
+    36,
+    17,
+    18,
+    27,
+    68,
+    4,
+    1
+  ],
+  "gateColors": [
+    0,
+    2,
+    1,
+    2,
+    0,
+    0,
+    2
+  ],
+  "arrows": [
+    {
+      "points": [
+        37,
+        38
+      ],
+      "dx": -1,
+      "dy": 0,
+      "color": 0
+    },
+    {
+      "points": [
+        15,
+        14,
+        13,
+        12
+      ],
+      "dx": 1,
+      "dy": 0,
+      "color": 2
+    },
+    {
+      "points": [
+        19,
+        20
+      ],
+      "dx": -1,
+      "dy": 0,
+      "color": 1
+    },
+    {
+      "points": [
+        28,
+        29,
+        30
+      ],
+      "dx": -1,
+      "dy": 0,
+      "color": 2
+    },
+    {
+      "points": [
+        41,
+        32
+      ],
+      "dx": 0,
+      "dy": 1,
+      "color": 0
+    },
+    {
+      "points": [
+        22,
+        31,
+        40,
+        49
+      ],
+      "dx": 0,
+      "dy": -1,
+      "color": 1
+    },
+    {
+      "points": [
+        46,
+        55
+      ],
+      "dx": 0,
+      "dy": -1,
+      "color": 1
+    }
+  ],
+  "solution": [
+    4,
+    1,
+    5,
+    0,
+    2,
+    3,
+    6
+  ]
+}

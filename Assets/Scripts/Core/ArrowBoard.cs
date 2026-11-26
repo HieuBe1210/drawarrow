@@ -20,6 +20,9 @@ namespace DrawArrow
         public readonly Rect ContentBounds;
         public readonly Rect? ReferenceBounds;
         public SwitchGateData SwitchGates { get; }
+        public ArrowChameleonLevelData Chameleon { get; }
+        readonly int[] chameleonColors;
+        readonly List<int>[] chameleonNeighbors;
         public bool SwitchFlipped { get; private set; }
         public int WorkshopTurnsRemaining { get; private set; }
         readonly Vector3[] workshopDirections;
@@ -34,6 +37,12 @@ namespace DrawArrow
         {
             Level=level; Cube=cube; Active=new bool[level.arrows.Length]; Paths=new List<Vector3>[Active.Length];DotPositions=new List<Vector3>[Active.Length];
             SwitchGates = cube ? null : (level as ArrowSwitchLevelData)?.switchGates;
+            Chameleon = level as ArrowChameleonLevelData;
+            if (Chameleon != null)
+            {
+                chameleonColors = Array.ConvertAll(level.arrows, arrow => arrow.color);
+                chameleonNeighbors = new List<int>[Active.Length];
+            }
             if (!Cube && level is ArrowWorkshopLevelData workshop)
             {
                 WorkshopTurnsRemaining = workshop.rotateBudget;
@@ -41,7 +50,7 @@ namespace DrawArrow
             }
             if(!Cube&&level.followDiagonalPaths)
                 diagonalBlockers=new List<(int arrow, float distance)>[Active.Length];
-            else if(!Cube&&fitInitialGaps&&SwitchGates==null&&workshopDirections==null)flatDirections=new Vector3[Active.Length];
+            else if(!Cube&&fitInitialGaps&&SwitchGates==null&&workshopDirections==null&&Chameleon==null)flatDirections=new Vector3[Active.Length];
             for(int i=0;i<Active.Length;i++)
             {
                 Active[i]=true;Paths[i]=Expand(level.arrows[i].points);
@@ -98,7 +107,7 @@ namespace DrawArrow
             }
             var min=new Vector2(float.PositiveInfinity,float.PositiveInfinity);var max=new Vector2(float.NegativeInfinity,float.NegativeInfinity);
             foreach(var path in Paths)foreach(var p in path){min=Vector2.Min(min,new Vector2(p.x,p.y));max=Vector2.Max(max,new Vector2(p.x,p.y));}
-            if (SwitchGates != null || workshopDirections != null)
+            if (SwitchGates != null || workshopDirections != null || Chameleon != null)
             {
                 min = Vector2.zero;
                 max = new Vector2(level.width - 1, level.height - 1);
@@ -106,6 +115,37 @@ namespace DrawArrow
             ContentBounds=float.IsInfinity(min.x)?new Rect(0,0,Mathf.Max(0,level.width-1),Mathf.Max(0,level.height-1)):Rect.MinMaxRect(min.x,min.y,max.x,max.y);
             Remaining=TargetCount;
             Rebuild();
+            if (Chameleon != null)
+            {
+                for (int i = 0; i < Paths.Length; i++)
+                {
+                    var neighbors = new HashSet<int>();
+                    foreach (var point in Paths[i])
+                    {
+                        var cell = Key(point);
+                        AddNeighbor(cell + Vector3Int.left);
+                        AddNeighbor(cell + Vector3Int.right);
+                        AddNeighbor(cell + Vector3Int.up);
+                        AddNeighbor(cell + Vector3Int.down);
+                    }
+                    chameleonNeighbors[i] = new List<int>(neighbors);
+                    void AddNeighbor(Vector3Int cell)
+                    {
+                        if (Occupancy.TryGetValue(cell, out int other) && other != i) neighbors.Add(other);
+                    }
+                }
+            }
+        }
+
+        public int ChameleonColor(int arrow) => chameleonColors[arrow];
+        public bool ChameleonGateLocked(int arrow) =>
+            Chameleon != null && chameleonColors[arrow] != Chameleon.gateColors[arrow];
+
+        void CycleChameleonNeighbors(int arrow, int step)
+        {
+            if (Chameleon == null) return;
+            foreach (int neighbor in chameleonNeighbors[arrow])
+                if (Active[neighbor]) chameleonColors[neighbor] = (chameleonColors[neighbor] + step) % 3;
         }
         public Vector3 Decode(int n)
         {
@@ -268,6 +308,7 @@ namespace DrawArrow
         {
             if(i<0 || i>=Active.Length || !Active[i] || Paths[i].Count==0 || IsMechanism(i)) return false;
             if(Cube)return CubeRoute(i,false,out _)||(Level.arrows[i].special==3002&&CubeRoute(i,true,out _));
+            if (ChameleonGateLocked(i)) return false;
             if (!float.IsPositiveInfinity(ClosedGateDistance(i))) return false;
             if(diagonalBlockers!=null)return float.IsPositiveInfinity(DiagonalBlockerDistance(i));
             var pos=Head(i);var dir=Direction(i);
@@ -290,7 +331,8 @@ namespace DrawArrow
                 return float.IsPositiveInfinity(distance)?0:Mathf.Max(0,distance-.12f);
             }
             var head=Head(i);var direction=Direction(i);
-            float gateDistance = ClosedGateDistance(i);
+            float gateDistance = ChameleonGateLocked(i)
+                ? SwitchCellDistance(i, Chameleon.gateCells[i]) : ClosedGateDistance(i);
             for(int step=FlatArrowLayout.GridStep;step<=flatSize.x+flatSize.y+4;step+=FlatArrowLayout.GridStep)
             {
                 var point=head+direction*step;
@@ -396,6 +438,7 @@ namespace DrawArrow
             if(!CanExit(i))return false;
             if(Cube){if(!CubeRoute(i,false,out int receiver))CubeRoute(i,true,out receiver);if(receiver>=0){Active[receiver]=false;parkedAt[i]=receiver;}}
             ToggleSwitchFor(i);
+            CycleChameleonNeighbors(i, 1);
             Active[i]=false;Remaining--;Rebuild();return true;
         }
 
@@ -428,6 +471,7 @@ namespace DrawArrow
         {
             if(i<0||i>=Active.Length||Active[i])return;
             ToggleSwitchFor(i);
+            CycleChameleonNeighbors(i, 2);
             Active[i]=true;
             if(parkedAt.TryGetValue(i,out int receiver)){Active[receiver]=true;parkedAt.Remove(i);}
             Remaining++;
